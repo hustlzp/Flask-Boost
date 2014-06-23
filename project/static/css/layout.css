@@ -1,0 +1,26 @@
+.flash-message {
+  background-color: #3fa7cb;
+  border: 0;
+  color: #ffffff;
+  margin-bottom: 0;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 100000;
+  border-radius: 0;
+  text-align: center;
+  display: none;
+}
+#page-search-students #nav-search-students a,
+#page-search-teachers #nav-search-teachers a,
+#page-user-dialogs #nav-dialogs a,
+#page-user-dialog #nav-dialogs a,
+#page-user-teacher-settings #nav-settings a,
+#page-user-student-settings #nav-settings a,
+#page-account-signin #nav-signin a,
+#page-account-signup-select-role #nav-signup a,
+#page-account-signup #nav-signup a {
+  color: #555;
+  background-color: #e7e7e7;
+}

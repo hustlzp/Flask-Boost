@@ -1,0 +1,42 @@
+@import "utils";
+
+html {
+}
+
+body {
+}
+
+// Flash消息
+.flash-message {
+  background-color: @blue;
+  border: 0;
+  color: #ffffff;
+  margin-bottom: 0;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 100000;
+  border-radius: 0;
+  text-align: center;
+  display: none;
+}
+
+// Nav highlight
+#page-search-students #nav-search-students,
+#page-search-teachers #nav-search-teachers,
+#page-user-dialogs #nav-dialogs,
+#page-user-dialog #nav-dialogs,
+#page-user-teacher-settings #nav-settings,
+#page-user-student-settings #nav-settings,
+#page-account-signin #nav-signin,
+#page-account-signup-select-role #nav-signup,
+#page-account-signup #nav-signup {
+  a {
+    color: #555;
+    background-color: #e7e7e7;
+  }
+}
+
+#footer {
+}
