@@ -3,3 +3,6 @@ venv/
 .idea/
 bower_components/
 config.py
+doc/_build
+doc/_static
+doc/_templates
