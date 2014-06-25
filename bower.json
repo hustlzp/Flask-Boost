@@ -1,0 +1,16 @@
+{
+  "name": "Flask-Bootstrap",
+  "version": "0.0.1",
+  "homepage": "https://github.com/hustlzp/Flask-Bootstrap",
+  "authors": [
+    "hustlzp <hustlzp@qq.com>"
+  ],
+  "description": "Flask project for bootstrap.",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "~3.1.1",
+    "font-awesome": "~4.1.0",
+    "respond": "~1.4.2"
+  }
+}

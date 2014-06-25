@@ -1,10 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-   <meta charset="UTF-8">
-   <title></title>
-</head>
-<body>
+{% extends "layout.html" %}
 
-</body>
-</html>
+{% block page_id %}page-index{% endblock %}
+{% block page_title %}关于Flask-Bootstrap{% endblock %}
+{% block page_css %}
+   {{ link('css/site/about.css') }}
+{% endblock %}
+
+{% block page_content %}
+   <div class="container">
+      <h1>关于Flask-Boostrap</h1>
+
+      <p>Flask project for bootstrap.</p>
+   </div>
+{% endblock %}

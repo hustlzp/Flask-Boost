@@ -7,7 +7,10 @@ Flask-Uploads
 Flask-Mail
 Flask-Migrate
 MySQL-python
+Pillow
+
 gunicorn
 fabric
+
 raven
 blinker
