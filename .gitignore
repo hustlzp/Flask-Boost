@@ -1,5 +1,5 @@
 *.pyc
-config.py
 venv/
 .idea/
 bower_components/
+config.py
