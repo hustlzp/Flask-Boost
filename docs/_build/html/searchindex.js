@@ -1,1 +1,0 @@
-Search.setIndex({envversion:42,terms:{index:0,search:0,modul:0,project:0,tutori:[],sampl:0,base:0,content:0,document:0,page:0,introduct:[]},objtypes:{},objnames:{},filenames:["index","intro","tutorial"],titles:["Welcome to Flask-Bootstrap","Introduction","Tutorial"],objects:{},titleterms:{welcom:0,flask:0,bootstrap:0,indic:0,tutori:2,tabl:0,introduct:1}})

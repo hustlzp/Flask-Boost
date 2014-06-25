@@ -3,4 +3,4 @@ venv/
 .idea/
 bower_components/
 config.py
-doc/_*
+docs/_*
