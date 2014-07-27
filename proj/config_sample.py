@@ -1,11 +1,11 @@
 # coding: utf-8
 
 # project info
-PROJECT_ABBR = 'project'
+PROJECT_ABBR = 'proj'
 PROJECT_PATH = "/var/www/%s" % PROJECT_ABBR
 
 # site info
-SITE_TITLE = "Project"
+SITE_TITLE = "proj"
 SITE_DOMAIN = "http://localhost:5000"
 IMAGE_SERVER_URL = "http://localhost"
 

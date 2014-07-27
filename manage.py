@@ -1,8 +1,8 @@
 # coding: utf-8
 from flask.ext.script import Manager
 from flask.ext.migrate import Migrate, MigrateCommand
-from project import app
-from project.models import db
+from proj import app
+from proj.models import db
 
 manager = Manager(app)
 
