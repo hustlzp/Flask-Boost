@@ -34,10 +34,7 @@ def create_app():
     else:
         from .utils.sentry import sentry
 
-        sentry.init_app(app)
-
-    # from .mails import mail
-    # mail.init_app(app)
+        sentry.init_app(app, dsn=app.config.get('SENTRY_DSN'))
 
     # 注册组件
     register_db(app)
@@ -72,20 +69,20 @@ def register_jinja(app):
         """Generate url for pagination"""
         view_args = request.view_args.copy()
         args = request.args.copy().to_dict()
-        args['page'] = page
-        view_args.update(args)
-        return url_for(request.endpoint, **view_args)
+        combile_args = view_args.update(args)
+        combile_args['page'] = page
+        return url_for(request.endpoint, **combile_args)
 
     def static(filename):
-        """生成静态资源url"""
+        """静态资源url"""
         return url_for('static', filename=filename)
 
     def script(path):
-        """生成script标签"""
+        """script标签"""
         return Markup("<script type='text/javascript' src='%s'></script>" % static(path))
 
     def link(path):
-        """生成link标签"""
+        """link标签"""
         return Markup("<link rel='stylesheet' href='%s'></script>" % static(path))
 
     app.jinja_env.globals['url_for_other_page'] = url_for_other_page
