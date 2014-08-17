@@ -17,3 +17,5 @@ blinker
 
 nose
 coverage
+
+pylint
