@@ -1,11 +1,18 @@
 # coding: utf-8
 import sys
+import os
+
+# 将project目录加入sys.path
+project_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+if project_path not in sys.path:
+    sys.path.insert(0, project_path)
+
 from flask import Flask, request, url_for, g, render_template, session
 from flask_wtf.csrf import CsrfProtect
 from flask.ext.uploads import configure_uploads
 from flask_debugtoolbar import DebugToolbarExtension
-from . import config
 from .utils.account import get_current_user
+from config import load_config
 
 # convert python's encoding to utf8
 reload(sys)
@@ -15,6 +22,8 @@ sys.setdefaultencoding('utf8')
 def create_app():
     """创建Flask app"""
     app = Flask(__name__)
+
+    config = load_config()
     app.config.from_object(config)
 
     # CSRF protect
@@ -56,7 +65,7 @@ def register_jinja(app):
     @app.context_processor
     def inject_vars():
         return dict(
-            g_var_name=0,
+            g_var=0
         )
 
     def url_for_other_page(page):
@@ -71,10 +80,6 @@ def register_jinja(app):
         """生成静态资源url"""
         return url_for('static', filename=filename)
 
-    def bower(filename):
-        """生成bower资源url"""
-        return static("bower_components/%s" % filename)
-
     def script(path):
         """生成script标签"""
         return Markup("<script type='text/javascript' src='%s'></script>" % static(path))
@@ -85,7 +90,6 @@ def register_jinja(app):
 
     app.jinja_env.globals['url_for_other_page'] = url_for_other_page
     app.jinja_env.globals['static'] = static
-    app.jinja_env.globals['bower'] = bower
     app.jinja_env.globals['script'] = script
     app.jinja_env.globals['link'] = link
 
@@ -125,6 +129,3 @@ def register_uploadsets(app):
     from .utils.uploadsets import avatars
 
     configure_uploads(app, (avatars))
-
-
-app = create_app()

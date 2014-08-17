@@ -4,3 +4,5 @@ venv/
 bower_components/
 config.py
 docs/_build
+config/production.py
+config/development.py

@@ -13,7 +13,7 @@ pip install -r requirements.txt
 
 Delete `docs/`, update `README.md` and `LICENSE` as needed.
 
-Rename folder `Flask-Bootstrap` and `proj` to your real project name.
+Rename folder `Flask-Bootstrap/` and `proj/` to your real project name.
 
 Rename all the `proj` in codes to your real project name.
 
