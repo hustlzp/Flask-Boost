@@ -14,3 +14,6 @@ fabric
 
 raven
 blinker
+
+nose
+coverage
