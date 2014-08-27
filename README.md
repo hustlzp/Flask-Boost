@@ -1,11 +1,11 @@
 Flask-Bootstrap
 ===============
 
-Flask project structure for bootstrap.
+Flask sample project for bootstrap.
 
 `cd` to the project path, run:
  
-```python
+```py
 virtualenv venv
 . venv/bin/active
 pip install -r requirements.txt
@@ -19,8 +19,14 @@ Rename all the `proj` in codes to your real project name.
 
 Rename `proj_uploads` in `deploy/nginx.conf` as needed.
 
-Init database:
+Create database and then init tables:
 
-```python
+```py
+python manage.py createdb
+```
+
+Create database migration files:
+
+```py
 python manage.py db init
 ```
