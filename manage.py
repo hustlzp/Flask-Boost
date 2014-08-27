@@ -12,13 +12,14 @@ manager.add_command('db', MigrateCommand)
 
 @manager.command
 def run():
-    """启动app"""
-    app.run(debug=True)
+    """Run app."""
+    app.run(port=5000)
 
 
 @manager.command
-def test():
-    pass
+def createdb():
+    """Create database."""
+    db.create_all()
 
 
 if __name__ == "__main__":
