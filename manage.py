@@ -6,6 +6,8 @@ from proj.models import db
 
 app = create_app()
 manager = Manager(app)
+
+# db migrate commands
 migrate = Migrate(app, db)
 manager.add_command('db', MigrateCommand)
 
