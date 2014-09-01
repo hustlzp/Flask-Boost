@@ -30,3 +30,12 @@ Create database migration files:
 ```py
 python manage.py db init
 ```
+
+###Deploy
+
+```
+pip install virtualenv
+virtualenv venv
+. venv/bin/activate
+pip install -r requirements.txt
+```
