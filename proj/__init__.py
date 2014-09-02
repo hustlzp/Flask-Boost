@@ -7,10 +7,11 @@ project_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 if project_path not in sys.path:
     sys.path.insert(0, project_path)
 
-from flask import Flask, request, url_for, g, render_template, session
+from flask import Flask, request, url_for, g, render_template
 from flask_wtf.csrf import CsrfProtect
 from flask.ext.uploads import configure_uploads
 from flask_debugtoolbar import DebugToolbarExtension
+from werkzeug.wsgi import SharedDataMiddleware
 from .utils.account import get_current_user
 from config import load_config
 
@@ -47,6 +48,10 @@ def create_app():
     @app.before_request
     def before_request():
         g.user = get_current_user()
+
+    app.wsgi_app = SharedDataMiddleware(app.wsgi_app, {
+        '/public': os.path.join(app.config.get('PROJECT_PATH'), 'public')
+    })
 
     return app
 

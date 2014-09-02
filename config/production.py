@@ -9,14 +9,13 @@ class ProductionConfig(Config):
     SESSION_COOKIE_NAME = 'tm_session'
 
     # Site domain
-    SITE_DOMAIN = "http://www.tuomeng.com.cn"
+    SITE_DOMAIN = "http://www.proj.com"
 
     # Db config
     SQLALCHEMY_DATABASE_URI = "mysql://root:tuomeng2014@localhost/tm2"
 
     # Upload set config
-    UPLOADS_DEFAULT_DEST = "/var/www/tm_uploads"
-    UPLOADS_DEFAULT_URL = "%s:8080/tm_uploads/" % SITE_DOMAIN
+    UPLOADS_DEFAULT_URL = "%s/public/uploads/" % SITE_DOMAIN  # 上传文件访问URL
 
     # Sentry
     SENTRY_DSN = ''

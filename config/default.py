@@ -37,8 +37,8 @@ class Config(object):
     REDIS_DB = 1
 
     # Uploadsets config
-    UPLOADS_DEFAULT_DEST = "/path/to/uploads/dir"  # 上传文件存储路径
-    UPLOADS_DEFAULT_URL = "/url/to/uploads/resources"  # 上传文件访问URL
+    UPLOADS_DEFAULT_DEST = "%s/public/uploads" % PROJECT_PATH  # 上传文件存储路径
+    UPLOADS_DEFAULT_URL = "%s/public/uploads/" % SITE_DOMAIN  # 上传文件访问URL
 
     # Flask-DebugToolbar
     DEBUG_TB_INTERCEPT_REDIRECTS = False
