@@ -17,8 +17,6 @@ Rename folder `Flask-Bootstrap/` and `proj/` to your real project name.
 
 Rename all the `proj` in codes to your real project name.
 
-Rename `proj_uploads` in `deploy/nginx.conf` as needed.
-
 Create database and then init tables:
 
 ```py
