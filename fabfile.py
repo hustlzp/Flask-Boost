@@ -6,6 +6,20 @@ config = load_config()
 host_string = config.HOST_STRING
 
 
+def init():
+    """初始化部署"""
+    env.host_string = config.HOST_STRING
+    with cd('/var/www/proj'):
+        with shell_env(MODE='PRODUCTION'):
+            run('git reset --hard HEAD')
+            run('git pull')
+            run('bower install --allow-root')
+            with prefix('source venv/bin/activate'):
+                run('pip install -r requirements.txt')
+                run('python manage.py createdb')
+            run('sudo supervisorctl restart proj')
+
+
 def deploy():
     """部署"""
     env.host_string = config.HOST_STRING
