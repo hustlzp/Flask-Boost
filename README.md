@@ -38,4 +38,7 @@ pip install virtualenv
 virtualenv venv
 . venv/bin/activate
 pip install -r requirements.txt
+
+cp deploy/nginx.conf /etc/nginx/conf.d/proj.conf
+cp deploy/supervisor.conf /etc/supervisor.d/proj.conf
 ```
