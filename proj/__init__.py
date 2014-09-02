@@ -50,7 +50,7 @@ def create_app():
         g.user = get_current_user()
 
     app.wsgi_app = SharedDataMiddleware(app.wsgi_app, {
-        '/public': os.path.join(app.config.get('PROJECT_PATH'), 'public')
+        '/uploads': os.path.join(app.config.get('PROJECT_PATH'), 'uploads')
     })
 
     return app
