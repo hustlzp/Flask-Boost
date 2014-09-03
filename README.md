@@ -29,6 +29,20 @@ Create database migration files:
 python manage.py db init
 ```
 
+Install livereload brower extension from [here](http://feedback.livereload.com/knowledgebase/articles/86242-how-do-i-install-and-use-the-browser-extensions-).
+
+Run local server:
+
+```py
+python manage.py run
+```
+
+Run livereload server in another console:
+
+```py
+python manage.py live
+```
+
 ###Deploy
 
 ```
