@@ -4,6 +4,9 @@ from flask.ext.migrate import Migrate, MigrateCommand
 from proj import create_app
 from proj.models import db
 
+# Used by app debug & livereload
+PORT = 5000
+
 app = create_app()
 manager = Manager(app)
 
@@ -15,7 +18,31 @@ manager.add_command('db', MigrateCommand)
 @manager.command
 def run():
     """Run app."""
-    app.run(port=5000)
+    app.run(port=PORT)
+
+
+@manager.command
+def live():
+    """Run livereload server"""
+    from livereload import Server
+    import formic
+
+    server = Server(app)
+
+    # css
+    for filepath in formic.FileSet(include="proj/static/css/**/*.css"):
+        server.watch(filepath)
+    # html
+    for filepath in formic.FileSet(include="proj/templates/css/**/*.html"):
+        server.watch(filepath)
+    # js
+    for filepath in formic.FileSet(include="proj/static/js/**/*.js"):
+        server.watch(filepath)
+    # image
+    for filepath in formic.FileSet(include="proj/static/image/**/*.*"):
+        server.watch(filepath)
+
+    server.serve(port=PORT)
 
 
 @manager.command

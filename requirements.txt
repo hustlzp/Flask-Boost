@@ -9,6 +9,9 @@ Flask-Migrate
 MySQL-python
 Pillow
 
+livereload
+formic==0.9beta8
+
 gunicorn
 fabric
 
