@@ -1,0 +1,36 @@
+{% macro field_errors(field) %}
+   <ul class="list-form-errors text-danger list-unstyled">
+      {% for error in field.errors %}
+         <li>{{ error }}</li>
+      {% endfor %}
+   </ul>
+{% endmacro %}
+
+
+{% macro horizontal_field(field, length=6, label=True, static=False) %}
+   <div class="form-group">
+      {% if label %}
+         {{ field.label(class="col-md-2 control-label") }}
+      {% endif %}
+
+      <div class="col-md-{{ length }}
+         {% if not label %}col-md-offset-2{% endif %}
+         {% if static %}form-control-static{% endif %}">
+         {{ field(class="form-control", placeholder=field.description, **kwargs) }}
+         {{ field_errors(field) }}
+      </div>
+   </div>
+{% endmacro %}
+
+
+{% macro checkbox_field(field) %}
+   <div class="form-group">
+      <div class="col-md-offset-2 col-sm-10">
+         <div class="checkbox">
+            {{ field() }}
+            {{ field.label() }}
+         </div>
+      </div>
+   </div>
+{% endmacro %}
+
