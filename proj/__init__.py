@@ -32,6 +32,11 @@ def create_app():
 
     if app.debug:
         DebugToolbarExtension(app)
+
+        # serve static files during development
+        app.wsgi_app = SharedDataMiddleware(app.wsgi_app, {
+            '/uploads': os.path.join(app.config.get('PROJECT_PATH'), 'uploads')
+        })
     else:
         from .utils.sentry import sentry
 
@@ -48,10 +53,6 @@ def create_app():
     @app.before_request
     def before_request():
         g.user = get_current_user()
-
-    app.wsgi_app = SharedDataMiddleware(app.wsgi_app, {
-        '/uploads': os.path.join(app.config.get('PROJECT_PATH'), 'uploads')
-    })
 
     return app
 
