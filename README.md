@@ -1,7 +1,7 @@
-Flask-Bootstrap
+Flask-Boost
 ===============
 
-Flask sample project for bootstrap.
+Flask sample project for boosting your development.
 
 `cd` to the project path, run:
  
