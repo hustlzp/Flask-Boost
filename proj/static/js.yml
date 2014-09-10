@@ -5,4 +5,4 @@ public:
   - js/layout.js
 
 page:
-  - js/site/*.js
+  js/page/
