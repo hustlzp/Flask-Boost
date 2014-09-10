@@ -75,9 +75,9 @@ def register_jinja(app):
         """Generate url for pagination"""
         view_args = request.view_args.copy()
         args = request.args.copy().to_dict()
-        combile_args = view_args.update(args)
-        combile_args['page'] = page
-        return url_for(request.endpoint, **combile_args)
+        combined_args = dict(view_args.items() + args.items())
+        combined_args['page'] = page
+        return url_for(request.endpoint, **combined_args)
 
     def static(filename):
         """静态资源url"""
