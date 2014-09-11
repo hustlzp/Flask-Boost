@@ -89,7 +89,7 @@ def register_jinja(app):
 
     def link(path):
         """link标签"""
-        return Markup("<link rel='stylesheet' href='%s'></script>" % static(path))
+        return Markup("<link rel='stylesheet' href='%s'>" % static(path))
 
     app.jinja_env.globals['url_for_other_page'] = url_for_other_page
     app.jinja_env.globals['static'] = static
