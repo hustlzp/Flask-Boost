@@ -3,7 +3,7 @@ Flask-Boost
 
 Flask sample project for boosting your development.
 
-###Development
+###Development Guide
 
 ####Clean up project files
 
