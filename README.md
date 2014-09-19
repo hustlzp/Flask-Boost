@@ -23,6 +23,7 @@ Rename all the `proj` in codes to your real project name.
 virtualenv venv
 . venv/bin/active
 pip install -r requirements.txt
+bower install
 ```
 
 ####Init database
