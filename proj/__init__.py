@@ -91,10 +91,22 @@ def register_jinja(app):
         """link标签"""
         return Markup("<link rel='stylesheet' href='%s'>" % static(path))
 
+    def page_script(template_reference):
+        """单页script标签"""
+        template_name = _get_template_name(template_reference)
+        return link('js/%s' % template_name.replace('html', 'js'))
+
+    def page_link(template_reference):
+        """单页link标签"""
+        template_name = _get_template_name(template_reference)
+        return link('css/%s' % template_name.replace('html', 'css'))
+
     app.jinja_env.globals['url_for_other_page'] = url_for_other_page
     app.jinja_env.globals['static'] = static
     app.jinja_env.globals['script'] = script
+    app.jinja_env.globals['page_script'] = page_script
     app.jinja_env.globals['link'] = link
+    app.jinja_env.globals['page_link'] = page_link
 
 
 def register_db(app):
@@ -132,3 +144,8 @@ def register_uploadsets(app):
     from .utils.uploadsets import avatars
 
     configure_uploads(app, (avatars))
+
+
+def _get_template_name(template_reference):
+    """获取当前模板名"""
+    return template_reference._TemplateReference__context.name

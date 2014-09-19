@@ -13,13 +13,13 @@
    {{ link('css/common.css') }}
    {{ link('css/component.css') }}
    {{ link('css/layout.css') }}
-   {% block page_css %}{% endblock %}
+   {{ page_link(self) }}
    {{ script('bower_components/respond/dest/respond.min.js') }}
    {{ script('bower_components/jquery/dist/jquery.min.js') }}
    {{ script('bower_components/bootstrap/dist/js/bootstrap.min.js') }}
 </head>
 
-<body id="{% block page_id %}{% endblock %}">
+<body id="page">
 
 {# Flash message #}
 {% with message = get_flashed_messages()[0] %}
@@ -89,10 +89,10 @@
 
 {# 访问统计 #}
 
-{# 单页Js代码 #}
-{% block page_js %}{% endblock %}
+{# 单页JS代码 #}
+{{ page_script(self) }}
 
-{# 全局Js代码 #}
+{# 全局JS代码 #}
 <script type="text/javascript">
    var locals = locals || {};
    locals = $.extend(locals, {

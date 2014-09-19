@@ -1,8 +1,0 @@
-public:
-  - bower_components/respond/dest/respond.min.js
-  - bower_components/jquery/dist/jquery.min.js
-  - bower_components/bootstrap/dist/js/bootstrap.min.js
-  - js/layout.js
-
-page:
-  js/page/
