@@ -5,9 +5,11 @@ Flask sample project for boosting your development.
 
 ###Development Guide
 
-####Clean up project files
+####Init project files
 
-Delete `docs/`, update `README.md` and `LICENSE` as needed.
+Click `Download ZIP` on GitHub and copy all files to your project path.
+
+Delete `docs/`, update `README.md`, `.gitignore` and `LICENSE` as needed.
 
 Rename folder `Flask-Bootstrap/` and `proj/` to your real project name.
 
@@ -25,15 +27,12 @@ pip install -r requirements.txt
 
 ####Init database
 
-Create database and then init tables:
+Create database via console or other GUI/Web tools.
+
+Then init tables and migration files:
 
 ```py
 python manage.py createdb
-```
-
-Create database migration files:
-
-```py
 python manage.py db init
 ```
 
