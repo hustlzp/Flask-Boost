@@ -105,7 +105,7 @@ python manage.py db upgrade
 
 ```
 cp deploy/nginx.conf /etc/nginx/conf.d/proj.conf
-cp deploy/supervisor.conf /etc/supervisor.d/proj.conf
+cp deploy/supervisor.conf /etc/supervisord.d/proj.conf
 service restart nginx
 supervisorctl reread
 supervisorctl update
