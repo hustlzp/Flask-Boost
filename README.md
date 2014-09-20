@@ -15,6 +15,8 @@ Rename folder `Flask-Bootstrap/` and `proj/` to your real project name.
 
 Rename all the `proj` in codes to your real project name.
 
+Copy `config/development_sample.py` to `config/development.py` and update config as needed.
+
 ####Install requirements
 
 `cd` to project root path, run:
@@ -73,7 +75,8 @@ python manage.py run
 ####Install requirements
 
 ```
-pip install virtualenv
+git clone ***/proj.git
+cd proj
 virtualenv venv
 . venv/bin/activate
 pip install -r requirements.txt
@@ -81,9 +84,23 @@ pip install -r requirements.txt
 
 ####Copy config files
 
+Copy local `config/production_sample.py` to server `config/production.py` and update config as needed.
+
 ```
 cp deploy/nginx.conf /etc/nginx/conf.d/proj.conf
 cp deploy/supervisor.conf /etc/supervisor.d/proj.conf
+```
+
+####Init database
+
+Create database first.
+
+Then create tables:
+
+```py
+cd proj
+. venv/bin/activate
+python manage.py db upgrade
 ```
 
 ####Start app
