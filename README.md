@@ -65,6 +65,11 @@ python manage.py run
 
 ###Production Deploy
 
+####Config server
+
+* [Ubuntu](http://wiki.hustlzp.com/post/ubuntu-server-config)
+* [CentOS 6.5](http://wiki.hustlzp.com/post/linux/centos)
+
 ####Install requirements
 
 ```
