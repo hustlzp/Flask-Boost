@@ -84,7 +84,9 @@ pip install -r requirements.txt
 
 ####Copy config files
 
-Copy local `config/production_sample.py` to server `config/production.py` and update config as needed.
+Copy `config/production_sample.py` to `config/production.py` and update config as needed.
+
+Then copy `config/production.py` to server.
 
 ```
 cp deploy/nginx.conf /etc/nginx/conf.d/proj.conf
