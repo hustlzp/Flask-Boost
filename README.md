@@ -82,24 +82,20 @@ virtualenv venv
 pip install -r requirements.txt
 ```
 
-####Copy config files
-
-Copy `config/production_sample.py` to `config/production.py` and update config as needed.
-
-Then copy `config/production.py` to server.
-
-```
-cp deploy/nginx.conf /etc/nginx/conf.d/proj.conf
-cp deploy/supervisor.conf /etc/supervisor.d/proj.conf
-```
-
-####Init database
+####Config app
 
 Create database first.
 
-Then create tables:
+Copy `config/production_sample.py` to `config/production.py` and update config as needed.
+
+Then transfer `config/production.py` to server.
+
+####Init database
+
+Create tables:
 
 ```py
+export MODE=PRODUCTION
 cd proj
 . venv/bin/activate
 python manage.py db upgrade
@@ -108,6 +104,8 @@ python manage.py db upgrade
 ####Start app
 
 ```
+cp deploy/nginx.conf /etc/nginx/conf.d/proj.conf
+cp deploy/supervisor.conf /etc/supervisor.d/proj.conf
 service restart nginx
 supervisorctl reread
 supervisorctl update
