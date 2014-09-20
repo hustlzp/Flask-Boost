@@ -37,6 +37,14 @@ python manage.py createdb
 python manage.py db init
 ```
 
+Edit `migrations/alembic.ini` as follows:
+
+```
+[alembic]
+# template used to generate migration files
+file_template = %%(year)d%%(month).2d%%(day).2d%%(hour).2d%%(minute).2d%%(second).2d_%%(rev)s_%%(slug)s
+```
+
 ####Livereload support
 
 Install livereload brower extension from [here](http://feedback.livereload.com/knowledgebase/articles/86242-how-do-i-install-and-use-the-browser-extensions-).
