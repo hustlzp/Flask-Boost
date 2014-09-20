@@ -106,6 +106,7 @@ python manage.py db upgrade
 ####Start app
 
 ```
+service restart nginx
 supervisorctl reread
 supervisorctl update
 supervisorctl start proj
