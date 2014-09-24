@@ -1,3 +1,10 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  margin-bottom: 60px;
+}
 .flash-message {
   background-color: #3fa7cb;
   border: 0;
@@ -19,4 +26,13 @@
 }
 .navbar-form {
   margin: 10px 0;
+}
+#footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  border-top: 1px solid #e2e2e2;
+  padding-top: 20px;
 }

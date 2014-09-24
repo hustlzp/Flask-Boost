@@ -83,11 +83,20 @@
    {% block page_content %}{% endblock %}
 </div>
 
-<div class="footer">
+<div id="footer">
+   <div class='container'>
+      <div id='copyright' class="pull-left">
+         © 2014 proj
+      </div>
 
+      <ul id='links' class="pull-right list-unstyled list-inline">
+         <li><a href="{{ url_for('site.about') }}">关于</a></li>
+      </ul>
+   </div>
 </div>
 
 {# 访问统计 #}
+{# TODO #}
 
 {# 单页JS代码 #}
 {{ page_script(self) }}

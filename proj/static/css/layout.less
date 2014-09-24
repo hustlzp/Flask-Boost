@@ -1,9 +1,12 @@
 @import "utils";
 
 html {
+  position: relative;
+  min-height: 100%;
 }
 
 body {
+  margin-bottom: 60px;
 }
 
 // Flash消息
@@ -36,4 +39,11 @@ body {
 }
 
 #footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  border-top: 1px solid #e2e2e2;
+  padding-top: 20px;
 }
