@@ -98,7 +98,7 @@ Create tables:
 export MODE=PRODUCTION
 cd proj
 . venv/bin/activate
-python manage.py db upgrade
+python manage.py createdb
 ```
 
 ####Start app
