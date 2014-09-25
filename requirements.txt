@@ -6,6 +6,7 @@ flask-debugtoolbar
 Flask-Uploads
 Flask-Mail
 Flask-Admin
+Flask-Migrate
 MySQL-python
 Pillow
 
