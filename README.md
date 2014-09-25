@@ -109,5 +109,4 @@ cp deploy/supervisor.conf /etc/supervisord.d/proj.conf
 service nginx restart
 supervisorctl reread
 supervisorctl update
-supervisorctl start proj
 ```
