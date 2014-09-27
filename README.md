@@ -97,6 +97,5 @@ python manage.py createdb
 cp deploy/nginx.conf /etc/nginx/conf.d/proj.conf
 cp deploy/supervisor.conf /etc/supervisord.d/proj.conf
 service nginx restart
-supervisorctl reread
-supervisorctl update
+service supervisord restart
 ```
