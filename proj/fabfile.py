@@ -23,4 +23,4 @@ def deploy():
 def restart():
     """重启"""
     env.host_string = config.HOST_STRING
-    run('sudo supervisorctl restart proj')
+    run('supervisorctl restart proj')
