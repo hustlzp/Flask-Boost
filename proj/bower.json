@@ -1,11 +1,9 @@
 {
-  "name": "Flask-Bootstrap",
+  "name": "proj",
   "version": "0.0.1",
-  "homepage": "https://github.com/hustlzp/Flask-Bootstrap",
-  "authors": [
-    "hustlzp <hustlzp@qq.com>"
-  ],
-  "description": "Flask project for bootstrap.",
+  "homepage": "",
+  "authors": [],
+  "description": "",
   "license": "MIT",
   "private": true,
   "dependencies": {
