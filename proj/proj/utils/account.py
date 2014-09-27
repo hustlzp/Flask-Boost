@@ -3,7 +3,7 @@ from flask import session
 from ..models import User
 
 
-def signin_user(user, permenent):
+def signin_user(user, permenent=True):
     """Sign in user"""
     session.permanent = permenent
     session['user_id'] = user.id
