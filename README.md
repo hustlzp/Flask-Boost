@@ -7,11 +7,9 @@ Flask sample project for boosting your development.
 
 ####Init project files
 
-Click `Download ZIP` on GitHub and copy all files to your project path.
+Copy all files inside `proj` folder to your project root path.
 
-Delete `docs/`, update `README.md`, `.gitignore` and `LICENSE` as needed.
-
-Rename folder `Flask-Bootstrap/` and `proj/` to your real project name.
+Rename folder `proj` to your real project name.
 
 Rename all the `proj` in codes to your real project name.
 
