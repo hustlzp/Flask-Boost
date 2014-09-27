@@ -1,7 +1,3 @@
-*.pyc
-venv/
 .idea/
-bower_components/
-docs/_build
-config/production.py
-config/development.py
+venv/
+docs/_build/
