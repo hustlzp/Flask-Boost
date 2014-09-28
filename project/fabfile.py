@@ -9,7 +9,7 @@ host_string = config.HOST_STRING
 def deploy():
     """部署"""
     env.host_string = config.HOST_STRING
-    with cd('/var/www/proj'):
+    with cd('/var/www/#{project}'):
         with shell_env(MODE='PRODUCTION'):
             run('git reset --hard HEAD')
             run('git pull')
@@ -17,10 +17,10 @@ def deploy():
             with prefix('source venv/bin/activate'):
                 run('pip install -r requirements.txt')
                 run('python manage.py db upgrade')
-            run('supervisorctl restart proj')
+            run('supervisorctl restart #{project}')
 
 
 def restart():
     """重启"""
     env.host_string = config.HOST_STRING
-    run('supervisorctl restart proj')
+    run('supervisorctl restart #{project}')

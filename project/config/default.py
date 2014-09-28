@@ -9,20 +9,20 @@ class Config(object):
     TESTING = False
     SECRET_KEY = "\xb5\xb3}#\xb7A\xcac\x9d0\xb6\x0f\x80z\x97\x00\x1e\xc0\xb8+\xe9)\xf0}"
     PERMANENT_SESSION_LIFETIME = 3600 * 24 * 7
-    SESSION_COOKIE_NAME = 'proj_session'
+    SESSION_COOKIE_NAME = '#{project}_session'
 
     # Root path of project
     PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
     # Site domain
-    SITE_TITLE = "proj"
+    SITE_TITLE = "#{project}"
     SITE_DOMAIN = "http://localhost:5000"
 
     # SQLAlchemy config
     # See:
     # https://pythonhosted.org/Flask-SQLAlchemy/config.html#connection-uri-format
     # http://docs.sqlalchemy.org/en/rel_0_9/core/engines.html#database-urls
-    SQLALCHEMY_DATABASE_URI = "mysql://root:password@host/db"
+    SQLALCHEMY_DATABASE_URI = "mysql://user:password@host/database"
 
     # SMTP config
     SMTP_HOST = ""  # SMTP服务器

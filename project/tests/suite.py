@@ -1,6 +1,6 @@
 import os
-from proj import create_app
-from proj.models import db
+from application import create_app
+from application.models import db
 
 
 class BaseSuite(object):
@@ -9,7 +9,6 @@ class BaseSuite(object):
 
         app = create_app()
         self.app = app
-
         self.client = app.test_client()
 
         with app.app_context():

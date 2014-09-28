@@ -1,8 +1,8 @@
 # coding: utf-8
 from flask.ext.script import Manager
 from flask.ext.migrate import Migrate, MigrateCommand
-from proj import create_app
-from proj.models import db
+from application import create_app
+from application.models import db
 
 # Used by app debug & livereload
 PORT = 5000
@@ -30,16 +30,16 @@ def live():
     server = Server(app)
 
     # css
-    for filepath in formic.FileSet(include="proj/static/css/**/*.css"):
+    for filepath in formic.FileSet(include="application/static/css/**/*.css"):
         server.watch(filepath)
     # html
-    for filepath in formic.FileSet(include="proj/templates/css/**/*.html"):
+    for filepath in formic.FileSet(include="application/templates/css/**/*.html"):
         server.watch(filepath)
     # js
-    for filepath in formic.FileSet(include="proj/static/js/**/*.js"):
+    for filepath in formic.FileSet(include="application/static/js/**/*.js"):
         server.watch(filepath)
     # image
-    for filepath in formic.FileSet(include="proj/static/image/**/*.*"):
+    for filepath in formic.FileSet(include="application/static/image/**/*.*"):
         server.watch(filepath)
 
     server.serve(port=PORT)
