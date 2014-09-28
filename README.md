@@ -7,11 +7,9 @@ Flask sample project for boosting your development.
 
 ####Init project files
 
-Copy all files inside `proj` folder to your project root path.
+Copy all files inside `project` folder to your project root path.
 
-Rename folder `proj` to your real project name.
-
-Rename all the `proj` in codes to your real project name.
+Rename all the `#{project}` in codes to your real project name.
 
 Copy `config/development_sample.py` to `config/development.py` and update config as needed.
 
