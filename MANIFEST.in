@@ -1,4 +1,4 @@
-include CHANGES LICENSE README.md requirements.txt
+include CHANGES LICENSE README.rst requirements.txt
 recursive-include tests *
 recursive-include docs *
 prune docs/_build

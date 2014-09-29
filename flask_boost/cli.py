@@ -51,9 +51,6 @@ def execute(args):
     mkdir_p(dst)
 
     for src_dir, sub_dirs, filenames in os.walk(src):
-        if any(substr in src_dir for substr in ['bower_components', 'venv']):
-            continue
-
         # 构建目标文件夹路径
         relative_path = src_dir.split(src)[1].lstrip('/')
         dst_dir = os.path.join(dst, relative_path)
@@ -66,10 +63,6 @@ def execute(args):
 
         # 移动文件
         for filename in filenames:
-            if any(substr in src_dir for substr in
-                   ['.pyc', 'config/production.py', 'config/development.py']):
-                continue
-
             src_file = os.path.join(src_dir, filename)
             dst_file = os.path.join(dst_dir, filename)
             shutil.copy(src_file, dst_file)
