@@ -1,15 +1,14 @@
 Flask-Boost
 ===========
 
+Flask application generator for boosting your development.
+
 .. image:: http://img.shields.io/pypi/v/flask-boost.svg
    :target: https://pypi.python.org/pypi/flask-boost
    :alt: Latest Version
-
 .. image:: http://img.shields.io/badge/license-MIT-blue.svg
    :target: https://github.com/hustlzp/Flask-Boost/blob/master/LICENSE
    :alt: The MIT License
-
-Flask application generator for boosting your development.
 
 Installation
 ------------
@@ -59,6 +58,7 @@ Run livereload server in another console::
     python manage.py live
     
 .. _here: http://feedback.livereload.com/knowledgebase/articles/86242-how-do-i-install-and-use-the-browser-extensions-
+
 Run app
 ~~~~~~~
 
