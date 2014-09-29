@@ -9,7 +9,7 @@ Flask-Boost
    :target: https://github.com/hustlzp/Flask-Boost/blob/master/LICENSE
    :alt: The MIT License
 
-Flask sample project for boosting your development.
+Flask application generator for boosting your development.
 
 Installation
 ------------
@@ -43,9 +43,7 @@ Install requirements
 Init database
 ~~~~~~~~~~~~~
 
-Create database via console or other GUI/Web tools.
-
-Update ``config/development.py`` as needed.
+Create database and update ``SQLALCHEMY_DATABASE_URI`` in ``config/development.py`` as needed.
 
 Then init tables::
 
@@ -98,9 +96,7 @@ Config app
 
 Create database first.
 
-Update ``config/production.py`` as needed.
-
-Then transfer ``config/production.py`` to server.
+Update configs ``config/production.py`` as needed and transfer it to server.
 
 Init database
 ~~~~~~~~~~~~~

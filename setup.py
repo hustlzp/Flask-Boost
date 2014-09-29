@@ -15,7 +15,7 @@ setup(
     version=flask_boost.__version__,
     packages=find_packages(),
     include_package_data=True,
-    description='Flask sample project for boosting your development',
+    description='Flask application generator for boosting your development.',
     long_description=open('README.rst').read(),
     url='https://github.com/hustlzp/Flask-Boost',
     author='hustlzp',
