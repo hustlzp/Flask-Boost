@@ -15,12 +15,15 @@ Options:
 """
 
 import os
+import logging
 from os.path import dirname, abspath
 from tempfile import mkstemp
 from docopt import docopt
 import shutil
 import errno
 from flask_boost import __version__
+
+logger = logging.getLogger(__name__)
 
 
 def mkdir_p(path):
@@ -37,10 +40,12 @@ def mkdir_p(path):
 def execute(args):
     # 源路径
     src = os.path.join(dirname(abspath(__file__)), 'project')
-    project_name = args['<project>']
 
     # 目的路径
+    project_name = args['<project>']
     dst = os.path.join(os.getcwd(), project_name)
+
+    logger.info('Start generating project files.')
 
     # 创建项目根文件夹
     mkdir_p(dst)
@@ -83,6 +88,8 @@ def execute(args):
 
             # Move to new file
             shutil.move(abs_path, dst_file)
+
+    logger.info('Finish generating project files.')
 
 
 def main():
