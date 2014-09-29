@@ -86,7 +86,7 @@ def execute(args):
 
 
 def main():
-    args = docopt(__doc__, version="Flask Boost {0}".format(__version__))
+    args = docopt(__doc__, version="Flask-Boost {0}".format(__version__))
     execute(args)
 
 
