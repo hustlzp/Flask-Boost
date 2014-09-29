@@ -1,3 +1,5 @@
 .idea/
 venv/
 docs/_build/
+dist/
+Flask_Boost.egg-info/
