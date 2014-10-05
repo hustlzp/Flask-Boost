@@ -54,7 +54,7 @@ def execute(args):
     dst = os.path.join(os.getcwd(), project_name)
 
     if os.path.isdir(dst):
-        logger.warning('Project directory is already exist.')
+        logger.warning('Project directory already exists.')
         return
 
     logger.info('Start generating project files.')
