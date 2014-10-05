@@ -16,6 +16,7 @@ Options:
 
 import os
 import logging
+from logging import StreamHandler, DEBUG
 from os.path import dirname, abspath
 from tempfile import mkstemp
 from docopt import docopt
@@ -24,6 +25,8 @@ import errno
 from flask_boost import __version__
 
 logger = logging.getLogger(__name__)
+logger.setLevel(DEBUG)
+logger.addHandler(StreamHandler())
 
 
 def mkdir_p(path):
@@ -38,34 +41,38 @@ def mkdir_p(path):
 
 
 def execute(args):
-    # 源路径
+    # Project templates path
     src = os.path.join(dirname(abspath(__file__)), 'project')
 
-    # 目的路径
-    project_name = args['<project>']
+    project_name = args.get('<project>')
+
+    if not project_name:
+        logger.warning('Project name cannot be empty.')
+        return
+
+    # Destination project path
     dst = os.path.join(os.getcwd(), project_name)
+
+    if os.path.isdir(dst):
+        logger.warning('Project directory is already exist.')
+        return
 
     logger.info('Start generating project files.')
 
-    # 创建项目根文件夹
     mkdir_p(dst)
 
     for src_dir, sub_dirs, filenames in os.walk(src):
-        # 构建目标文件夹路径
+        # Build and create destination directory path
         relative_path = src_dir.split(src)[1].lstrip('/')
         dst_dir = os.path.join(dst, relative_path)
 
-        # 创建目标文件夹
         if src != src_dir:
-            # print(dirpath)
-            # print(dst_path)
             mkdir_p(dst_dir)
 
-        # 移动文件
+        # Copy, rewrite and move project files
         for filename in filenames:
             src_file = os.path.join(src_dir, filename)
             dst_file = os.path.join(dst_dir, filename)
-            shutil.copy(src_file, dst_file)
 
             # Create temp file
             fh, abs_path = mkstemp()
