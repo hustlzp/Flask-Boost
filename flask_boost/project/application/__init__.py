@@ -95,7 +95,7 @@ def register_jinja(app):
     def page_script(template_reference):
         """单页script标签"""
         template_name = _get_template_name(template_reference)
-        return link('js/%s' % template_name.replace('html', 'js'))
+        return script('js/%s' % template_name.replace('html', 'js'))
 
     def page_link(template_reference):
         """单页link标签"""
