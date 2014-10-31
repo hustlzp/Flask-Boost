@@ -1,4 +1,5 @@
 *.pyc
+.idea/
 venv/
 bower_components/
 config/production.py
