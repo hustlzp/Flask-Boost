@@ -1,6 +1,11 @@
 Flask Boost Changelog
 ====================
 
+Version 0.1.2
+-------------
+
+Fix the page script bug.
+
 Version 0.1.1
 -------------
 

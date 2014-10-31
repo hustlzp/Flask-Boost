@@ -1,0 +1,4 @@
+#{project}
+=======
+
+Introduction to #{project}.
