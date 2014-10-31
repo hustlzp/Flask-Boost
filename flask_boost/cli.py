@@ -71,6 +71,9 @@ def execute(args):
 
         # Copy, rewrite and move project files
         for filename in filenames:
+            if 'EMPTY' in filename:
+                continue
+
             src_file = os.path.join(src_dir, filename)
             dst_file = os.path.join(dst_dir, filename)
 
