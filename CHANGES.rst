@@ -1,6 +1,11 @@
 Flask Boost Changelog
 ====================
 
+Version 0.1.4
+-------------
+
+* Include ``versions`` in ``migrations`` directory.
+
 Version 0.1.3
 -------------
 
