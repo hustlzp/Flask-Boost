@@ -48,6 +48,18 @@ Then init tables::
 
     python manage.py createdb
 
+Run app
+~~~~~~~
+
+Run local server::
+
+    python manage.py run
+
+Flask-Admin support
+~~~~~~~~~~~~~~~~~~~
+
+You can manage data by Flask-Admin via `http://localhost:5000/admin`.
+
 LiveReload support
 ~~~~~~~~~~~~~~~~~~
 
@@ -56,15 +68,8 @@ Install livereload brower extension from here_.
 Run livereload server in another console::
 
     python manage.py live
-    
+
 .. _here: http://feedback.livereload.com/knowledgebase/articles/86242-how-do-i-install-and-use-the-browser-extensions-
-
-Run app
-~~~~~~~
-
-Run local server::
-
-    python manage.py run
 
 Production Deploy
 -----------------
