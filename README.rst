@@ -130,7 +130,7 @@ Start app
     service nginx restart
     service supervisord restart
 
-for CentOS 7
+for CentOS 7:
 ::
 
     systemctl start nginx.service
