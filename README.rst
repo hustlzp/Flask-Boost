@@ -113,16 +113,29 @@ Init database
     . venv/bin/activate
     python manage.py createdb
 
+Copy config files
+~~~~~~~~~~~~~~~~~
+
+::
+
+    cp deploy/flask_env.sh /etc/profile.d/
+    cp deploy/nginx.conf /etc/nginx/conf.d/proj.conf
+    cp deploy/supervisor.conf /etc/supervisord.d/proj.conf
+
 Start app
 ~~~~~~~~~
 
 ::
 
-    cp deploy/nginx.conf /etc/nginx/conf.d/proj.conf
-    cp deploy/supervisor.conf /etc/supervisord.d/proj.conf
     service nginx restart
     service supervisord restart
-    
+
+for CentOS 7
+::
+
+    systemctl start nginx.service
+    systemctl start supervisord.service
+
 License
 -------
 
