@@ -19,7 +19,7 @@
    {{ script('bower_components/bootstrap/dist/js/bootstrap.min.js') }}
 </head>
 
-<body id="page">
+<body id="page" class="{{ page_name(self) }}">
 
 {# Flash message #}
 {% with message = get_flashed_messages()[0] %}

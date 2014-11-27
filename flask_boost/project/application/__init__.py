@@ -102,12 +102,17 @@ def register_jinja(app):
         template_name = _get_template_name(template_reference)
         return link('css/%s' % template_name.replace('html', 'css'))
 
+    def page_name(template_reference):
+        template_name = _get_template_name(template_reference)
+        return "page-%s" % template_name.replace('.html', '').replace('/', '-').replace('_', '-')
+
     app.jinja_env.globals['url_for_other_page'] = url_for_other_page
     app.jinja_env.globals['static'] = static
     app.jinja_env.globals['script'] = script
     app.jinja_env.globals['page_script'] = page_script
     app.jinja_env.globals['link'] = link
     app.jinja_env.globals['page_link'] = page_link
+    app.jinja_env.globals['page_name'] = page_name
 
 
 def register_db(app):
