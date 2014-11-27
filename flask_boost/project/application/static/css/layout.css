@@ -19,8 +19,8 @@ body {
   text-align: center;
   display: none;
 }
-#page-account-signin #nav-signin a,
-#page-account-signup #nav-signup a {
+.page-site-index #nav-index a,
+.page-site-about #nav-about a {
   color: #555;
   background-color: #e7e7e7;
 }
