@@ -9,17 +9,12 @@ Flask-Admin
 Flask-Migrate
 MySQL-python
 Pillow
-
 livereload
 formic==0.9beta8
-
 gunicorn
 fabric
-
 raven
 blinker
-
 nose
 coverage
-
 pylint
