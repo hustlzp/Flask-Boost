@@ -1,6 +1,14 @@
 Flask Boost Changelog
 ====================
 
+Version 0.1.6
+-------------
+
+* Add default favicon.
+* Clean requirements.txt.
+* Update code example for nav highlight.
+* Add page class to body tag.
+
 Version 0.1.5
 -------------
 
