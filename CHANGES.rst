@@ -1,5 +1,5 @@
 Flask Boost Changelog
-====================
+=====================
 
 Version 0.1.6
 -------------
@@ -12,11 +12,10 @@ Version 0.1.6
 Version 0.1.5
 -------------
 
-* Add 'fab pull' command to update codes on server.
-* Add `flask_env.sh` to set environment variables when shell runs.
+* Add ``fab pull`` command to update codes on server.
+* Add ``flask_env.sh`` to set environment variables when shell runs.
 * Fix some HTML bugs.
 * Fix Supervisor config file bug.
-
 
 Version 0.1.4
 -------------
