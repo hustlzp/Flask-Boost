@@ -1,5 +1,6 @@
 *.pyc
 .idea/
+test/
 venv/
 docs/_build/
 dist/

@@ -82,7 +82,9 @@ def execute(args):
             new_file = open(abs_path, 'w')
             old_file = open(src_file)
             for line in old_file:
-                new_file.write(line.replace('#{project}', project_name))
+                new_line = line.replace('#{project}', project_name). \
+                    replace('#{project|title}', project_name.title())
+                new_file.write(new_line)
 
             # Close file
             new_file.close()
