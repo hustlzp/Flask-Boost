@@ -15,7 +15,6 @@
     "commit": "3eda118b4440825df56e3c12d054f9d316a5987a"
   },
   "_source": "git://github.com/scottjehl/Respond.git",
-  "_target": "~1.4.2",
-  "_originalSource": "respond",
-  "_direct": true
+  "_target": "1.4.2",
+  "_originalSource": "respond"
 }
