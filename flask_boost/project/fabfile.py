@@ -1,5 +1,5 @@
 # coding: utf-8
-from fabric.api import run, env, cd, prefix, shell_env
+from fabric.api import run, env, cd, prefix, shell_env, settings
 from config import load_config
 
 config = load_config()
@@ -15,7 +15,8 @@ def deploy():
             run('git pull')
             with prefix('source venv/bin/activate'):
                 run('pip install -r requirements.txt')
-                run('python manage.py db upgrade')
+                with settings(warn_only=True):
+                    run('python manage.py db upgrade')
             run('supervisorctl restart #{project}')
 
 
