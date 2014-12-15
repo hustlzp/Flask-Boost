@@ -13,7 +13,6 @@ def deploy():
         with shell_env(MODE='PRODUCTION'):
             run('git reset --hard HEAD')
             run('git pull')
-            run('bower install --allow-root')
             with prefix('source venv/bin/activate'):
                 run('pip install -r requirements.txt')
                 run('python manage.py db upgrade')
