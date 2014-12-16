@@ -37,7 +37,6 @@ Install requirements
     virtualenv venv
     . venv/bin/active
     pip install -r requirements.txt
-    bower install
 
 Init database
 ~~~~~~~~~~~~~
@@ -46,7 +45,7 @@ Create database and update ``SQLALCHEMY_DATABASE_URI`` in ``config/development.p
 
 Then init tables::
 
-    python manage.py createdb
+    python manage.py db upgrade
 
 Run app
 ~~~~~~~
@@ -89,7 +88,7 @@ Install requirements
 
 ::
 
-    git clone ***/proj.git
+    git clone **.git
     cd proj
     virtualenv venv
     . venv/bin/activate
@@ -98,19 +97,19 @@ Install requirements
 Config app
 ~~~~~~~~~~
 
-Create database first.
-
 Update configs ``config/production.py`` as needed and transfer it to server.
 
 Init database
 ~~~~~~~~~~~~~
+
+Create database and run:
 
 ::
 
     export MODE=PRODUCTION
     cd proj
     . venv/bin/activate
-    python manage.py createdb
+    python manage.py manage.py db upgrade
 
 Copy config files
 ~~~~~~~~~~~~~~~~~
@@ -118,8 +117,8 @@ Copy config files
 ::
 
     cp deploy/flask_env.sh /etc/profile.d/
-    cp deploy/nginx.conf /etc/nginx/conf.d/proj.conf
-    cp deploy/supervisor.conf /etc/supervisord.d/proj.conf
+    cp deploy/nginx.conf /etc/nginx/conf.d/{your_project_name}.conf
+    cp deploy/supervisor.conf /etc/supervisord.d/{your_project_name}.conf
 
 Start app
 ~~~~~~~~~
