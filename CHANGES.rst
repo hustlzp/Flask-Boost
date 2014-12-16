@@ -1,6 +1,14 @@
 Flask Boost Changelog
 =====================
 
+Version 0.1.7
+-------------
+
+* Now can title the project name by #{project|title}.
+* Track bower components.
+* Bump bootstrap version to 3.3.1, and fix jquery version to 1.11.1.
+* Add a migration file for initialization.
+
 Version 0.1.6
 -------------
 
