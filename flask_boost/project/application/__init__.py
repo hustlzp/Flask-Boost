@@ -12,6 +12,7 @@ from flask_wtf.csrf import CsrfProtect
 from flask.ext.uploads import configure_uploads
 from flask_debugtoolbar import DebugToolbarExtension
 from werkzeug.wsgi import SharedDataMiddleware
+from werkzeug.contrib.fixers import ProxyFix
 from .utils.account import get_current_user
 from config import load_config
 
@@ -26,6 +27,9 @@ def create_app():
 
     config = load_config()
     app.config.from_object(config)
+
+    # Proxy fix
+    app.wsgi_app = ProxyFix(app.wsgi_app)
 
     # CSRF protect
     CsrfProtect(app)
