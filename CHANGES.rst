@@ -1,6 +1,11 @@
 Flask Boost Changelog
 =====================
 
+Version 0.2.0
+-------------
+
+* Add account system
+
 Version 0.1.7
 -------------
 
