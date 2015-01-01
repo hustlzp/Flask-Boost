@@ -1,5 +1,6 @@
 # coding: utf-8
 from datetime import datetime
+from werkzeug.security import generate_password_hash, check_password_hash
 from ._base import db
 
 
@@ -10,6 +11,15 @@ class User(db.Model):
     avatar = db.Column(db.String(200))
     password = db.Column(db.String(200))
     created_at = db.Column(db.DateTime, default=datetime.now)
+
+    def __setattr__(self, name, value):
+        # 每当设置password时，自动进行hash
+        if name == 'password':
+            value = generate_password_hash(value)
+        super(User, self).__setattr__(name, value)
+
+    def check_password(self, password):
+        return check_password_hash(self.password, password)
 
     def __repr__(self):
         return '<User %s>' % self.name

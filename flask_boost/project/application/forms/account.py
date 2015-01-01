@@ -1,5 +1,6 @@
 # coding: utf-8
 from flask_wtf import Form
+from werkzeug.security import generate_password_hash
 from wtforms import StringField, PasswordField
 from wtforms.validators import DataRequired, Email, EqualTo
 from ..models import User
@@ -25,9 +26,8 @@ class SigninForm(Form):
 
     def validate_password(self, field):
         if self.email.data:
-            user = User.query.filter(User.email == self.email.data,
-                                     User.password == self.password.data).first()
-            if not user:
+            user = User.query.filter(User.email == self.email.data).first()
+            if not user or not user.check_password(self.password.data):
                 raise ValueError('密码错误')
             else:
                 self.user = user
