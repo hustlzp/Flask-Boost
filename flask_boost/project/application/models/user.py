@@ -10,6 +10,7 @@ class User(db.Model):
     email = db.Column(db.String(50), unique=True)
     avatar = db.Column(db.String(200))
     password = db.Column(db.String(200))
+    is_admin = db.Column(db.Boolean, default=False)
     created_at = db.Column(db.DateTime, default=datetime.now)
 
     def __setattr__(self, name, value):

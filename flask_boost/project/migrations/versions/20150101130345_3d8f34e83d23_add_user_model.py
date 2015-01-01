@@ -1,13 +1,13 @@
-"""Add User model.
+"""Add user model
 
-Revision ID: 55677cff8359
+Revision ID: 3d8f34e83d23
 Revises: None
-Create Date: 2014-12-16 09:13:05.929286
+Create Date: 2015-01-01 13:03:45.048687
 
 """
 
 # revision identifiers, used by Alembic.
-revision = '55677cff8359'
+revision = '3d8f34e83d23'
 down_revision = None
 
 from alembic import op
@@ -22,8 +22,10 @@ def upgrade():
     sa.Column('email', sa.String(length=50), nullable=True),
     sa.Column('avatar', sa.String(length=200), nullable=True),
     sa.Column('password', sa.String(length=200), nullable=True),
+    sa.Column('is_admin', sa.Boolean(), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('email'),
     sa.UniqueConstraint('name')
     )
     ### end Alembic commands ###
