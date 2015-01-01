@@ -1,23 +1,29 @@
 {% extends "layout.html" %}
 {% from 'macro/form.html' import horizontal_field, form_submit %}
 
-{% block page_title %}登陆{% endblock %}
+{% block page_title %}注册{% endblock %}
 {% block page_content %}
    <div class="container">
       <div class="row">
          <div class="col-sm-8">
-            <h1>登陆</h1>
+            <h1>注册</h1>
 
-            <form method="post" class="form-horizontal" action="{{ url_for('account.signin') }}">
+            <form id="form-login" method="post" class="form-horizontal" autocomplete="off"
+                  action="{{ url_for('account.signup') }}">
                {{ form.csrf_token() }}
+
+               {{ horizontal_field(form.name) }}
 
                {{ horizontal_field(form.email) }}
 
                {{ horizontal_field(form.password) }}
 
-               {{ form_submit('登陆') }}
+               {{ horizontal_field(form.repassword) }}
+
+               {{ form_submit('注册') }}
             </form>
          </div>
       </div>
    </div>
 {% endblock %}
+

@@ -32,3 +32,11 @@
    </div>
 {% endmacro %}
 
+
+{% macro form_submit(btn_text) %}
+   <div class="form-group">
+      <div class="col-sm-6 col-sm-offset-2">
+         <button type="submit" class="btn btn-sm btn-primary">{{ btn_text }}</button>
+      </div>
+   </div>
+{% endmacro %}
