@@ -71,25 +71,17 @@ def execute(args):
 
         # Copy, rewrite and move project files
         for filename in filenames:
+            if filename in ['development.py', 'production.py']:
+                continue
+
             src_file = os.path.join(src_dir, filename)
             dst_file = os.path.join(dst_dir, filename)
 
-            # Create temp file
-            fh, abs_path = mkstemp()
-            new_file = open(abs_path, 'w')
-            old_file = open(src_file)
-            for line in old_file:
-                new_line = line.replace('#{project}', project_name). \
-                    replace('#{project|title}', project_name.title())
-                new_file.write(new_line)
+            _replace_and_copy(src_file, dst_file, project_name)
 
-            # Close file
-            new_file.close()
-            os.close(fh)
-            old_file.close()
-
-            # Move to new file
-            shutil.move(abs_path, dst_file)
+            if filename in ['development_sample.py', 'production_sample.py']:
+                dst_file = os.path.join(dst_dir, "%s.py" % filename.split('_')[0])
+                _replace_and_copy(src_file, dst_file, project_name)
 
     logger.info('Finish generating project files.')
 
@@ -97,6 +89,26 @@ def execute(args):
 def main():
     args = docopt(__doc__, version="Flask-Boost {0}".format(__version__))
     execute(args)
+
+
+def _replace_and_copy(src_file, dst_file, project_name):
+    """Replace vars and copy."""
+    # Create temp file
+    fh, abs_path = mkstemp()
+    new_file = open(abs_path, 'w')
+    old_file = open(src_file)
+    for line in old_file:
+        new_line = line.replace('#{project}', project_name). \
+            replace('#{project|title}', project_name.title())
+        new_file.write(new_line)
+
+    # Close file
+    new_file.close()
+    os.close(fh)
+    old_file.close()
+
+    # Move to new file
+    shutil.move(abs_path, dst_file)
 
 
 if __name__ == "__main__":
