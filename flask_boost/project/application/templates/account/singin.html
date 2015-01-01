@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% from 'macro/form.html' import horizontal_field %}
+
+{% block page_title %}登陆{% endblock %}
+{% block page_content %}
+   <div class="container">
+      <div class="row">
+         <div class="col-sm-8">
+            <h2 class="border">登陆</h2>
+
+            <form method="post" class="form-horizontal" action="{{ url_for('account.signin') }}">
+               {{ form.csrf_token() }}
+
+               {{ horizontal_field(form.email) }}
+
+               {{ horizontal_field(form.password) }}
+
+               <div class="form-group">
+                  <div class="col-sm-6 col-sm-offset-2">
+                     <button type="submit" class="btn btn-sm btn-primary">登陆</button>
+                  </div>
+               </div>
+            </form>
+         </div>
+      </div>
+   </div>
+{% endblock %}

@@ -72,8 +72,10 @@ def register_jinja(app):
     # inject vars into template context
     @app.context_processor
     def inject_vars():
+        from .utils import permissions
+
         return dict(
-            g_var=0
+            permissions=permissions
         )
 
     def url_for_other_page(page):
@@ -128,9 +130,10 @@ def register_db(app):
 
 def register_routes(app):
     """注册路由"""
-    from .controllers import site
+    from .controllers import site, account
 
     app.register_blueprint(site.bp, url_prefix='')
+    app.register_blueprint(account.bp, url_prefix='/account')
 
 
 def register_error_handle(app):

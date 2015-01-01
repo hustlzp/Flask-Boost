@@ -1,8 +1,6 @@
 {% macro field_errors(field) %}
    <ul class="list-form-errors text-danger list-unstyled">
-      {% for error in field.errors %}
-         <li>{{ error }}</li>
-      {% endfor %}
+      <li>{{ field.errors[0] }}</li>
    </ul>
 {% endmacro %}
 
