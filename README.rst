@@ -54,11 +54,6 @@ Run local server::
 
     python manage.py run
 
-Flask-Admin support
-~~~~~~~~~~~~~~~~~~~
-
-You can manage data by Flask-Admin via ``http://localhost:5000/admin``.
-
 LiveReload support
 ~~~~~~~~~~~~~~~~~~
 
