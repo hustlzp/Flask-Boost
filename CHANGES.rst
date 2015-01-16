@@ -1,10 +1,17 @@
 Flask Boost Changelog
 =====================
 
+Version 0.3.0
+-------------
+
+* Remove Flask-Admin support.
+* Add hash to assets url.
+* Log render time into HTTP header when the user is admin.
+
 Version 0.2.0
 -------------
 
-* Add account system
+* Add account system.
 
 Version 0.1.7
 -------------
