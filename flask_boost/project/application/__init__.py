@@ -7,6 +7,7 @@ project_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 if project_path not in sys.path:
     sys.path.insert(0, project_path)
 
+import hashlib
 from flask import Flask, request, url_for, g, render_template
 from flask_wtf.csrf import CsrfProtect
 from flask.ext.uploads import configure_uploads
@@ -66,6 +67,9 @@ def register_jinja(app):
     from jinja2 import Markup
     from .utils import filters
 
+    if not hasattr(app, '_static_hash'):
+        app._static_hash = {}
+
     app.jinja_env.filters['timesince'] = filters.timesince
 
     # inject vars into template context
@@ -86,8 +90,23 @@ def register_jinja(app):
         return url_for(request.endpoint, **combined_args)
 
     def static(filename):
-        """静态资源url"""
-        return url_for('static', filename=filename)
+        """静态资源url
+
+        计算资源内容hash作为query string，并缓存起来。
+        """
+        if app.testing:
+            return url_for('static', filename=filename)
+
+        if filename in app._static_hash:
+            return app._static_hash[filename]
+
+        with open(os.path.join(app.static_folder, filename), 'r') as f:
+            content = f.read()
+            hash = hashlib.md5(content).hexdigest()
+
+        url = '%s?v=%s' % (url_for('static', filename=filename), hash[:10])
+        app._static_hash[filename] = url
+        return url
 
     def script(path):
         """script标签"""
