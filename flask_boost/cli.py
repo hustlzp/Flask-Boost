@@ -66,11 +66,11 @@ def execute(args):
             src_file = os.path.join(src_dir, filename)
             dst_file = os.path.join(dst_dir, filename)
 
-            _replace_and_copy(src_file, dst_file, project_name)
+            _rewrite_and_copy(src_file, dst_file, project_name)
 
             if filename in ['development_sample.py', 'production_sample.py']:
                 dst_file = os.path.join(dst_dir, "%s.py" % filename.split('_')[0])
-                _replace_and_copy(src_file, dst_file, project_name)
+                _rewrite_and_copy(src_file, dst_file, project_name)
 
     logger.info('Finish generating project files.')
 
@@ -91,7 +91,7 @@ def _mkdir_p(path):
             raise
 
 
-def _replace_and_copy(src_file, dst_file, project_name):
+def _rewrite_and_copy(src_file, dst_file, project_name):
     """Replace vars and copy."""
     # Create temp file
     fh, abs_path = mkstemp()
