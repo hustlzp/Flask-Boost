@@ -97,7 +97,11 @@ def register_jinja(app):
         if filename in app._static_hash:
             return app._static_hash[filename]
 
-        with open(os.path.join(app.static_folder, filename), 'r') as f:
+        path = os.path.join(app.static_folder, filename)
+        if not os.path.exists(path):
+            return url_for('static', filename=filename)
+
+        with open(path, 'r') as f:
             content = f.read()
             hash = hashlib.md5(content).hexdigest()
 
