@@ -8,6 +8,7 @@ if project_path not in sys.path:
     sys.path.insert(0, project_path)
 
 import hashlib
+import time
 from flask import Flask, request, url_for, g, render_template
 from flask_wtf.csrf import CsrfProtect
 from flask.ext.uploads import configure_uploads
@@ -53,11 +54,7 @@ def create_app():
     register_jinja(app)
     register_error_handle(app)
     register_uploadsets(app)
-
-    # before every request
-    @app.before_request
-    def before_request():
-        g.user = get_current_user()
+    register_hooks(app)
 
     return app
 
@@ -175,6 +172,21 @@ def register_uploadsets(app):
     from .utils.uploadsets import avatars
 
     configure_uploads(app, (avatars))
+
+
+def register_hooks(app):
+    @app.before_request
+    def before_request():
+        g.user = get_current_user()
+        if g.user and g.user.is_admin:
+            g._before_request_time = time.time()
+
+    @app.after_request
+    def after_request(response):
+        if hasattr(g, '_before_request_time'):
+            delta = time.time() - g._before_request_time
+            response.headers['X-Render-Time'] = delta * 1000
+        return response
 
 
 def _get_template_name(template_reference):
