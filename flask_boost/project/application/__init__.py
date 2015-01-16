@@ -91,21 +91,23 @@ def register_jinja(app):
 
         计算资源内容hash作为query string，并缓存起来。
         """
+        url = url_for('static', filename=filename)
+
         if app.testing:
-            return url_for('static', filename=filename)
+            return url
 
         if filename in app._static_hash:
             return app._static_hash[filename]
 
         path = os.path.join(app.static_folder, filename)
         if not os.path.exists(path):
-            return url_for('static', filename=filename)
+            return url
 
         with open(path, 'r') as f:
             content = f.read()
             hash = hashlib.md5(content).hexdigest()
 
-        url = '%s?v=%s' % (url_for('static', filename=filename), hash[:10])
+        url = '%s?v=%s' % (url, hash[:10])
         app._static_hash[filename] = url
         return url
 
