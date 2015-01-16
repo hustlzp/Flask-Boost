@@ -29,17 +29,6 @@ logger.setLevel(DEBUG)
 logger.addHandler(StreamHandler())
 
 
-def mkdir_p(path):
-    """mkdir -p path"""
-    try:
-        os.makedirs(path)
-    except OSError as exc:
-        if exc.errno == errno.EEXIST and os.path.isdir(path):
-            pass
-        else:
-            raise
-
-
 def execute(args):
     # Project templates path
     src = os.path.join(dirname(abspath(__file__)), 'project')
@@ -59,7 +48,7 @@ def execute(args):
 
     logger.info('Start generating project files.')
 
-    mkdir_p(dst)
+    _mkdir_p(dst)
 
     for src_dir, sub_dirs, filenames in os.walk(src):
         # Build and create destination directory path
@@ -67,7 +56,7 @@ def execute(args):
         dst_dir = os.path.join(dst, relative_path)
 
         if src != src_dir:
-            mkdir_p(dst_dir)
+            _mkdir_p(dst_dir)
 
         # Copy, rewrite and move project files
         for filename in filenames:
@@ -89,6 +78,17 @@ def execute(args):
 def main():
     args = docopt(__doc__, version="Flask-Boost {0}".format(__version__))
     execute(args)
+
+
+def _mkdir_p(path):
+    """mkdir -p path"""
+    try:
+        os.makedirs(path)
+    except OSError as exc:
+        if exc.errno == errno.EEXIST and os.path.isdir(path):
+            pass
+        else:
+            raise
 
 
 def _replace_and_copy(src_file, dst_file, project_name):
