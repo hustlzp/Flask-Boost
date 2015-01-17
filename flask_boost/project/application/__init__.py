@@ -39,7 +39,7 @@ def create_app():
     if app.debug:
         DebugToolbarExtension(app)
 
-        # serve static files during development
+        # Serve static files during development
         app.wsgi_app = SharedDataMiddleware(app.wsgi_app, {
             '/uploads': os.path.join(app.config.get('PROJECT_PATH'), 'uploads')
         })
@@ -181,6 +181,7 @@ def register_uploadsets(app):
 
 
 def register_hooks(app):
+    """注册Hooks"""
     @app.before_request
     def before_request():
         g.user = get_current_user()
