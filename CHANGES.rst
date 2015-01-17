@@ -1,6 +1,12 @@
 Flask Boost Changelog
 =====================
 
+Version 0.3.1
+-------------
+
+* Remove fab pull
+* Clean codes.
+
 Version 0.3.0
 -------------
 
