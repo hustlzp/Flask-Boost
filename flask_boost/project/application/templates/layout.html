@@ -95,19 +95,14 @@
    </div>
 </div>
 
-{# 访问统计 #}
-{# TODO #}
+{# 全局JS代码 #}
+{{ script('js/layout.js') }}
 
 {# 单页JS代码 #}
 {{ page_script(self) }}
 
-{# 全局JS代码 #}
-<script type="text/javascript">
-   var locals = locals || {};
-   locals = $.extend(locals, {
-   });
-</script>
-{{ script('js/layout.js') }}
+{# 访问统计 #}
+{# TODO #}
 
 </body>
 </html>
