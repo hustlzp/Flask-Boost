@@ -43,7 +43,9 @@ def create_app():
         app.wsgi_app = SharedDataMiddleware(app.wsgi_app, {
             '/uploads': os.path.join(app.config.get('PROJECT_PATH'), 'uploads')
         })
-    else:
+
+    # Enable Sentry in production mode
+    if not app.debug and not app.testing:
         from .utils.sentry import sentry
 
         sentry.init_app(app, dsn=app.config.get('SENTRY_DSN'))
@@ -182,6 +184,7 @@ def register_uploadsets(app):
 
 def register_hooks(app):
     """注册Hooks"""
+
     @app.before_request
     def before_request():
         g.user = get_current_user()
