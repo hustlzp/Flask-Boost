@@ -4,7 +4,6 @@ Flask-Script
 Flask-SQLAlchemy
 flask-debugtoolbar
 Flask-Uploads
-Flask-Mail
 Flask-Migrate
 MySQL-python
 permission

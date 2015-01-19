@@ -24,18 +24,6 @@ class Config(object):
     # http://docs.sqlalchemy.org/en/rel_0_9/core/engines.html#database-urls
     SQLALCHEMY_DATABASE_URI = "mysql://user:password@host/database"
 
-    # SMTP config
-    SMTP_HOST = ""  # SMTP服务器
-    SMTP_PORT = 25
-    SMTP_USER = ""  # 用户名
-    SMTP_PASSWORD = ""  # 口令
-
-    # Redis
-    REDIS = False  # 是否启用Redis
-    REDIS_HOST = "localhost"
-    REDIS_PORT = 6379
-    REDIS_DB = 1
-
     # Uploadsets config
     UPLOADS_DEFAULT_DEST = "%s/uploads" % PROJECT_PATH  # 上传文件存储路径
     UPLOADS_DEFAULT_URL = "%s/uploads/" % SITE_DOMAIN  # 上传文件访问URL
