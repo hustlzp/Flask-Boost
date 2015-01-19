@@ -30,25 +30,29 @@ def create_app():
     config = load_config()
     app.config.from_object(config)
 
+    if not hasattr(app, 'production'):
+        app.production = not app.debug and not app.testing
+
     # Proxy fix
     app.wsgi_app = ProxyFix(app.wsgi_app)
+
+
 
     # CSRF protect
     CsrfProtect(app)
 
-    if app.debug:
+    # Enable Sentry in production mode
+    if app.production:
+        from .utils.sentry import sentry
+
+        sentry.init_app(app, dsn=app.config.get('SENTRY_DSN'))
+    else:
         DebugToolbarExtension(app)
 
         # Serve static files during development
         app.wsgi_app = SharedDataMiddleware(app.wsgi_app, {
             '/uploads': os.path.join(app.config.get('PROJECT_PATH'), 'uploads')
         })
-
-    # Enable Sentry in production mode
-    if not app.debug and not app.testing:
-        from .utils.sentry import sentry
-
-        sentry.init_app(app, dsn=app.config.get('SENTRY_DSN'))
 
     # 注册组件
     register_db(app)
@@ -94,9 +98,6 @@ def register_jinja(app):
         计算资源内容hash作为query string，并缓存起来。
         """
         url = url_for('static', filename=filename)
-
-        if app.testing:
-            return url
 
         if filename in app._static_hash:
             return app._static_hash[filename]
