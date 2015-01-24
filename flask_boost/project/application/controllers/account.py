@@ -2,7 +2,7 @@
 from flask import render_template, Blueprint, redirect, request, url_for
 from ..forms import SigninForm, SignupForm
 from ..utils.account import signin_user, signout_user
-from ..utils.permissions import VisitorPermission
+from ..utils.permissions import VisitorPermission, UserPermission
 from ..models import db, User
 
 bp = Blueprint('account', __name__)
@@ -16,7 +16,7 @@ def signin():
     if form.validate_on_submit():
         signin_user(form.user)
         return redirect(url_for('site.index'))
-    return render_template('account/singin.html', form=form)
+    return render_template('account/signin.html', form=form)
 
 
 @bp.route('/signup', methods=['GET', 'POST'])
