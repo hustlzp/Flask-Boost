@@ -1,6 +1,18 @@
 Flask Boost Changelog
 =====================
 
+Version 0.3.2
+-------------
+
+* Remove Flask-Mail support.
+* Upgrade font-awesome to 4.3.0.
+* Remove useless configs.
+* Add app.production attr.
+* Remove no-margin-top css style.
+* Enable Sentry only in production mode.
+* Add highlight to account.signup & account.signin page.
+* Fix typo.
+
 Version 0.3.1
 -------------
 
