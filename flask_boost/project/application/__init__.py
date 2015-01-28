@@ -36,8 +36,6 @@ def create_app():
     # Proxy fix
     app.wsgi_app = ProxyFix(app.wsgi_app)
 
-
-
     # CSRF protect
     CsrfProtect(app)
 
