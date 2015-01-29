@@ -3,7 +3,7 @@ import os
 
 
 def load_config():
-    """加载配置类"""
+    """Load config."""
     mode = os.environ.get('MODE')
     try:
         if mode == 'PRODUCTION':

@@ -6,11 +6,11 @@ bp = Blueprint('site', __name__)
 
 @bp.route('/')
 def index():
-    """首页"""
+    """Index page."""
     return render_template('site/index.html')
 
 
 @bp.route('/about')
 def about():
-    """关于页"""
+    """About page."""
     return render_template('site/about.html')

@@ -1,20 +1,16 @@
-$(function () {
-    /* 显示flash message */
-    $(function () {
-        setTimeout(showFlash, 200);
-        setTimeout(hideFlash, 2000);
-    });
-});
+// Flash message
+setTimeout(showFlash, 200);
+setTimeout(hideFlash, 2000);
 
 /**
- * 显示flash消息
+ * Show flash message.
  */
 function showFlash() {
     $('.flash-message').slideDown('fast');
 }
 
 /**
- * 隐藏flash消息
+ * Hide flash message.
  */
 function hideFlash() {
     $('.flash-message').slideUp('fast');

@@ -10,29 +10,25 @@ avatars = UploadSet('avatars', IMAGES)
 
 
 def random_filename():
-    """生成伪随机文件名"""
+    """Generate random file name."""
     return str(uuid.uuid4())
 
 
 def open_image(file_storage):
-    """打开图像"""
+    """Open image from FileStorage."""
     image = Image.open(file_storage.stream)
-    # 此处是为了修复一个bug：cannot write mode P as JPEG
-    # 解决方法来自：https://github.com/smileychris/easy-thumbnails/issues/95
+    # See: https://github.com/smileychris/easy-thumbnails/issues/95
     if image.mode != "RGB":
         image = image.convert("RGB")
     return image
 
 
 def save_image(image, upload_set, file_storage):
-    """保存图片
-    保存到upload_set对应的文件夹中
-    文件后缀使用file_storage中文件名的后缀
-    """
+    """Save image"""
     ext = extension(file_storage.filename)
     filename = '%s.%s' % (random_filename(), ext)
     dir_path = upload_set.config.destination
-    # 若不存在此目录，则创建之
+
     if not os.path.isdir(dir_path):
         os.mkdir(dir_path)
     path = os.path.join(dir_path, filename)
@@ -41,9 +37,9 @@ def save_image(image, upload_set, file_storage):
 
 
 def process_avatar(file_storage, upload_set, max_border):
-    """将上传的头像进行居中裁剪、缩放，然后保存"""
+    """Center clipping, zoom and then save the avatar."""
     image = open_image(file_storage)
-    # 居中裁剪
+    # Center clipping
     w, h = image.size
     if w > h:
         border = h
@@ -52,7 +48,7 @@ def process_avatar(file_storage, upload_set, max_border):
         border = w
         avatar_crop_region = (0, (h - border) / 2, border, (h + border) / 2)
     image = image.crop(avatar_crop_region)
-    # 缩放
+    # Zoom
     if border > max_border:
         image = image.resize((max_border, max_border), Image.ANTIALIAS)
     filename = save_image(image, upload_set, file_storage)

@@ -2,7 +2,7 @@
 import sys
 import os
 
-# 将project目录加入sys.path
+# Insert project root path to sys.path
 project_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 if project_path not in sys.path:
     sys.path.insert(0, project_path)
@@ -24,7 +24,7 @@ sys.setdefaultencoding('utf8')
 
 
 def create_app():
-    """创建Flask app"""
+    """Create Flask app."""
     app = Flask(__name__)
 
     config = load_config()
@@ -52,7 +52,7 @@ def create_app():
             '/uploads': os.path.join(app.config.get('PROJECT_PATH'), 'uploads')
         })
 
-    # 注册组件
+    # Register components
     register_db(app)
     register_routes(app)
     register_jinja(app)
@@ -64,7 +64,7 @@ def create_app():
 
 
 def register_jinja(app):
-    """注册模板全局变量和全局函数"""
+    """Register jinja filters, vars, functions."""
     from jinja2 import Markup
     from .utils import filters
 
@@ -73,7 +73,7 @@ def register_jinja(app):
 
     app.jinja_env.filters['timesince'] = filters.timesince
 
-    # inject vars into template context
+    # Inject vars into template context
     @app.context_processor
     def inject_vars():
         from .utils import permissions
@@ -83,7 +83,7 @@ def register_jinja(app):
         )
 
     def url_for_other_page(page):
-        """Generate url for pagination"""
+        """Generate url for pagination."""
         view_args = request.view_args.copy()
         args = request.args.copy().to_dict()
         combined_args = dict(view_args.items() + args.items())
@@ -91,9 +91,9 @@ def register_jinja(app):
         return url_for(request.endpoint, **combined_args)
 
     def static(filename):
-        """静态资源url
+        """Generate static resource url.
 
-        计算资源内容hash作为query string，并缓存起来。
+        Hash asset content as query string, and cache it.
         """
         url = url_for('static', filename=filename)
 
@@ -113,20 +113,20 @@ def register_jinja(app):
         return url
 
     def script(path):
-        """script标签"""
+        """Generate script tag."""
         return Markup("<script type='text/javascript' src='%s'></script>" % static(path))
 
     def link(path):
-        """link标签"""
+        """Generate link tag."""
         return Markup("<link rel='stylesheet' href='%s'>" % static(path))
 
     def page_script(template_reference):
-        """单页script标签"""
+        """Generate script tag for current page."""
         template_name = _get_template_name(template_reference)
         return script('js/%s' % template_name.replace('html', 'js'))
 
     def page_link(template_reference):
-        """单页link标签"""
+        """Generate link tag for current page."""
         template_name = _get_template_name(template_reference)
         return link('css/%s' % template_name.replace('html', 'css'))
 
@@ -144,14 +144,14 @@ def register_jinja(app):
 
 
 def register_db(app):
-    """注册Model"""
+    """Register models."""
     from .models import db
 
     db.init_app(app)
 
 
 def register_routes(app):
-    """注册路由"""
+    """Register routes."""
     from .controllers import site, account
 
     app.register_blueprint(site.bp, url_prefix='')
@@ -159,7 +159,7 @@ def register_routes(app):
 
 
 def register_error_handle(app):
-    """注册HTTP错误页面"""
+    """Register HTTP error pages."""
 
     @app.errorhandler(403)
     def page_403(error):
@@ -175,14 +175,14 @@ def register_error_handle(app):
 
 
 def register_uploadsets(app):
-    """注册UploadSets"""
+    """Register UploadSets."""
     from .utils.uploadsets import avatars
 
     configure_uploads(app, (avatars))
 
 
 def register_hooks(app):
-    """注册Hooks"""
+    """Register hooks."""
 
     @app.before_request
     def before_request():
@@ -199,5 +199,5 @@ def register_hooks(app):
 
 
 def _get_template_name(template_reference):
-    """获取当前模板名"""
+    """Get current template name."""
     return template_reference._TemplateReference__context.name

@@ -14,7 +14,7 @@ class User(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.now)
 
     def __setattr__(self, name, value):
-        # 每当设置password时，自动进行hash
+        # Hash password when set it.
         if name == 'password':
             value = generate_password_hash(value)
         super(User, self).__setattr__(name, value)
