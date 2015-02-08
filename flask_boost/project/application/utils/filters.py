@@ -4,6 +4,12 @@ import datetime
 
 def timesince(value):
     """Friendly time gap"""
+    if not value:
+        return ""
+
+    if not isinstance(value, datetime.date):
+        return value
+
     now = datetime.datetime.now()
     delta = now - value
     if delta.days > 365:
