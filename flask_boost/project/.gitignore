@@ -1,5 +1,7 @@
 *.pyc
-.idea/
-venv/
+.idea
+venv
 config/production.py
 config/development.py
+uploads/*
+!uploads/avatars/default.png
