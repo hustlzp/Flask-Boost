@@ -1,6 +1,15 @@
 Flask Boost Changelog
 =====================
 
+Version 0.3.3
+-------------
+
+* Add csrf token header for Ajax request.
+* Add avatar_url property to User model.
+* Update filters.timesince.
+* Upgrade bootstrap to 3.3.2.
+* Clean codes and comments.
+
 Version 0.3.2
 -------------
 
