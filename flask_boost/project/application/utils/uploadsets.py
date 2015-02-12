@@ -1,5 +1,4 @@
-# !/usr/bin/env python
-# -*- coding: UTF-8 -*-
+# coding: utf-8
 import os
 import uuid
 from PIL import Image
@@ -9,8 +8,15 @@ from flask.ext.uploads import UploadSet, IMAGES, extension, ALL
 avatars = UploadSet('avatars', IMAGES)
 
 
+def process_avatar(file_storage, upload_set, border):
+    """Center clipping, resize and then save the avatar."""
+    image = open_image(file_storage)
+    image = center_crop(image)
+    image = resize_square(image, border)
+    return save_image(image, file_storage, upload_set)
+
+
 def random_filename():
-    """Generate random file name."""
     return str(uuid.uuid4())
 
 
@@ -23,8 +29,8 @@ def open_image(file_storage):
     return image
 
 
-def save_image(image, upload_set, file_storage):
-    """Save image"""
+def save_image(image, file_storage, upload_set):
+    """Save image with random filename and original ext."""
     ext = extension(file_storage.filename)
     filename = '%s.%s' % (random_filename(), ext)
     dir_path = upload_set.config.destination
@@ -36,10 +42,7 @@ def save_image(image, upload_set, file_storage):
     return filename
 
 
-def process_avatar(file_storage, upload_set, max_border):
-    """Center clipping, zoom and then save the avatar."""
-    image = open_image(file_storage)
-    # Center clipping
+def center_crop(image):
     w, h = image.size
     if w > h:
         border = h
@@ -47,9 +50,8 @@ def process_avatar(file_storage, upload_set, max_border):
     else:
         border = w
         avatar_crop_region = (0, (h - border) / 2, border, (h + border) / 2)
-    image = image.crop(avatar_crop_region)
-    # Zoom
-    if border > max_border:
-        image = image.resize((max_border, max_border), Image.ANTIALIAS)
-    filename = save_image(image, upload_set, file_storage)
-    return filename
+    return image.crop(avatar_crop_region)
+
+
+def resize_square(image, border):
+    return image.resize((border, border), Image.ANTIALIAS)
