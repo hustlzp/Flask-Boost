@@ -2,6 +2,6 @@
 .idea/
 test/
 venv/
+/dist/
 docs/
-dist/
 Flask_Boost.egg-info/
