@@ -6,6 +6,7 @@ flask-debugtoolbar
 Flask-Uploads
 Flask-Migrate
 MySQL-python
+itsdangerous
 permission
 Pillow
 livereload
