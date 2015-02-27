@@ -78,8 +78,15 @@ def register_jinja(app):
     def inject_vars():
         from .utils import permissions
 
+        rules = {}
+        for endpoint, _rules in app.url_map._rules_by_endpoint.iteritems():
+            if '_debug_toolbar' in endpoint or 'debugtoolbar' in endpoint:
+                continue
+            rules[endpoint] = [{'rule': rule.rule} for rule in _rules]
+
         return dict(
-            permissions=permissions
+            permissions=permissions,
+            rules=rules
         )
 
     def url_for_other_page(page):

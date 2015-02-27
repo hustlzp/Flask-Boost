@@ -96,13 +96,96 @@
    </div>
 </div>
 
-{# 全局JS代码 #}
+{# Global JavaScript codes #}
+<script type="text/javascript">
+   var g = {
+      'csrfToken': "{{ csrf_token() }}",
+      'rules':{{ rules|safe }}
+   };
+
+   var pattern = new RegExp("<[^:]*:?([^>]+)>", "g");
+   var result = null;
+
+   $.each(g.rules, function (endpoint, rules) {
+      $.each(rules, function (index, rule) {
+         rule.params = [];
+         while ((result = pattern.exec(rule.rule)) !== null) {
+            rule.params.push(result[1]);
+         }
+      });
+   });
+
+   /**
+    * Generate url for the endpoint.
+    * @param endpoint
+    * @param values
+    * @returns url for the endpoint.
+    */
+   function urlFor(endpoint, values) {
+      var url = null, keys;
+
+      if (g.rules[endpoint] === undefined) {
+         throw "Uncorrect endpoint.";
+      }
+
+      keys = $.map(values, function (value, key) {
+         return key;
+      });
+
+      // Find the first matched rule among rules in this endpoint.
+      $.each(g.rules[endpoint], function (index, rule) {
+         var match = true;
+         $.each(rule.params, function (index, param) {
+            if ($.inArray(param, keys) === -1) {
+               match = false;
+               return false;
+            }
+         });
+
+         if (match) {
+            url = rule.rule;
+
+            $.each(keys, function (index, key) {
+               if ($.inArray(key, rule.params) > -1) {
+                  url = url.replace(new RegExp("<[^:]*:?" + key + ">"), values[key]);
+               } else {
+                  // Query string.
+                  if (url.indexOf("?") === -1) {
+                     url += "?";
+                  }
+                  if (!endsWith(url, '?')) {
+                     url += "&";
+                  }
+                  url += key + "=" + values[key];
+               }
+            });
+
+            return false;
+         } else {
+            // Continue searching if not match.
+            return true;
+         }
+      });
+
+      return url;
+   }
+
+   /**
+    * Chech whether str ends with suffix.
+    * @param str
+    * @param suffix
+    * @returns {boolean}
+    */
+   function endsWith(str, suffix) {
+      return str.indexOf(suffix, str.length - suffix.length) !== -1;
+   }
+</script>
 {{ script('js/layout.js') }}
 
-{# 单页JS代码 #}
+{# Single pagt JavaScript codes #}
 {{ page_script(self) }}
 
-{# 访问统计 #}
+{# Access analysis #}
 {# TODO #}
 
 </body>
