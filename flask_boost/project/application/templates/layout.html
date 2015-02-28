@@ -190,9 +190,13 @@
       return str.indexOf(suffix, str.length - suffix.length) !== -1;
    }
 </script>
+
 {{ script('js/layout.js') }}
 
-{# Single pagt JavaScript codes #}
+{# Inject vars on g for single page. #}
+{% block page_vars %}{% endblock %}
+
+{# Single page JavaScript codes #}
 {{ page_script(self) }}
 
 {# Access analysis #}
