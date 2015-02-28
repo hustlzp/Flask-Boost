@@ -109,7 +109,7 @@ def register_jinja(app):
 
         path = os.path.join(app.static_folder, filename)
         if not os.path.exists(path):
-            return url
+            return None
 
         with open(path, 'r') as f:
             content = f.read()
@@ -121,11 +121,19 @@ def register_jinja(app):
 
     def script(path):
         """Generate script tag."""
-        return Markup("<script type='text/javascript' src='%s'></script>" % static(path))
+        script_path = static(path)
+        if script_path:
+            return Markup("<script type='text/javascript' src='%s'></script>" % script_path)
+        else:
+            return Markup("<!-- 404: %s -->" % path)
 
     def link(path):
         """Generate link tag."""
-        return Markup("<link rel='stylesheet' href='%s'>" % static(path))
+        link_path = static(path)
+        if link_path:
+            return Markup("<link rel='stylesheet' href='%s'>" % link_path)
+        else:
+            return Markup("<!-- 404: %s -->" % path)
 
     def page_script(template_reference):
         """Generate script tag for current page."""
