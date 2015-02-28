@@ -132,7 +132,10 @@
     * @returns url for the endpoint.
     */
    function urlFor(endpoint, values) {
-      var url = null, keys;
+      var url = null,
+            params = [],
+            maxMatchDegree = 0.0,
+            keys;
 
       if (g.rules[endpoint] === undefined) {
          throw "Uncorrect endpoint.";
@@ -144,7 +147,9 @@
 
       // Find the first matched rule among rules in this endpoint.
       $.each(g.rules[endpoint], function (index, rule) {
-         var match = true;
+         var match = true,
+               currentMatchDegree = 0.0;
+
          $.each(rule.params, function (index, param) {
             if ($.inArray(param, keys) === -1) {
                match = false;
@@ -153,29 +158,32 @@
          });
 
          if (match) {
-            url = rule.rule;
-
-            $.each(keys, function (index, key) {
-               if ($.inArray(key, rule.params) > -1) {
-                  url = url.replace(new RegExp("<[^:]*:?" + key + ">"), values[key]);
-               } else {
-                  // Query string.
-                  if (url.indexOf("?") === -1) {
-                     url += "?";
-                  }
-                  if (!endsWith(url, '?')) {
-                     url += "&";
-                  }
-                  url += key + "=" + values[key];
-               }
-            });
-
-            return false;
-         } else {
-            // Continue searching if not match.
-            return true;
+            currentMatchDegree = parseFloat(rule.params.length) / keys.length;
+            if (currentMatchDegree > maxMatchDegree || url === null) {
+               maxMatchDegree = currentMatchDegree;
+               url = rule.rule;
+               params = rule.params;
+            }
          }
       });
+
+      if (url) {
+         $.each(keys, function (index, key) {
+            // Built-in params
+            if ($.inArray(key, params) > -1) {
+               url = url.replace(new RegExp("<[^:]*:?" + key + ">"), values[key]);
+            } else {
+               // Query string params
+               if (url.indexOf("?") === -1) {
+                  url += "?";
+               }
+               if (!endsWith(url, '?')) {
+                  url += "&";
+               }
+               url += key + "=" + values[key];
+            }
+         });
+      }
 
       return url;
    }
