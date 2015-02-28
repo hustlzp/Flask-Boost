@@ -96,7 +96,7 @@
    </div>
 </div>
 
-{# Global JavaScript codes #}
+{# JavaScript init codes #}
 <script type="text/javascript">
    var g = {
       'csrfToken': "{{ csrf_token() }}",
@@ -191,6 +191,7 @@
    }
 </script>
 
+{# Global JavaScript codes #}
 {{ script('js/layout.js') }}
 
 {# Inject vars on g for single page. #}
