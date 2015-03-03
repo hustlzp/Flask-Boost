@@ -137,6 +137,8 @@
             maxMatchDegree = 0.0,
             keys;
 
+      values = (typeof values !== 'undefined') ? values : {};
+
       if (g.rules[endpoint] === undefined) {
          throw "Uncorrect endpoint.";
       }
@@ -202,7 +204,7 @@
 {# Global JavaScript codes #}
 {{ script('js/layout.js') }}
 
-{# Inject vars on g for single page. #}
+{# Inject vars on g for single page #}
 {% block page_vars %}{% endblock %}
 
 {# Single page JavaScript codes #}
