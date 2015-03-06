@@ -1,6 +1,14 @@
 Flask Boost Changelog
 =====================
 
+Version 0.3.4
+-------------
+
+* Add g as global JavaScript variable.
+* Add urlFor as global JavaScript function.
+* Add page_vars block to inject JavaScript variables to a page.
+* Move rules & permissions to jinja2 globals instead of global context.
+
 Version 0.3.3
 -------------
 
