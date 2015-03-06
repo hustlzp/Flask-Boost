@@ -66,28 +66,11 @@ def create_app():
 def register_jinja(app):
     """Register jinja filters, vars, functions."""
     from jinja2 import Markup
-    from .utils import filters
+    from .utils import filters, permissions
 
-    if not hasattr(app, '_static_hash'):
-        app._static_hash = {}
-
-    app.jinja_env.filters['timesince'] = filters.timesince
-
-    # Inject vars into template context
-    @app.context_processor
-    def inject_vars():
-        from .utils import permissions
-
-        rules = {}
-        for endpoint, _rules in app.url_map._rules_by_endpoint.iteritems():
-            if any(item in endpoint for item in ['_debug_toolbar', 'debugtoolbar', 'static']):
-                continue
-            rules[endpoint] = [{'rule': rule.rule} for rule in _rules]
-
-        return dict(
-            permissions=permissions,
-            rules=rules
-        )
+    app.jinja_env.filters.update({
+        'timesince': filters.timesince
+    })
 
     def url_for_other_page(page):
         """Generate url for pagination."""
@@ -96,6 +79,9 @@ def register_jinja(app):
         combined_args = dict(view_args.items() + args.items())
         combined_args['page'] = page
         return url_for(request.endpoint, **combined_args)
+
+    if not hasattr(app, '_static_hash'):
+        app._static_hash = {}
 
     def static(filename):
         """Generate static resource url.
@@ -149,13 +135,23 @@ def register_jinja(app):
         template_name = _get_template_name(template_reference)
         return "page-%s" % template_name.replace('.html', '').replace('/', '-').replace('_', '-')
 
-    app.jinja_env.globals['url_for_other_page'] = url_for_other_page
-    app.jinja_env.globals['static'] = static
-    app.jinja_env.globals['script'] = script
-    app.jinja_env.globals['page_script'] = page_script
-    app.jinja_env.globals['link'] = link
-    app.jinja_env.globals['page_link'] = page_link
-    app.jinja_env.globals['page_name'] = page_name
+    rules = {}
+    for endpoint, _rules in app.url_map._rules_by_endpoint.iteritems():
+        if any(item in endpoint for item in ['_debug_toolbar', 'debugtoolbar', 'static']):
+            continue
+        rules[endpoint] = [{'rule': rule.rule} for rule in _rules]
+
+    app.jinja_env.globals.update({
+        'url_for_other_page': url_for_other_page,
+        'static': static,
+        'script': script,
+        'page_script': page_script,
+        'link': link,
+        'page_link': page_link,
+        'page_name': page_name,
+        'rules': rules,
+        'permissions': permissions
+    })
 
 
 def register_db(app):
