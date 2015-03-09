@@ -4,4 +4,6 @@ venv
 config/production.py
 config/development.py
 uploads/*
+!uploads/avatars/
+uploads/avatars/*
 !uploads/avatars/default.png
