@@ -18,6 +18,9 @@ body {
   border-radius: 0;
   text-align: center;
   display: none;
+  padding: 0;
+  height: 50px;
+  line-height: 50px;
 }
 .page-site-index #nav-index a,
 .page-site-about #nav-about a,
