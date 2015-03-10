@@ -165,8 +165,8 @@ def register_routes(app):
     """Register routes."""
     from .controllers import site, account
 
-    app.register_blueprint(site.bp, url_prefix='')
-    app.register_blueprint(account.bp, url_prefix='/account')
+    app.register_blueprint(site.bp)
+    app.register_blueprint(account.bp)
 
 
 def register_error_handle(app):
