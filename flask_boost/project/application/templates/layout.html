@@ -20,6 +20,7 @@
    {{ script('bower_components/bootstrap/dist/js/bootstrap.min.js') }}
    <script type="text/javascript">
       var g = {
+         'domain': "{{ config.SITE_DOMAIN }}",
          'csrfToken': "{{ csrf_token() }}",
          'rules':{{ rules|safe }}
       };
