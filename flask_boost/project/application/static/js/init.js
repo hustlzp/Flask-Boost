@@ -22,7 +22,7 @@ $.each(g.rules, function (endpoint, rules) {
 
 /**
  * Generate url for the endpoint.
- * urlFor(endpoint [, values] [, external])
+ * urlFor(endpoint [, parameters] [, external])
  * @param endpoint
  * @param parameters
  * @param external
