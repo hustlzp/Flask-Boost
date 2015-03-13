@@ -24,34 +24,35 @@ $.each(g.rules, function (endpoint, rules) {
  * Generate url for the endpoint.
  * urlFor(endpoint [, values] [, external])
  * @param endpoint
- * @param values
+ * @param parameters
  * @param external
  * @returns url for the endpoint.
  */
-function urlFor(endpoint, values, external) {
+function urlFor(endpoint, parameters, external) {
     var url = null,
         params = [],
         maxMatchDegree = 0.0,
         keys;
 
-    if ($.type(values) === "undefined") {
-        values = {};
+    if ($.type(parameters) === "undefined") {
+        parameters = {};
         external = false;
-    } else if ($.isFunction(values)) {
+    } else if ($.isFunction(parameters)) {
         if ($.type(external) === "undefined") {
             external = false;
         }
     } else {
-        external = values;
+        external = parameters;
     }
 
-    values = (typeof values !== 'undefined') ? values : {};
+    parameters = (typeof parameters !== 'undefined') ? parameters : {};
 
     if (g.rules[endpoint] === undefined) {
-        throw "Uncorrect endpoint.";
+        throw new Error("Uncorrect endpoint in " + "urlFor(\"" + endpoint + "\", " +
+            JSON.stringify(parameters) + ")");
     }
 
-    keys = $.map(values, function (value, key) {
+    keys = $.map(parameters, function (value, key) {
         return key;
     });
 
@@ -79,9 +80,9 @@ function urlFor(endpoint, values, external) {
 
     if (url) {
         $.each(keys, function (index, key) {
-            // Built-in params
+            // Build in params
             if ($.inArray(key, params) > -1) {
-                url = url.replace(new RegExp("<[^:]*:?" + key + ">"), values[key]);
+                url = url.replace(new RegExp("<[^:]*:?" + key + ">"), parameters[key]);
             } else {
                 // Query string params
                 if (url.indexOf("?") === -1) {
@@ -90,9 +91,12 @@ function urlFor(endpoint, values, external) {
                 if (!endsWith(url, '?')) {
                     url += "&";
                 }
-                url += key + "=" + values[key];
+                url += key + "=" + parameters[key];
             }
         });
+    } else {
+        throw new Error("Uncorrect parameters in " + "urlFor(\"" + endpoint + "\", " +
+            JSON.stringify(parameters) + ")");
     }
 
     if (external) {
