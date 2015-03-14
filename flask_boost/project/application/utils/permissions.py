@@ -1,17 +1,17 @@
 from permission import Permission
-from .roles import VisitorRole, UserRole, AdminRole
+from .rules import VisitorRule, UserRule, AdminRule
 
 
 class VisitorPermission(Permission):
-    def role(self):
-        return VisitorRole()
+    def rule(self):
+        return VisitorRule()
 
 
 class UserPermission(Permission):
-    def role(self):
-        return UserRole()
+    def rule(self):
+        return UserRule()
 
 
 class AdminPermission(Permission):
-    def role(self):
-        return AdminRole()
+    def rule(self):
+        return AdminRule()

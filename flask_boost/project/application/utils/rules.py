@@ -1,10 +1,10 @@
 # coding: utf-8
 from flask import session, abort, flash, redirect, url_for
-from permission import Role
+from permission import Rule
 from ..models import User
 
 
-class VisitorRole(Role):
+class VisitorRule(Rule):
     def check(self):
         return 'user_id' not in session
 
@@ -12,7 +12,7 @@ class VisitorRole(Role):
         return redirect(url_for('site.index'))
 
 
-class UserRole(Role):
+class UserRule(Rule):
     def check(self):
         return 'user_id' in session
 
@@ -21,9 +21,9 @@ class UserRole(Role):
         return redirect(url_for('account.signin'))
 
 
-class AdminRole(Role):
+class AdminRule(Rule):
     def base(self):
-        return UserRole()
+        return UserRule()
 
     def check(self):
         user_id = int(session['user_id'])
