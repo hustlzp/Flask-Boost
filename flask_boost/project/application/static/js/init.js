@@ -34,18 +34,12 @@ function urlFor(endpoint, parameters, external) {
         maxMatchDegree = 0.0,
         keys;
 
-    if ($.type(parameters) === "undefined") {
-        parameters = {};
-        external = false;
-    } else if ($.isFunction(parameters)) {
-        if ($.type(external) === "undefined") {
-            external = false;
-        }
-    } else {
-        external = parameters;
+    if ($.type(parameters) === "boolean") {
+        external = parameters
     }
 
-    parameters = (typeof parameters !== 'undefined') ? parameters : {};
+    parameters = ($.type(parameters) !== 'undefined') ? parameters : {};
+    external = ($.type(external) !== 'undefined') ? external : false;
 
     if (g.rules[endpoint] === undefined) {
         throw new Error("Uncorrect endpoint in " + "urlFor(\"" + endpoint + "\", " +
@@ -107,7 +101,7 @@ function urlFor(endpoint, parameters, external) {
 }
 
 /**
- * Chech whether str ends with suffix.
+ * Check whether str ends with suffix.
  * @param str
  * @param suffix
  * @returns {boolean}
