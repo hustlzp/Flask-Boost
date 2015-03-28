@@ -66,7 +66,7 @@ def create_app():
 def register_jinja(app):
     """Register jinja filters, vars, functions."""
     from jinja2 import Markup
-    from .utils import filters, permissions
+    from .utils import filters, permissions, helpers
 
     app.jinja_env.filters.update({
         'timesince': filters.timesince
@@ -142,6 +142,7 @@ def register_jinja(app):
         rules[endpoint] = [{'rule': rule.rule} for rule in _rules]
 
     app.jinja_env.globals.update({
+        'absolute_url_for': helpers.absolute_url_for,
         'url_for_other_page': url_for_other_page,
         'static': static,
         'script': script,
