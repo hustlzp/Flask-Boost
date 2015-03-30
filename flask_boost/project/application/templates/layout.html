@@ -9,7 +9,7 @@
    <meta name="csrf-token" content="{{ csrf_token() }}"/>
    {% block meta %}{% endblock %}
    <link rel="Shortcut Icon" href="{{ static('image/favicon.png') }}">
-   {{ app_css() }}
+   {{ app_css(self) }}
    <script type="text/javascript">
       var g = {
          domain: "{{ config.SITE_DOMAIN }}",
