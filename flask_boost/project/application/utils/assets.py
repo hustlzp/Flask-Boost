@@ -44,8 +44,8 @@ def build(app):
 
     blueprints = app.blueprints.keys()
 
-    page_js_prefix = "(function(){ if(document.getElementsByTagName('body')[0].id === '%s') {"
-    page_js_suffix = "}})();"
+    page_js_prefix = "if(document.getElementsByTagName('body')[0].id === '%s'){(function(){"
+    page_js_suffix = "})();}"
 
     page_root_path = os.path.join(static_path, page_root_path)
     for subdir in get_immediate_subdirectories(page_root_path):
