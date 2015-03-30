@@ -16,6 +16,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 from werkzeug.wsgi import SharedDataMiddleware
 from werkzeug.contrib.fixers import ProxyFix
 from .utils.account import get_current_user
+from .utils.assets import register_assets
 from config import load_config
 
 # convert python's encoding to utf8
@@ -59,6 +60,7 @@ def create_app():
     register_error_handle(app)
     register_uploadsets(app)
     register_hooks(app)
+    register_assets(app)
 
     return app
 

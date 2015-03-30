@@ -18,3 +18,5 @@ blinker
 nose
 coverage
 pylint
+PyYAML
+jsmin

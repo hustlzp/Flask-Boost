@@ -9,7 +9,7 @@
    <meta name="csrf-token" content="{{ csrf_token() }}"/>
    {% block meta %}{% endblock %}
    <link rel="Shortcut Icon" href="{{ static('image/favicon.png') }}">
-   {{ app_css(self) }}
+   {#   {{ app_css(self) }}#}
    <script type="text/javascript">
       var g = {
          domain: "{{ config.SITE_DOMAIN }}",
@@ -20,7 +20,7 @@
    {{ libs_js() }}
 </head>
 
-<body id="page" class="{{ page_name(self) }}">
+<body id="{{ page_name(self) }}">
 
 {# Flash message #}
 {% with message = get_flashed_messages()[0] %}
@@ -100,7 +100,7 @@
 {% block page_vars %}{% endblock %}
 
 {# Layout js and page js #}
-{{ page_js(self) }}
+{#{{ page_js(self) }}#}
 
 {# Access analysis #}
 {# TODO #}

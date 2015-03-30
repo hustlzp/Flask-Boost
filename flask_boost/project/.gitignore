@@ -3,7 +3,7 @@
 venv
 config/production.py
 config/development.py
-static/build/
+application/static/build/
 uploads/*
 !uploads/avatars/
 uploads/avatars/*
