@@ -51,5 +51,10 @@ def createdb():
     db.create_all()
 
 
+@manager.command
+def build_assets():
+    pass
+
+
 if __name__ == "__main__":
     manager.run()

@@ -1,0 +1,11 @@
+libs:
+  - !bower_components/bootstrap/dist/css/bootstrap.min.css
+  - !bower_components/font-awesome/css/font-awesome.min.css
+
+layout:
+  - css/bootstrap.theme.css
+  - css/common.css
+  - css/component.css
+  - css/layout.css
+
+page: css/

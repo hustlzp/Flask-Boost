@@ -9,16 +9,7 @@
    <meta name="csrf-token" content="{{ csrf_token() }}"/>
    {% block meta %}{% endblock %}
    <link rel="Shortcut Icon" href="{{ static('image/favicon.png') }}">
-   {{ link('bower_components/bootstrap/dist/css/bootstrap.min.css') }}
-   {{ link('bower_components/font-awesome/css/font-awesome.min.css') }}
-   {{ link('css/bootstrap.theme.css') }}
-   {{ link('css/common.css') }}
-   {{ link('css/component.css') }}
-   {{ link('css/layout.css') }}
-   {{ page_link(self) }}
-   {{ script('bower_components/respond/dest/respond.min.js') }}
-   {{ script('bower_components/jquery/dist/jquery.min.js') }}
-   {{ script('bower_components/bootstrap/dist/js/bootstrap.min.js') }}
+   {{ app_css() }}
    <script type="text/javascript">
       var g = {
          domain: "{{ config.SITE_DOMAIN }}",
@@ -26,7 +17,7 @@
          rules: {{ rules|safe }}
       };
    </script>
-   {{ script('js/init.js') }}
+   {{ libs_js() }}
 </head>
 
 <body id="page" class="{{ page_name(self) }}">
@@ -105,14 +96,11 @@
    </div>
 </div>
 
-{# Global JavaScript codes #}
-{{ script('js/layout.js') }}
-
 {# Inject vars on g for single page #}
 {% block page_vars %}{% endblock %}
 
-{# Single page JavaScript codes #}
-{{ page_script(self) }}
+{# Layout js and page js #}
+{{ page_js(self) }}
 
 {# Access analysis #}
 {# TODO #}
