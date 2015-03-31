@@ -60,22 +60,25 @@ def build_js(app):
     for lib_path in libs_path:
         with open(os.path.join(static_path, lib_path)) as js_file:
             libs_js_string += jsmin(js_file.read())
+
+    libs_js_string = libs_js_string.replace('\n', '').replace('\r', '')
     with open(os.path.join(static_path, 'build/libs.js'), "w") as text_file:
-        text_file.write(libs_js_string.replace('\n', '').replace('\r', ''))
+        text_file.write(libs_js_string)
     print('libs.js builded.')
 
     # page.js
     page_js_string = ""
+
     # layout
     for layout_path in layout:
         with open(os.path.join(static_path, layout_path)) as js_file:
-            page_js_string += jsmin(js_file.read())
+            page_js_string += js_file.read()
 
     blueprints = app.blueprints.keys()
-
     page_js_prefix = "if(document.documentElement.id==='%s'){(function(){"
     page_js_suffix = "})();}"
 
+    # page
     page_root_path = os.path.join(static_path, page_root_path)
     for subdir in _get_immediate_subdirectories(page_root_path):
         if subdir in blueprints:
@@ -86,36 +89,45 @@ def build_js(app):
                     page_id = "page-%s-%s" % (subdir, action)
                     with open(os.path.join(subdir_path, file)) as js_file:
                         page_js_string += page_js_prefix % page_id
-                        page_js_string += jsmin(js_file.read())
+                        page_js_string += js_file.read()
                         page_js_string += page_js_suffix
                         # print(file)
 
+    page_js_string = jsmin(page_js_string).replace('\n', '').replace('\r', '')
     with open(os.path.join(static_path, 'build/page.js'), "w") as text_file:
-        text_file.write(page_js_string.replace('\n', '').replace('\r', ''))
+        text_file.write(page_js_string)
     print('page.js builded.')
 
 
 def build_css(app):
+    from os.path import dirname
+
     static_path = app.static_folder
-    libs_path = G.css_config['libs']
+    libs = G.css_config['libs']
     layout = G.css_config['layout']
     page_root_path = G.css_config['page']
 
-    css_string = ""
+    app_css_string = ""
 
     # libs
-    for lib_path in libs_path:
-        with open(os.path.join(static_path, lib_path)) as css_file:
-            css_string += cssmin(css_file.read())
+    for lib in libs:
+        lib_path = os.path.join(static_path, lib)
+
+        with open(lib_path) as css_file:
+            file_content = css_file.read()
+            # Rewrite relative path to absolute path
+            parent_dir = dirname(dirname(lib_path))
+            absolute_path = "/static%s/" % parent_dir.split(static_path)[1]
+            file_content = file_content.replace('../', absolute_path)
+            app_css_string += cssmin(file_content)
 
     # layout
     for layout_path in layout:
         with open(os.path.join(static_path, layout_path)) as css_file:
-            css_string += cssmin(css_file.read())
+            app_css_string += cssmin(css_file.read())
 
     # page
     blueprints = app.blueprints.keys()
-
     page_css_prefix = "#%s{"
     page_css_suffix = "}"
 
@@ -127,15 +139,18 @@ def build_css(app):
                 if file.endswith('.css'):
                     action = file[:-4]
                     page_id = "page-%s-%s" % (subdir, action)
-                    with open(os.path.join(subdir_path, file)) as css_file:
-                        css_string += page_css_prefix % page_id
-                        css_string += cssmin(css_file.read())
-                        css_string += page_css_suffix
-                        css_string = lesscpy.compile(StringIO(css_string), minify=True)
+                    file_path = os.path.join(subdir_path, file)
+                    with open(file_path) as css_file:
+                        page_css_string = page_css_prefix % page_id
+                        page_css_string += css_file.read()
+                        page_css_string += page_css_suffix
+                        page_css_string = lesscpy.compile(StringIO(page_css_string), minify=True)
+                        app_css_string += page_css_string
                         # print(file)
 
+    app_css_string = app_css_string.replace('\n', '').replace('\r', '')
     with open(os.path.join(static_path, 'build/app.css'), "w") as text_file:
-        text_file.write(css_string.replace('\n', '').replace('\r', ''))
+        text_file.write(app_css_string)
     print('app.css builded.')
 
 
@@ -174,8 +189,8 @@ def app_css(template_reference):
     """Generate js script tags for Flask app."""
     css_paths = G.css_config['excluded_libs'][:]
 
-    # if False:
-    if G.debug:
+    if False:
+    # if G.debug:
         # libs + layout
         css_paths += G.css_config['libs'] + G.css_config['layout']
         # page
