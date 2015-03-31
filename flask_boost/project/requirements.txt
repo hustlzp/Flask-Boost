@@ -20,3 +20,4 @@ coverage
 pylint
 PyYAML
 jsmin
+cssmin

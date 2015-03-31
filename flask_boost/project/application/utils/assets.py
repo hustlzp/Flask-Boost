@@ -5,6 +5,7 @@ import yaml
 from flask import url_for
 from jinja2 import Markup
 from jsmin import jsmin
+from cssmin import cssmin
 
 
 class G(object):
@@ -15,19 +16,19 @@ class G(object):
 def register_assets(app):
     static_path = app.static_folder
     G.js_config = yaml.load(open(os.path.join(static_path, 'js.yml'), 'r'))
-    # G.css_config = {}
-
-    # Register jinja functions
-    app.jinja_env.globals['libs_js'] = libs_js
-    app.jinja_env.globals['page_js'] = page_js
+    G.css_config = yaml.load(open(os.path.join(static_path, 'css.yml'), 'r'))
 
 
 def build(app):
+    build_js(app)
+    build_css(app)
+
+
+def build_js(app):
     static_path = app.static_folder
-    js_config = yaml.load(open(os.path.join(static_path, 'js.yml'), 'r'))
-    libs_path = js_config['libs']
-    layout = js_config['layout']
-    page_root_path = js_config['page']
+    libs_path = G.js_config['libs']
+    layout = G.js_config['layout']
+    page_root_path = G.js_config['page']
 
     # libs.js
     libs_js_string = ""
@@ -65,6 +66,48 @@ def build(app):
 
     with open(os.path.join(static_path, 'build/page.js'), "w") as text_file:
         text_file.write(page_js_string)
+
+
+def build_css(app):
+    static_path = app.static_folder
+    libs_path = G.css_config['libs']
+    layout = G.css_config['layout']
+    page_root_path = G.css_config['page']
+
+    css_string = ""
+
+    # libs
+    for lib_path in libs_path:
+        with open(os.path.join(static_path, lib_path)) as css_file:
+            css_string += jsmin(css_file.read()).replace('\n', '').replace('\r', '')
+
+    # layout
+    for layout_path in layout:
+        with open(os.path.join(static_path, layout_path)) as css_file:
+            css_string += jsmin(css_file.read()).replace('\n', '').replace('\r', '')
+
+    # page
+    blueprints = app.blueprints.keys()
+
+    page_css_prefix = "#%s{"
+    page_css_suffix = "}"
+
+    page_root_path = os.path.join(static_path, page_root_path)
+    for subdir in _get_immediate_subdirectories(page_root_path):
+        if subdir in blueprints:
+            subdir_path = os.path.join(page_root_path, subdir)
+            for file in os.listdir(subdir_path):
+                if file.endswith('.css'):
+                    action = file[:-4]
+                    page_id = "page-%s-%s" % (subdir, action)
+                    with open(os.path.join(subdir_path, file)) as css_file:
+                        css_string += page_css_prefix % page_id
+                        css_string += cssmin(css_file.read()).replace('\n', '').replace('\r', '')
+                        css_string += page_css_suffix
+                    print(file)
+
+    with open(os.path.join(static_path, 'build/app.css'), "w") as text_file:
+        text_file.write(css_string)
 
 
 def libs_js():
