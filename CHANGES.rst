@@ -4,7 +4,7 @@ Flask Boost Changelog
 Version 0.4.0
 -------------
 
-* Use js.yml % css.yml to control assets.
+* Use js.yml & css.yml to declare assets.
 * Now can build assets via console command ``python manage.py build_assets``.
 * Fix bugs & add external paramter & better warning info for urlFor js function.
 * Upgrade permission to 0.3.0.
