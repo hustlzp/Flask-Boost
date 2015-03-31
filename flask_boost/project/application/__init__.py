@@ -93,6 +93,7 @@ def register_jinja(app):
         'static': assets.static,
         'libs_js': assets.libs_js,
         'page_js': assets.page_js,
+        'app_css': assets.app_css,
         'page_id': assets.page_id,
         'rules': rules,
         'permissions': permissions

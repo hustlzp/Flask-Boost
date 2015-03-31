@@ -20,6 +20,7 @@ def register_assets(app):
 
 
 def build(app):
+    print('Start building...')
     build_js(app)
     build_css(app)
 
@@ -37,6 +38,7 @@ def build_js(app):
             libs_js_string += jsmin(js_file.read()).replace('\n', '').replace('\r', '')
     with open(os.path.join(static_path, 'build/libs.js'), "w") as text_file:
         text_file.write(libs_js_string)
+    print('libs.js builded.')
 
     # page.js
     page_js_string = ""
@@ -62,10 +64,11 @@ def build_js(app):
                         page_js_string += page_js_prefix % page_id
                         page_js_string += jsmin(js_file.read()).replace('\n', '').replace('\r', '')
                         page_js_string += page_js_suffix
-                    print(file)
+                        # print(file)
 
     with open(os.path.join(static_path, 'build/page.js'), "w") as text_file:
         text_file.write(page_js_string)
+    print('page.js builded.')
 
 
 def build_css(app):
@@ -79,12 +82,12 @@ def build_css(app):
     # libs
     for lib_path in libs_path:
         with open(os.path.join(static_path, lib_path)) as css_file:
-            css_string += jsmin(css_file.read()).replace('\n', '').replace('\r', '')
+            css_string += cssmin(css_file.read()).replace('\n', '').replace('\r', '')
 
     # layout
     for layout_path in layout:
         with open(os.path.join(static_path, layout_path)) as css_file:
-            css_string += jsmin(css_file.read()).replace('\n', '').replace('\r', '')
+            css_string += cssmin(css_file.read()).replace('\n', '').replace('\r', '')
 
     # page
     blueprints = app.blueprints.keys()
@@ -104,10 +107,11 @@ def build_css(app):
                         css_string += page_css_prefix % page_id
                         css_string += cssmin(css_file.read()).replace('\n', '').replace('\r', '')
                         css_string += page_css_suffix
-                    print(file)
+                        # print(file)
 
     with open(os.path.join(static_path, 'build/app.css'), "w") as text_file:
         text_file.write(css_string)
+    print('app.css builded.')
 
 
 def libs_js():
@@ -140,6 +144,25 @@ def page_js(template_reference):
         return Markup(''.join([script(path) for path in script_paths]))
     else:
         return Markup(script('build/page.js'))
+
+
+def app_css(template_reference):
+    """Generate js script tags for Flask app."""
+    from flask import current_app
+
+    # if False:
+    if current_app.debug:
+        # libs + layout
+        css_paths = G.css_config['libs'] + G.css_config['layout']
+
+        # page
+        template_name = _get_template_name(template_reference)
+        page_css_path = os.path.join(G.css_config['page'],
+                                     template_name.replace('html', 'css'))
+        css_paths.append(page_css_path)
+        return Markup(''.join([link(path) for path in css_paths]))
+    else:
+        return Markup(link('build/app.css'))
 
 
 def static(filename):
