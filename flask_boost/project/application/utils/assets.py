@@ -111,15 +111,17 @@ def build_js(app):
     page_js_string = ""
 
     # layout
+    layout_js_prefix = "(function(){"
+    layout_js_suffix = "})();"
     for layout_path in layout:
         with open(os.path.join(static_path, layout_path)) as js_file:
-            page_js_string += js_file.read()
+            page_js_string += layout_js_prefix + js_file.read() + layout_js_suffix
 
+    # page
     blueprints = app.blueprints.keys()
     page_js_prefix = "if(document.documentElement.id==='%s'){(function(){"
     page_js_suffix = "})();}"
 
-    # page
     page_root_path = os.path.join(static_path, page_root_path)
     for subdir in _get_immediate_subdirectories(page_root_path):
         if subdir in blueprints:
