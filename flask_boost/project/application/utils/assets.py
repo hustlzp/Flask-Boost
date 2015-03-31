@@ -9,6 +9,7 @@ from jinja2 import Markup
 from jsmin import jsmin
 from cssmin import cssmin
 from six import StringIO
+from .helpers import mkdir_p
 
 # Config files
 JS_CONFIG = "js.yml"
