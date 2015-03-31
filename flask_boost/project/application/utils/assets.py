@@ -59,9 +59,9 @@ def build_js(app):
     libs_js_string = ""
     for lib_path in libs_path:
         with open(os.path.join(static_path, lib_path)) as js_file:
-            libs_js_string += jsmin(js_file.read()).replace('\n', '').replace('\r', '')
+            libs_js_string += jsmin(js_file.read())
     with open(os.path.join(static_path, 'build/libs.js'), "w") as text_file:
-        text_file.write(libs_js_string)
+        text_file.write(libs_js_string.replace('\n', '').replace('\r', ''))
     print('libs.js builded.')
 
     # page.js
@@ -69,11 +69,11 @@ def build_js(app):
     # layout
     for layout_path in layout:
         with open(os.path.join(static_path, layout_path)) as js_file:
-            page_js_string += jsmin(js_file.read()).replace('\n', '').replace('\r', '')
+            page_js_string += jsmin(js_file.read())
 
     blueprints = app.blueprints.keys()
 
-    page_js_prefix = "if(document.documentElement.id === '%s'){(function(){"
+    page_js_prefix = "if(document.documentElement.id==='%s'){(function(){"
     page_js_suffix = "})();}"
 
     page_root_path = os.path.join(static_path, page_root_path)
@@ -86,12 +86,12 @@ def build_js(app):
                     page_id = "page-%s-%s" % (subdir, action)
                     with open(os.path.join(subdir_path, file)) as js_file:
                         page_js_string += page_js_prefix % page_id
-                        page_js_string += jsmin(js_file.read()).replace('\n', '').replace('\r', '')
+                        page_js_string += jsmin(js_file.read())
                         page_js_string += page_js_suffix
                         # print(file)
 
     with open(os.path.join(static_path, 'build/page.js'), "w") as text_file:
-        text_file.write(page_js_string)
+        text_file.write(page_js_string.replace('\n', '').replace('\r', ''))
     print('page.js builded.')
 
 
@@ -106,12 +106,12 @@ def build_css(app):
     # libs
     for lib_path in libs_path:
         with open(os.path.join(static_path, lib_path)) as css_file:
-            css_string += cssmin(css_file.read()).replace('\n', '').replace('\r', '')
+            css_string += cssmin(css_file.read())
 
     # layout
     for layout_path in layout:
         with open(os.path.join(static_path, layout_path)) as css_file:
-            css_string += cssmin(css_file.read()).replace('\n', '').replace('\r', '')
+            css_string += cssmin(css_file.read())
 
     # page
     blueprints = app.blueprints.keys()
@@ -129,13 +129,13 @@ def build_css(app):
                     page_id = "page-%s-%s" % (subdir, action)
                     with open(os.path.join(subdir_path, file)) as css_file:
                         css_string += page_css_prefix % page_id
-                        css_string += cssmin(css_file.read()).replace('\n', '').replace('\r', '')
+                        css_string += cssmin(css_file.read())
                         css_string += page_css_suffix
                         css_string = lesscpy.compile(StringIO(css_string), minify=True)
                         # print(file)
 
     with open(os.path.join(static_path, 'build/app.css'), "w") as text_file:
-        text_file.write(css_string)
+        text_file.write(css_string.replace('\n', '').replace('\r', ''))
     print('app.css builded.')
 
 
