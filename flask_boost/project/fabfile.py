@@ -16,6 +16,7 @@ def deploy():
             with prefix('source venv/bin/activate'):
                 run('pip install -r requirements.txt')
                 run('python manage.py db upgrade')
+                run('python manage.py build_assets')
             run('supervisorctl restart #{project}')
 
 

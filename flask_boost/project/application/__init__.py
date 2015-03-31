@@ -7,7 +7,6 @@ project_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 if project_path not in sys.path:
     sys.path.insert(0, project_path)
 
-import hashlib
 import time
 from flask import Flask, request, url_for, g, render_template
 from flask_wtf.csrf import CsrfProtect
