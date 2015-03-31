@@ -18,7 +18,7 @@ def register_assets(app):
     G.js_config = yaml.load(open(os.path.join(static_path, 'js.yml'), 'r'))
     G.css_config = yaml.load(open(os.path.join(static_path, 'css.yml'), 'r'))
 
-    # Move excluded libs to G.css_config['excluded_libs']
+    # Move excluded css libs to G.css_config['excluded_libs']
     G.css_config['excluded_libs'] = []
     for index, lib_path in enumerate(G.css_config['libs']):
         if lib_path.startswith('~'):
@@ -27,6 +27,16 @@ def register_assets(app):
             G.css_config['excluded_libs'].append(lib_path)
     G.css_config['libs'] = [item for item in G.css_config['libs'] if
                             item not in G.css_config['excluded_libs']]
+
+    # Move excluded js libs to G.js_config['excluded_libs']
+    G.js_config['excluded_libs'] = []
+    for index, lib_path in enumerate(G.js_config['libs']):
+        if lib_path.startswith('~'):
+            lib_path = lib_path[1:]
+            G.js_config['libs'][index] = lib_path
+            G.js_config['excluded_libs'].append(lib_path)
+    G.js_config['libs'] = [item for item in G.js_config['libs'] if
+                           item not in G.js_config['excluded_libs']]
 
 
 def build(app):
@@ -128,13 +138,15 @@ def libs_js():
     """Generate js script tags for Flask app."""
     from flask import current_app
 
+    script_paths = G.js_config['excluded_libs'][:]
+
     # if False:
     if current_app.debug:
         # 全局js引用
-        script_paths = G.js_config['libs'][:]
-        return Markup(''.join([script(path) for path in script_paths]))
+        script_paths += G.js_config['libs']
     else:
-        return Markup(script('build/libs.js'))
+        script_paths.append('build/libs.js')
+    return Markup(''.join([script(path) for path in script_paths]))
 
 
 def page_js(template_reference):
