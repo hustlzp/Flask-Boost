@@ -10,6 +10,11 @@ from jsmin import jsmin
 from cssmin import cssmin
 from six import StringIO
 
+# Assets output paths
+HEAD_JS = "build/libs.js"
+BOTTOM_JS = "build/page.js"
+HEAD_CSS = "build/app.css"
+
 
 class G(object):
     """Global object."""
@@ -88,7 +93,7 @@ def build_js(app):
             libs_js_string += jsmin(js_file.read())
 
     libs_js_string = libs_js_string.replace('\n', '').replace('\r', '')
-    with open(os.path.join(static_path, 'build/libs.js'), "w") as text_file:
+    with open(os.path.join(static_path, HEAD_JS), "w") as text_file:
         text_file.write(libs_js_string)
     print('libs.js builded.')
 
@@ -120,7 +125,7 @@ def build_js(app):
                         # print(file)
 
     page_js_string = jsmin(page_js_string).replace('\n', '').replace('\r', '')
-    with open(os.path.join(static_path, 'build/page.js'), "w") as text_file:
+    with open(os.path.join(static_path, BOTTOM_JS), "w") as text_file:
         text_file.write(page_js_string)
     print('page.js builded.')
 
@@ -181,7 +186,7 @@ def build_css(app):
                         # print(file)
 
     app_css_string = app_css_string.replace('\n', '').replace('\r', '')
-    with open(os.path.join(static_path, 'build/app.css'), "w") as text_file:
+    with open(os.path.join(static_path, HEAD_CSS), "w") as text_file:
         text_file.write(app_css_string)
     print('app.css builded.')
 
@@ -195,7 +200,7 @@ def libs_js():
         # 全局js引用
         script_paths += G.js_config['libs']
     else:
-        script_paths.append('build/libs.js')
+        script_paths.append(HEAD_JS)
     return Markup(''.join([script(path) for path in script_paths]))
 
 
@@ -214,7 +219,7 @@ def page_js(template_reference):
         script_paths.append(page_js_path)
         return Markup(''.join([script(path) for path in script_paths]))
     else:
-        return Markup(script('build/page.js'))
+        return Markup(script(BOTTOM_JS))
 
 
 def app_css(template_reference):
@@ -231,7 +236,7 @@ def app_css(template_reference):
                                      template_name.replace('html', 'css'))
         css_paths.append(page_css_path)
     else:
-        css_paths.append('build/app.css')
+        css_paths.append(HEAD_CSS)
     return Markup(''.join([link(path) for path in css_paths]))
 
 
