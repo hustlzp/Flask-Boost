@@ -12,12 +12,14 @@ from six import StringIO
 
 
 class G(object):
+    """Global object."""
     js_config = {}
     css_config = {}
     debug = False
 
 
 def register_assets(app):
+    """Load assets config, and inject some helper funcions to jinja2 globals."""
     static_path = app.static_folder
     js_config_path = os.path.join(static_path, 'js.yml')
     css_config_path = os.path.join(static_path, 'css.yml')
@@ -63,12 +65,17 @@ def register_assets(app):
 
 
 def build(app):
+    """Build assets."""
     print('Start building...')
     build_js(app)
     build_css(app)
 
 
 def build_js(app):
+    """Build js files.
+
+    Include libs.js and page.js.
+    """
     static_path = app.static_folder
     libs_path = G.js_config['libs']
     layout = G.js_config['layout']
@@ -102,11 +109,11 @@ def build_js(app):
     for subdir in _get_immediate_subdirectories(page_root_path):
         if subdir in blueprints:
             subdir_path = os.path.join(page_root_path, subdir)
-            for file in os.listdir(subdir_path):
-                if file.endswith('.js'):
-                    action = file[:-3]
+            for _file in os.listdir(subdir_path):
+                if _file.endswith('.js'):
+                    action = _file[:-3]
                     page_id = "page-%s-%s" % (subdir, action)
-                    with open(os.path.join(subdir_path, file)) as js_file:
+                    with open(os.path.join(subdir_path, _file)) as js_file:
                         page_js_string += page_js_prefix % page_id
                         page_js_string += js_file.read()
                         page_js_string += page_js_suffix
@@ -119,6 +126,10 @@ def build_js(app):
 
 
 def build_css(app):
+    """Build css files.
+
+    Include app.css.
+    """
     from os.path import dirname
 
     static_path = app.static_folder
@@ -268,13 +279,15 @@ def link(path):
 
 
 def page_id(template_reference):
+    """Generate page with format: page-<controller>-<action>."""
     template_name = _get_template_name(template_reference)
     return "page-%s" % template_name.replace('.html', '').replace('/', '-').replace('_', '-')
 
 
-def _get_immediate_subdirectories(a_dir):
-    return [name for name in os.listdir(a_dir)
-            if os.path.isdir(os.path.join(a_dir, name))]
+def _get_immediate_subdirectories(_dir):
+    """Get immediate subdirectories of a dir."""
+    return [name for name in os.listdir(_dir)
+            if os.path.isdir(os.path.join(_dir, name))]
 
 
 def _get_template_name(template_reference):
