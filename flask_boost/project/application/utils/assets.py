@@ -37,6 +37,11 @@ def register_assets(app):
     G.js_config = yaml.load(open(js_config_path, 'r'))
     G.css_config = yaml.load(open(css_config_path, 'r'))
 
+    # Mkdir if output dir not exists
+    output_dir = os.path.dirname(os.path.join(static_path, HEAD_JS))
+    if not os.path.isdir(output_dir):
+        mkdir_p(output_dir)
+
     # Reload app when js/css config file changes.
     if app.debug:
         app.run = partial(app.run, extra_files=[js_config_path, css_config_path])
