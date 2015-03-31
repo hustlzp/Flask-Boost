@@ -3,6 +3,7 @@ import os
 import hashlib
 import yaml
 import lesscpy
+from functools import partial
 from flask import url_for
 from jinja2 import Markup
 from jsmin import jsmin
@@ -18,9 +19,16 @@ class G(object):
 
 def register_assets(app):
     static_path = app.static_folder
+    js_config_path = os.path.join(static_path, 'js.yml')
+    css_config_path = os.path.join(static_path, 'css.yml')
+
     G.debug = app.debug
-    G.js_config = yaml.load(open(os.path.join(static_path, 'js.yml'), 'r'))
-    G.css_config = yaml.load(open(os.path.join(static_path, 'css.yml'), 'r'))
+    G.js_config = yaml.load(open(js_config_path, 'r'))
+    G.css_config = yaml.load(open(css_config_path, 'r'))
+
+    # Reload app when js.yml or css.yml changes.
+    if app.debug:
+        app.run = partial(app.run, extra_files=[js_config_path, css_config_path])
 
     # Move excluded css libs to G.css_config['excluded_libs']
     G.css_config['excluded_libs'] = []
@@ -190,7 +198,7 @@ def app_css(template_reference):
     css_paths = G.css_config['excluded_libs'][:]
 
     if False:
-    # if G.debug:
+        # if G.debug:
         # libs + layout
         css_paths += G.css_config['libs'] + G.css_config['layout']
         # page
