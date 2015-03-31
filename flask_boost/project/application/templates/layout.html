@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html id="{{ page_id(self) }}">
 <head>
    <title>{% block page_title %}{% endblock %}</title>
    <meta name="renderer" content="webkit">
@@ -20,7 +20,7 @@
    {{ libs_js() }}
 </head>
 
-<body id="{{ page_id(self) }}">
+<body>
 
 {# Flash message #}
 {% with message = get_flashed_messages()[0] %}

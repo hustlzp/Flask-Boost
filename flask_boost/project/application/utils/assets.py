@@ -2,19 +2,23 @@
 import os
 import hashlib
 import yaml
+import lesscpy
 from flask import url_for
 from jinja2 import Markup
 from jsmin import jsmin
 from cssmin import cssmin
+from six import StringIO
 
 
 class G(object):
     js_config = {}
     css_config = {}
+    debug = False
 
 
 def register_assets(app):
     static_path = app.static_folder
+    G.debug = app.debug
     G.js_config = yaml.load(open(os.path.join(static_path, 'js.yml'), 'r'))
     G.css_config = yaml.load(open(os.path.join(static_path, 'css.yml'), 'r'))
 
@@ -69,7 +73,7 @@ def build_js(app):
 
     blueprints = app.blueprints.keys()
 
-    page_js_prefix = "if(document.getElementsByTagName('body')[0].id === '%s'){(function(){"
+    page_js_prefix = "if(document.documentElement.id === '%s'){(function(){"
     page_js_suffix = "})();}"
 
     page_root_path = os.path.join(static_path, page_root_path)
@@ -127,6 +131,7 @@ def build_css(app):
                         css_string += page_css_prefix % page_id
                         css_string += cssmin(css_file.read()).replace('\n', '').replace('\r', '')
                         css_string += page_css_suffix
+                        css_string = lesscpy.compile(StringIO(css_string), minify=True)
                         # print(file)
 
     with open(os.path.join(static_path, 'build/app.css'), "w") as text_file:
@@ -136,12 +141,10 @@ def build_css(app):
 
 def libs_js():
     """Generate js script tags for Flask app."""
-    from flask import current_app
-
     script_paths = G.js_config['excluded_libs'][:]
 
     # if False:
-    if current_app.debug:
+    if G.debug:
         # 全局js引用
         script_paths += G.js_config['libs']
     else:
@@ -151,10 +154,9 @@ def libs_js():
 
 def page_js(template_reference):
     """Generate js script tags for Flask app."""
-    from flask import current_app
 
     # if False:
-    if current_app.debug:
+    if G.debug:
         # layout
         script_paths = G.js_config['layout'][:]
 
@@ -170,12 +172,10 @@ def page_js(template_reference):
 
 def app_css(template_reference):
     """Generate js script tags for Flask app."""
-    from flask import current_app
-
     css_paths = G.css_config['excluded_libs'][:]
 
     # if False:
-    if current_app.debug:
+    if G.debug:
         # libs + layout
         css_paths += G.css_config['libs'] + G.css_config['layout']
         # page

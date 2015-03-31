@@ -21,3 +21,4 @@ pylint
 PyYAML
 jsmin
 cssmin
+lesscpy
