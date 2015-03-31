@@ -18,6 +18,16 @@ def register_assets(app):
     G.js_config = yaml.load(open(os.path.join(static_path, 'js.yml'), 'r'))
     G.css_config = yaml.load(open(os.path.join(static_path, 'css.yml'), 'r'))
 
+    # Move excluded libs to G.css_config['excluded_libs']
+    G.css_config['excluded_libs'] = []
+    for index, lib_path in enumerate(G.css_config['libs']):
+        if lib_path.startswith('~'):
+            lib_path = lib_path[1:]
+            G.css_config['libs'][index] = lib_path
+            G.css_config['excluded_libs'].append(lib_path)
+    G.css_config['libs'] = [item for item in G.css_config['libs'] if
+                            item not in G.css_config['excluded_libs']]
+
 
 def build(app):
     print('Start building...')
@@ -121,7 +131,7 @@ def libs_js():
     # if False:
     if current_app.debug:
         # 全局js引用
-        script_paths = G.js_config['libs']
+        script_paths = G.js_config['libs'][:]
         return Markup(''.join([script(path) for path in script_paths]))
     else:
         return Markup(script('build/libs.js'))
@@ -134,7 +144,7 @@ def page_js(template_reference):
     # if False:
     if current_app.debug:
         # layout
-        script_paths = G.js_config['layout']
+        script_paths = G.js_config['layout'][:]
 
         # page
         template_name = _get_template_name(template_reference)
@@ -150,19 +160,20 @@ def app_css(template_reference):
     """Generate js script tags for Flask app."""
     from flask import current_app
 
+    css_paths = G.css_config['excluded_libs'][:]
+
     # if False:
     if current_app.debug:
         # libs + layout
-        css_paths = G.css_config['libs'] + G.css_config['layout']
-
+        css_paths += G.css_config['libs'] + G.css_config['layout']
         # page
         template_name = _get_template_name(template_reference)
         page_css_path = os.path.join(G.css_config['page'],
                                      template_name.replace('html', 'css'))
         css_paths.append(page_css_path)
-        return Markup(''.join([link(path) for path in css_paths]))
     else:
-        return Markup(link('build/app.css'))
+        css_paths.append('build/app.css')
+    return Markup(''.join([link(path) for path in css_paths]))
 
 
 def static(filename):
