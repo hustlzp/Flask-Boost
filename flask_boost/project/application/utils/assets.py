@@ -10,7 +10,11 @@ from jsmin import jsmin
 from cssmin import cssmin
 from six import StringIO
 
-# Assets output paths
+# Config files
+JS_CONFIG = "js.yml"
+CSS_CONFIG = "css.yml"
+
+# Output files
 HEAD_JS = "build/libs.js"
 BOTTOM_JS = "build/page.js"
 HEAD_CSS = "build/app.css"
@@ -26,14 +30,14 @@ class G(object):
 def register_assets(app):
     """Load assets config, and inject some helper funcions to jinja2 globals."""
     static_path = app.static_folder
-    js_config_path = os.path.join(static_path, 'js.yml')
-    css_config_path = os.path.join(static_path, 'css.yml')
+    js_config_path = os.path.join(static_path, JS_CONFIG)
+    css_config_path = os.path.join(static_path, CSS_CONFIG)
 
     G.debug = app.debug
     G.js_config = yaml.load(open(js_config_path, 'r'))
     G.css_config = yaml.load(open(css_config_path, 'r'))
 
-    # Reload app when js.yml or css.yml changes.
+    # Reload app when js/css config file changes.
     if app.debug:
         app.run = partial(app.run, extra_files=[js_config_path, css_config_path])
 
