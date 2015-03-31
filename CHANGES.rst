@@ -1,6 +1,23 @@
 Flask Boost Changelog
 =====================
 
+Version 0.4.0
+-------------
+
+* Use js.yml % css.yml to control assets.
+* Now can build assets via console command ``python manage.py build_assets``.
+* Fix bugs & add external paramter & better warning info for urlFor js function.
+* Upgrade permission to 0.3.0.
+* Upgrade bootstrap to 3.3.4.
+* Rm url_prefix when register blueprints.
+* Add viewport meta tag to head.
+* Add absolute_url_for helper, and inject as jinja2 global.
+* Add mkdir_p to helpers.
+* Refactor utils.uploadsets.
+* Track avatars default image.
+* Update color vars in ``utils.less``.
+
+
 Version 0.3.4
 -------------
 
