@@ -15,9 +15,11 @@ class G(object):
 def register_assets(app):
     static_path = app.static_folder
     G.js_config = yaml.load(open(os.path.join(static_path, 'js.yml'), 'r'))
-    G.css_config = {}
+    # G.css_config = {}
+
     # Register jinja functions
     app.jinja_env.globals['libs_js'] = libs_js
+    app.jinja_env.globals['page_js'] = page_js
 
 
 def build(app):
@@ -48,7 +50,7 @@ def build(app):
     page_js_suffix = "})();}"
 
     page_root_path = os.path.join(static_path, page_root_path)
-    for subdir in get_immediate_subdirectories(page_root_path):
+    for subdir in _get_immediate_subdirectories(page_root_path):
         if subdir in blueprints:
             subdir_path = os.path.join(page_root_path, subdir)
             for file in os.listdir(subdir_path):
@@ -66,16 +68,35 @@ def build(app):
 
 
 def libs_js():
+    """Generate js script tags for Flask app."""
     from flask import current_app
 
-    """Generate js script tags for Flask app."""
     # if False:
     if current_app.debug:
         # 全局js引用
-        scripts = [script(path) for path in G.js_config['libs']]
-        return Markup(''.join(scripts))
+        script_paths = G.js_config['libs']
+        return Markup(''.join([script(path) for path in script_paths]))
     else:
         return Markup(script('build/libs.js'))
+
+
+def page_js(template_reference):
+    """Generate js script tags for Flask app."""
+    from flask import current_app
+
+    # if False:
+    if current_app.debug:
+        # layout
+        script_paths = G.js_config['layout']
+
+        # page
+        template_name = _get_template_name(template_reference)
+        page_js_path = os.path.join(G.js_config['page'],
+                                    template_name.replace('html', 'js'))
+        script_paths.append(page_js_path)
+        return Markup(''.join([script(path) for path in script_paths]))
+    else:
+        return Markup(script('build/page.js'))
 
 
 def static(filename):
@@ -84,6 +105,9 @@ def static(filename):
     Hash asset content as query string, and cache it.
     """
     from flask import current_app
+
+    if not hasattr(current_app, '_static_hash'):
+        current_app._static_hash = {}
 
     url = url_for('static', filename=filename)
 
@@ -105,9 +129,32 @@ def static(filename):
 
 def script(path):
     """Generate script tag."""
-    return "<script type='text/javascript' src='%s'></script>" % static(path)
+    script_path = static(path)
+    if script_path:
+        return Markup("<script type='text/javascript' src='%s'></script>" % script_path)
+    else:
+        return Markup("<!-- 404: %s -->" % path)
 
 
-def get_immediate_subdirectories(a_dir):
+def link(path):
+    """Generate link tag."""
+    link_path = static(path)
+    if link_path:
+        return Markup("<link rel='stylesheet' href='%s'>" % link_path)
+    else:
+        return Markup("<!-- 404: %s -->" % path)
+
+
+def page_id(template_reference):
+    template_name = _get_template_name(template_reference)
+    return "page-%s" % template_name.replace('.html', '').replace('/', '-').replace('_', '-')
+
+
+def _get_immediate_subdirectories(a_dir):
     return [name for name in os.listdir(a_dir)
             if os.path.isdir(os.path.join(a_dir, name))]
+
+
+def _get_template_name(template_reference):
+    """Get current template name."""
+    return template_reference._TemplateReference__context.name

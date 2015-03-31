@@ -67,8 +67,7 @@ def create_app():
 
 def register_jinja(app):
     """Register jinja filters, vars, functions."""
-    from jinja2 import Markup
-    from .utils import filters, permissions, helpers
+    from .utils import filters, permissions, helpers, assets
 
     app.jinja_env.filters.update({
         'timesince': filters.timesince
@@ -82,61 +81,6 @@ def register_jinja(app):
         combined_args['page'] = page
         return url_for(request.endpoint, **combined_args)
 
-    if not hasattr(app, '_static_hash'):
-        app._static_hash = {}
-
-    def static(filename):
-        """Generate static resource url.
-
-        Hash asset content as query string, and cache it.
-        """
-        url = url_for('static', filename=filename)
-
-        if filename in app._static_hash:
-            return app._static_hash[filename]
-
-        path = os.path.join(app.static_folder, filename)
-        if not os.path.exists(path):
-            return None
-
-        with open(path, 'r') as f:
-            content = f.read()
-            hash = hashlib.md5(content).hexdigest()
-
-        url = '%s?v=%s' % (url, hash[:10])
-        app._static_hash[filename] = url
-        return url
-
-    def script(path):
-        """Generate script tag."""
-        script_path = static(path)
-        if script_path:
-            return Markup("<script type='text/javascript' src='%s'></script>" % script_path)
-        else:
-            return Markup("<!-- 404: %s -->" % path)
-
-    def link(path):
-        """Generate link tag."""
-        link_path = static(path)
-        if link_path:
-            return Markup("<link rel='stylesheet' href='%s'>" % link_path)
-        else:
-            return Markup("<!-- 404: %s -->" % path)
-
-    def page_script(template_reference):
-        """Generate script tag for current page."""
-        template_name = _get_template_name(template_reference)
-        return script('js/%s' % template_name.replace('html', 'js'))
-
-    def page_link(template_reference):
-        """Generate link tag for current page."""
-        template_name = _get_template_name(template_reference)
-        return link('css/%s' % template_name.replace('html', 'css'))
-
-    def page_name(template_reference):
-        template_name = _get_template_name(template_reference)
-        return "page-%s" % template_name.replace('.html', '').replace('/', '-').replace('_', '-')
-
     rules = {}
     for endpoint, _rules in app.url_map._rules_by_endpoint.iteritems():
         if any(item in endpoint for item in ['_debug_toolbar', 'debugtoolbar', 'static']):
@@ -146,12 +90,10 @@ def register_jinja(app):
     app.jinja_env.globals.update({
         'absolute_url_for': helpers.absolute_url_for,
         'url_for_other_page': url_for_other_page,
-        'static': static,
-        'script': script,
-        'page_script': page_script,
-        'link': link,
-        'page_link': page_link,
-        'page_name': page_name,
+        'static': assets.static,
+        'libs_js': assets.libs_js,
+        'page_js': assets.page_js,
+        'page_id': assets.page_id,
         'rules': rules,
         'permissions': permissions
     })
