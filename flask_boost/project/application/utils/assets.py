@@ -50,6 +50,17 @@ def register_assets(app):
     G.js_config['libs'] = [item for item in G.js_config['libs'] if
                            item not in G.js_config['excluded_libs']]
 
+    if not hasattr(app, '_static_hash'):
+        app._static_hash = {}
+
+    app.jinja_env.globals.update({
+        'static': static,
+        'libs_js': libs_js,
+        'page_js': page_js,
+        'app_css': app_css,
+        'page_id': page_id
+    })
+
 
 def build(app):
     print('Start building...')
@@ -63,7 +74,7 @@ def build_js(app):
     layout = G.js_config['layout']
     page_root_path = G.js_config['page']
 
-    # libs.js
+    # Build libs.js
     libs_js_string = ""
     for lib_path in libs_path:
         with open(os.path.join(static_path, lib_path)) as js_file:
@@ -74,7 +85,7 @@ def build_js(app):
         text_file.write(libs_js_string)
     print('libs.js builded.')
 
-    # page.js
+    # Build page.js
     page_js_string = ""
 
     # layout
@@ -116,6 +127,8 @@ def build_css(app):
     page_root_path = G.css_config['page']
 
     app_css_string = ""
+
+    # Build app.css
 
     # libs
     for lib in libs:
@@ -197,8 +210,8 @@ def app_css(template_reference):
     """Generate js script tags for Flask app."""
     css_paths = G.css_config['excluded_libs'][:]
 
-    if False:
-        # if G.debug:
+    # if False:
+    if G.debug:
         # libs + layout
         css_paths += G.css_config['libs'] + G.css_config['layout']
         # page
@@ -217,9 +230,6 @@ def static(filename):
     Hash asset content as query string, and cache it.
     """
     from flask import current_app
-
-    if not hasattr(current_app, '_static_hash'):
-        current_app._static_hash = {}
 
     url = url_for('static', filename=filename)
 

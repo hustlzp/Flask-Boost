@@ -56,10 +56,10 @@ def create_app():
     register_db(app)
     register_routes(app)
     register_jinja(app)
+    register_assets(app)
     register_error_handle(app)
     register_uploadsets(app)
     register_hooks(app)
-    register_assets(app)
 
     return app
 
@@ -89,11 +89,6 @@ def register_jinja(app):
     app.jinja_env.globals.update({
         'absolute_url_for': helpers.absolute_url_for,
         'url_for_other_page': url_for_other_page,
-        'static': assets.static,
-        'libs_js': assets.libs_js,
-        'page_js': assets.page_js,
-        'app_css': assets.app_css,
-        'page_id': assets.page_id,
         'rules': rules,
         'permissions': permissions
     })
