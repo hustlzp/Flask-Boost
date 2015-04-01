@@ -29,7 +29,7 @@
      * @param external
      * @returns url for the endpoint.
      */
-    window.urlFor = function (endpoint, parameters, external) {
+    function urlFor(endpoint, parameters, external) {
         var url = null,
             params = [],
             maxMatchDegree = 0.0,
@@ -99,7 +99,7 @@
         }
 
         return url;
-    };
+    }
 
     /**
      * Check whether str ends with suffix.
@@ -110,4 +110,24 @@
     function endsWith(str, suffix) {
         return str.indexOf(suffix, str.length - suffix.length) !== -1;
     }
+
+    /**
+     * Register context into global variable g.
+     * @param context
+     */
+    function registerContext(context) {
+        if (typeof g === 'undefined') {
+            throw new Error("Global variable g is not defined");
+        }
+
+        $.each(context, function (key, value) {
+            if (g.hasOwnProperty(key)) {
+                throw new Error("The key '" + key + "' already exists in the global variable g.");
+            }
+            g[key] = value;
+        });
+    }
+
+    window.urlFor = urlFor;
+    window.registerContext = registerContext;
 })();
