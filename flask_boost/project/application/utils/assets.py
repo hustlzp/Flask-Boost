@@ -92,14 +92,15 @@ def build_js(app):
     Include libs.js and page.js.
     """
     static_path = app.static_folder
-    libs_path = G.js_config['libs']
+    libs = G.js_config['libs']
     layout = G.js_config['layout']
     page_root_path = G.js_config['page']
 
     # Build libs.js
     libs_js_string = ""
-    for lib_path in libs_path:
-        with open(os.path.join(static_path, lib_path)) as js_file:
+    for lib in libs:
+        lib_path = os.path.join(static_path, lib)
+        with open(lib_path) as js_file:
             file_content = js_file.read()
             # Rewrite relative path to absolute path
             file_content = _rewrite_relative_url(file_content, lib_path, static_path)
