@@ -100,7 +100,10 @@ def build_js(app):
     libs_js_string = ""
     for lib_path in libs_path:
         with open(os.path.join(static_path, lib_path)) as js_file:
-            libs_js_string += jsmin(js_file.read())
+            file_content = js_file.read()
+            # Rewrite relative path to absolute path
+            file_content = _rewrite_relative_url(file_content, lib_path, static_path)
+            libs_js_string += jsmin(file_content)
 
     libs_js_string = libs_js_string.replace('\n', '').replace('\r', '')
     with open(os.path.join(static_path, HEAD_JS), "w") as text_file:
@@ -165,9 +168,7 @@ def build_css(app):
         with open(lib_path) as css_file:
             file_content = css_file.read()
             # Rewrite relative path to absolute path
-            parent_dir = dirname(dirname(lib_path))
-            absolute_path = "/static%s/" % parent_dir.split(static_path)[1]
-            file_content = file_content.replace('../', absolute_path)
+            file_content = _rewrite_relative_url(file_content, lib_path, static_path)
             app_css_string += cssmin(file_content)
 
     # layout
@@ -310,3 +311,11 @@ def _get_immediate_subdirectories(_dir):
 def _get_template_name(template_reference):
     """Get current template name."""
     return template_reference._TemplateReference__context.name
+
+
+def _rewrite_relative_url(content, asset_path, static_path):
+    from os.path import dirname
+    # Rewrite relative path to absolute path
+    parent_dir = dirname(dirname(asset_path))
+    absolute_path = "/static%s/" % parent_dir.split(static_path)[1]
+    return content.replace('../', absolute_path)
