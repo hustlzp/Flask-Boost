@@ -117,7 +117,7 @@
      */
     function registerContext(context) {
         if (typeof g === 'undefined') {
-            throw new Error("Global variable g is not defined");
+            throw new Error("Global variable g is not defined.");
         }
 
         $.each(context, function (key, value) {
