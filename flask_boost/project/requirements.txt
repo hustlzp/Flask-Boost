@@ -19,6 +19,7 @@ nose
 coverage
 pylint
 PyYAML
-jsmin
 cssmin
 lesscpy
+PyExecJS
+uglipyjs

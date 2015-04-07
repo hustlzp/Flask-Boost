@@ -3,10 +3,10 @@ import os
 import hashlib
 import yaml
 import lesscpy
+import uglipyjs
 from functools import partial
 from flask import url_for
 from jinja2 import Markup
-from jsmin import jsmin
 from cssmin import cssmin
 from six import StringIO
 from .helpers import mkdir_p
@@ -104,7 +104,7 @@ def build_js(app):
             file_content = js_file.read()
             # Rewrite relative path to absolute path
             file_content = _rewrite_relative_url(file_content, lib_path, static_path)
-            libs_js_string += jsmin(file_content)
+            libs_js_string += uglipyjs.compile(file_content)
 
     libs_js_string = libs_js_string.replace('\n', '').replace('\r', '')
     with open(os.path.join(static_path, LIBS_JS), "w") as text_file:
@@ -140,7 +140,7 @@ def build_js(app):
                         page_js_string += page_js_suffix
                         # print(file)
 
-    page_js_string = jsmin(page_js_string).replace('\n', '').replace('\r', '')
+    page_js_string = uglipyjs.compile(page_js_string).replace('\n', '').replace('\r', '')
     with open(os.path.join(static_path, PAGE_JS), "w") as text_file:
         text_file.write(page_js_string)
     print('page.js builded.')
