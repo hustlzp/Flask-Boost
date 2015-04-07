@@ -9,6 +9,8 @@ MySQL-python
 itsdangerous
 permission
 Pillow
+
+# dev
 livereload
 formic==0.9beta8
 gunicorn
