@@ -1,6 +1,11 @@
 Flask Boost Changelog
 =====================
 
+Version 0.4.2
+-------------
+
+* Use jsmin instead of uglipyjs to compile js codes because of bugs from latter.
+
 Version 0.4.1
 -------------
 
