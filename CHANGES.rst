@@ -1,6 +1,15 @@
 Flask Boost Changelog
 =====================
 
+Version 0.4.1
+-------------
+
+* Exclude libs with full url.
+* Add global js function ``registerContext`` to register context into global variable g.
+* Extract _rewrite_relative_url function
+* Rewrite relative path in js lib files.
+* Use uglipyjs instead of jsmin to compile js codes.
+
 Version 0.4.0
 -------------
 
