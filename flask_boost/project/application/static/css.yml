@@ -5,7 +5,7 @@ libs:
 layout:
   - css/bootstrap.theme.css
   - css/common.css
-  - css/component.css
+  - css/macros/*.css
   - css/layout.css
 
 page: css/

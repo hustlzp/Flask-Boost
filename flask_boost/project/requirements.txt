@@ -25,3 +25,4 @@ cssmin
 lesscpy
 PyExecJS
 uglipyjs
+glob2

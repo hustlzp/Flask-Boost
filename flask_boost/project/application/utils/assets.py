@@ -1,5 +1,6 @@
 # coding: utf-8
 import os
+import glob2
 import hashlib
 import yaml
 import lesscpy
@@ -26,11 +27,12 @@ class G(object):
     js_config = {}
     css_config = {}
     debug = False
+    static_path = ""
 
 
 def register_assets(app):
     """Load assets config, and inject some helper funcions to jinja2 globals."""
-    static_path = app.static_folder
+    G.static_path = static_path = app.static_folder
     js_config_path = os.path.join(static_path, JS_CONFIG)
     css_config_path = os.path.join(static_path, CSS_CONFIG)
 
@@ -173,9 +175,17 @@ def build_css(app):
             app_css_string += cssmin(file_content)
 
     # layout
-    for layout_path in layout:
-        with open(os.path.join(static_path, layout_path)) as css_file:
-            app_css_string += cssmin(css_file.read())
+    for relative_layout_path in layout:
+        absolute_layout_path = os.path.join(static_path, relative_layout_path)
+        # 支持通配符
+        if '*' in absolute_layout_path:
+            for path in glob2.iglob(absolute_layout_path):
+                with open(path) as css_file:
+                    print(path)
+                    app_css_string += cssmin(css_file.read())
+        else:
+            with open(absolute_layout_path) as css_file:
+                app_css_string += cssmin(css_file.read())
 
     # page
     blueprints = app.blueprints.keys()
@@ -242,8 +252,18 @@ def app_css(template_reference):
 
     # if False:
     if G.debug:
-        # libs + layout
+        # libs
         css_paths += G.css_config['libs'] + G.css_config['layout']
+
+        # layout
+        for layout in G.css_config['layout']:
+            # 支持通配符
+            if '*' in layout:
+                for path in glob2.iglob(os.path.join(G.static_path, layout)):
+                    css_paths.append(path.split(G.static_path)[1][1:])
+            else:
+                css_paths.append(layout)
+
         # page
         template_name = _get_template_name(template_reference)
         page_css_path = os.path.join(G.css_config['page'],
