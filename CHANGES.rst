@@ -1,6 +1,12 @@
 Flask Boost Changelog
 =====================
 
+Version 0.4.3
+-------------
+
+* Refactor macro's structure.
+* Split component.less into macros/*.less.
+
 Version 0.4.2
 -------------
 
