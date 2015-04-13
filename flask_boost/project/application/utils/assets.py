@@ -155,8 +155,6 @@ def build_css(app):
 
     Include app.css.
     """
-    from os.path import dirname
-
     static_path = app.static_folder
     libs = G.css_config['libs']
     layout = G.css_config['layout']
