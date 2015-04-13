@@ -183,7 +183,6 @@ def build_css(app):
         if '*' in absolute_layout_path:
             for path in glob2.iglob(absolute_layout_path):
                 with open(path) as css_file:
-                    print(path)
                     app_css_string += cssmin(css_file.read())
         else:
             with open(absolute_layout_path) as css_file:
