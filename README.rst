@@ -2,13 +2,13 @@ Flask-Boost
 ===========
 
 .. image:: http://img.shields.io/pypi/v/flask-boost.svg
-:target: https://pypi.python.org/pypi/flask-boost
+   :target: https://pypi.python.org/pypi/flask-boost
    :alt: Latest Version
 .. image:: http://img.shields.io/badge/license-MIT-blue.svg
-:target: https://github.com/hustlzp/Flask-Boost/blob/master/LICENSE
+   :target: https://github.com/hustlzp/Flask-Boost/blob/master/LICENSE
    :alt: The MIT License
 
-    Flask application generator for boosting your development.
+Flask application generator for boosting your development.
 
 Installation
 ------------
