@@ -53,7 +53,7 @@ def register_assets(app):
     # Move excluded css libs to G.css_config['excluded_libs']
     G.css_config['excluded_libs'] = []
     for index, lib_path in enumerate(G.css_config['libs']):
-        if lib_path.startswith(('~', 'http://', 'https://')):
+        if lib_path.startswith(('~', 'http')):
             if lib_path.startswith('~'):
                 lib_path = lib_path[1:]
             G.css_config['libs'][index] = lib_path
@@ -64,7 +64,7 @@ def register_assets(app):
     # Move excluded js libs to G.js_config['excluded_libs']
     G.js_config['excluded_libs'] = []
     for index, lib_path in enumerate(G.js_config['libs']):
-        if lib_path.startswith(('~', 'http://', 'https://')):
+        if lib_path.startswith(('~', 'http')):
             if lib_path.startswith('~'):
                 lib_path = lib_path[1:]
             G.js_config['libs'][index] = lib_path
@@ -365,12 +365,11 @@ def _rewrite_relative_url(content, asset_path, static_path):
         if inner_url.startswith("../"):
             dir_path = dirname(dirname(asset_path))
             absolute_path = "%s/%s" % (dir_path, inner_url[3:])
-            absolute_path = "/static%s" % absolute_path.split(static_path)[1]
         else:
             dir_path = dirname(asset_path)
             absolute_path = "%s/%s" % (dir_path, inner_url)
-            absolute_path = "/static%s" % absolute_path.split(static_path)[1]
 
-        result = "url('%s')" % absolute_path
+        absolute_url = "/static%s" % absolute_path.split(static_path)[1]
+        result = "url('%s')" % absolute_url
         content = content.replace(full, result)
     return content
