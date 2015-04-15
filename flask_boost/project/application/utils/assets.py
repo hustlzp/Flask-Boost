@@ -1,5 +1,6 @@
 # coding: utf-8
 import os
+import re
 import glob2
 import hashlib
 import yaml
@@ -106,8 +107,6 @@ def build_js(app):
         lib_path = os.path.join(static_path, lib)
         with open(lib_path) as js_file:
             file_content = js_file.read()
-            # Rewrite relative path to absolute path
-            file_content = _rewrite_relative_url(file_content, lib_path, static_path)
             libs_js_string += jsmin(file_content)
 
     libs_js_string = libs_js_string.replace('\n', '').replace('\r', '')
@@ -172,7 +171,7 @@ def build_css(app):
             file_content = css_file.read()
             # Rewrite relative path to absolute path
             file_content = _rewrite_relative_url(file_content, lib_path, static_path)
-            app_css_string += cssmin(file_content)
+            app_css_string += file_content
 
     # layout
     for relative_layout_path in layout:
@@ -355,7 +354,23 @@ def _get_template_name(template_reference):
 
 def _rewrite_relative_url(content, asset_path, static_path):
     from os.path import dirname
-    # Rewrite relative path to absolute path
-    parent_dir = dirname(dirname(asset_path))
-    absolute_path = "/static%s/" % parent_dir.split(static_path)[1]
-    return content.replace('../', absolute_path)
+
+    content = cssmin(content)
+    pattern = re.compile(r"url\([\'\"]?([^\'\"/][^\'\"\)]+)[\'\"]?\)")
+
+    for match in pattern.finditer(content):
+        full = match.group(0)
+        inner_url = match.group(1)
+
+        if inner_url.startswith("../"):
+            dir_path = dirname(dirname(asset_path))
+            absolute_path = "%s/%s" % (dir_path, inner_url[3:])
+            absolute_path = "/static%s" % absolute_path.split(static_path)[1]
+        else:
+            dir_path = dirname(asset_path)
+            absolute_path = "%s/%s" % (dir_path, inner_url)
+            absolute_path = "/static%s" % absolute_path.split(static_path)[1]
+
+        result = "url('%s')" % absolute_path
+        content = content.replace(full, result)
+    return content
