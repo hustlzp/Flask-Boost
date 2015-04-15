@@ -102,6 +102,7 @@ Create database with the name {your_project_name}.
 And run:
 
 ::
+
     export MODE=PRODUCTION
     python manage.py db upgrade
 
