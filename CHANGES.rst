@@ -1,6 +1,17 @@
 Flask Boost Changelog
 =====================
 
+Version 0.4.4
+-------------
+
+* Update url rewrite logic when build assets.
+* Do not rewrite url in js codes.
+* Fix a bug when process absolute path in YAML file.
+* Add ``g.method`` js variable.
+* Fix a bug in ``timesince``.
+* Add form helper ``check_url``.
+* Remove useless codes and files.
+
 Version 0.4.3
 -------------
 
