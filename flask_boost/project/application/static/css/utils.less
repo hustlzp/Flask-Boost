@@ -3,6 +3,14 @@
 @dark-main: darken(@main-color, 10%);
 @light-main: lighten(@main-color, 10%);
 
+// Sizes
+@screen-sm-min: 768px;
+@screen-md-min: 992px;
+@screen-lg-min: 1200px;
+@screen-xs-max: (@screen-sm-min - 1);
+@screen-sm-max: (@screen-md-min - 1);
+@screen-md-max: (@screen-lg-min - 1);
+
 .border-radius( @radius:5px ) {
   -webkit-border-radius: @radius;
   -moz-border-radius: @radius;
