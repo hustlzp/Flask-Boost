@@ -8,7 +8,7 @@ Flask-Boost
    :target: https://github.com/hustlzp/Flask-Boost/blob/master/LICENSE
    :alt: The MIT License
 
-    Flask application generator for boosting your development.
+Flask application generator for boosting your development.
 
 Installation
 ------------
