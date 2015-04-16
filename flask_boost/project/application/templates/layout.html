@@ -15,7 +15,8 @@
          domain: "{{ config.SITE_DOMAIN }}",
          csrfToken: "{{ csrf_token() }}",
          rules: {{ rules|safe }},
-         method: "{{ request.method }}"
+         method: "{{ request.method }}",
+         signedIn: {% if g.user %}true{% else %}false{% endif %}
       };
    </script>
    {{ libs_js() }}
