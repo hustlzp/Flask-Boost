@@ -1,6 +1,14 @@
 Flask Boost Changelog
 =====================
 
+Version 0.4.5
+-------------
+
+* Translate Chinese to English.
+* Add ``g.signin`` js variable.
+* Add screen sizes from Bootstrap.
+* Update doc.
+
 Version 0.4.4
 -------------
 
