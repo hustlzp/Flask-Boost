@@ -73,7 +73,7 @@ First Production Deploy
 Config server
 ~~~~~~~~~~~~~
 
-Install ``Virtualenv``, ``Git``, ``Supervisor`` and ``G++`` on your server.
+Install ``virtualenv``, ``git``, ``supervisor`` and ``g++`` on your server.
 
 
 Install requirements
@@ -97,9 +97,7 @@ Init database
 
 Create database with name ``your_project_name``.
 
-And run:
-
-::
+And run::
 
     export MODE=PRODUCTION
     python manage.py db upgrade
@@ -141,7 +139,9 @@ Daily Production Deploy
 
 Update ``HOST_STRING`` in config with the format ``user@ip``.
 
-Commit your codes and run ``git push && fab deploy``.
+Commit your codes and run::
+
+    git push && fab deploy
 
 License
 -------
