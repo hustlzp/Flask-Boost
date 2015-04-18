@@ -2,13 +2,13 @@ Flask-Boost
 ===========
 
 .. image:: http://img.shields.io/pypi/v/flask-boost.svg
-:target: https://pypi.python.org/pypi/flask-boost
+   :target: https://pypi.python.org/pypi/flask-boost
    :alt: Latest Version
 .. image:: http://img.shields.io/badge/license-MIT-blue.svg
-:target: https://github.com/hustlzp/Flask-Boost/blob/master/LICENSE
+   :target: https://github.com/hustlzp/Flask-Boost/blob/master/LICENSE
    :alt: The MIT License
 
-    Flask application generator for boosting your development.
+Flask application generator for boosting your development.
 
 Installation
 ------------
@@ -73,7 +73,7 @@ First Production Deploy
 Config server
 ~~~~~~~~~~~~~
 
-Install `Virtualenv`, `Git`, `Supervisor`, `G++` on your server.
+Install ``Virtualenv``, ``Git``, ``Supervisor``, ``G++`` on your server.
 
 
 Install requirements
@@ -139,9 +139,9 @@ for CentOS 7:
 Daily Production Deploy
 -----------------------
 
-Update `HOST_STRING` in config with the format `user@ip`.
+Update ``HOST_STRING`` in config with the format ``user@ip``.
 
-Commit your codes and run `git push && fab deploy`.
+Commit your codes and run ``git push && fab deploy``.
 
 License
 -------
