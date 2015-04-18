@@ -73,7 +73,7 @@ First Production Deploy
 Config server
 ~~~~~~~~~~~~~
 
-Install ``Virtualenv``, ``Git``, ``Supervisor``, ``G++`` on your server.
+Install ``Virtualenv``, ``Git``, ``Supervisor`` and ``G++`` on your server.
 
 
 Install requirements
