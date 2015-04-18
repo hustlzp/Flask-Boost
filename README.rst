@@ -67,8 +67,8 @@ Run livereload server in another console::
 
 .. _here: http://feedback.livereload.com/knowledgebase/articles/86242-how-do-i-install-and-use-the-browser-extensions-
 
-Production Deploy
------------------
+First Production Deploy
+-----------------------
 
 Config server
 ~~~~~~~~~~~~~
@@ -129,10 +129,19 @@ Start app
     service supervisord restart
 
 for CentOS 7:
+
 ::
 
     systemctl start nginx.service
     systemctl start supervisord.service
+
+
+Daily Production Deploy
+-----------------------
+
+Update `HOST_STRING` in config with the format `user@ip`.
+
+Commit your codes and run `git push && fab deploy`.
 
 License
 -------
