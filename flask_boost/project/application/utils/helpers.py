@@ -5,7 +5,7 @@ from flask import current_app, url_for
 
 
 def absolute_url_for(endpoint, **values):
-    """返回endpoint的绝对URL"""
+    """Absolute url for endpoint."""
     config = current_app.config
     site_domain = config.get('SITE_DOMAIN')
     relative_url = url_for(endpoint, **values)

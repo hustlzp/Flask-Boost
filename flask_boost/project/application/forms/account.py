@@ -8,61 +8,55 @@ from ..models import User
 
 class SigninForm(Form):
     """Form for signin"""
-    email = StringField('邮箱',
+    email = StringField('Email',
                         validators=[
-                            DataRequired('邮箱不能为空'),
-                            Email('邮箱格式错误')
-                        ],
-                        description='Email')
+                            DataRequired("Email shouldn't be empty."),
+                            Email('Email format is not correct.')
+                        ])
 
-    password = PasswordField('密码',
-                             validators=[DataRequired('密码不能为空')],
-                             description='Password')
+    password = PasswordField('Password',
+                             validators=[DataRequired("Password shouldn't be empty.")])
 
     def validate_email(self, field):
         user = User.query.filter(User.email == self.email.data).first()
         if not user:
-            raise ValueError("账户不存在")
+            raise ValueError("Account doesn't exist.")
 
     def validate_password(self, field):
         if self.email.data:
             user = User.query.filter(User.email == self.email.data).first()
             if not user or not user.check_password(self.password.data):
-                raise ValueError('密码错误')
+                raise ValueError('Password is not correct.')
             else:
                 self.user = user
 
 
 class SignupForm(Form):
     """Form for signin"""
-    name = StringField('用户名',
-                       validators=[DataRequired('用户名不能为空')],
-                       description='用户名')
+    name = StringField('Username',
+                       validators=[DataRequired("Username shouldn't be empty.")])
 
-    email = StringField('邮箱',
+    email = StringField('Email',
                         validators=[
-                            DataRequired(message="邮箱不能为空"),
-                            Email(message="无效的邮箱")
-                        ],
-                        description='邮箱')
+                            DataRequired(message="Email shouldn't be empty."),
+                            Email(message='Email format is not correct.')
+                        ])
 
-    password = PasswordField('密码',
-                             validators=[DataRequired('密码不能为空')],
-                             description='密码')
+    password = PasswordField('Password',
+                             validators=[DataRequired("Password shouldn't be empty.")])
 
-    repassword = PasswordField('重复密码',
+    repassword = PasswordField('Retype password',
                                validators=[
-                                   DataRequired('重复密码不能为空'),
-                                   EqualTo('password', message='两次输入密码不一致')
-                               ],
-                               description='重复密码')
+                                   DataRequired("Please retype the password."),
+                                   EqualTo('password', message="Passwords must match.")
+                               ])
 
     def validate_name(self, field):
         user = User.query.filter(User.name == self.name.data).first()
         if user:
-            raise ValueError('用户名已存在')
+            raise ValueError('This username already exists.')
 
     def validate_email(self, field):
         user = User.query.filter(User.email == self.email.data).first()
         if user:
-            raise ValueError('邮箱已被注册')
+            raise ValueError('This email already exists.')

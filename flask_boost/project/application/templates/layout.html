@@ -42,10 +42,10 @@
       <div class="collapse navbar-collapse">
          <ul class="nav navbar-nav">
             <li id="nav-index">
-               <a href="{{ url_for('site.index') }}">首页</a>
+               <a href="{{ url_for('site.index') }}">Home</a>
             </li>
             <li id="nav-about">
-               <a href="{{ url_for('site.about') }}">关于</a>
+               <a href="{{ url_for('site.about') }}">About</a>
             </li>
          </ul>
 
@@ -67,14 +67,14 @@
                   <a href="#">{{ g.user.name }}</a>
                </li>
                <li>
-                  <a href="{{ url_for('account.signout') }}">登出</a>
+                  <a href="{{ url_for('account.signout') }}">Sign out</a>
                </li>
             {% else %}
                <li id="nav-signin">
-                  <a href="{{ url_for('account.signin') }}">登录</a>
+                  <a href="{{ url_for('account.signin') }}">Sign in</a>
                </li>
                <li id="nav-signup">
-                  <a href="{{ url_for('account.signup') }}">注册</a>
+                  <a href="{{ url_for('account.signup') }}">Sign up</a>
                </li>
             {% endif %}
          </ul>
@@ -93,7 +93,7 @@
       </div>
 
       <ul id='links' class="pull-right list-unstyled list-inline">
-         <li><a href="{{ url_for('site.about') }}">关于</a></li>
+         <li><a href="{{ url_for('site.about') }}">About</a></li>
       </ul>
    </div>
 </div>

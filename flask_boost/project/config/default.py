@@ -3,7 +3,7 @@ import os
 
 
 class Config(object):
-    """配置基类"""
+    """Base config class."""
     # Flask app config
     DEBUG = False
     TESTING = False
@@ -25,8 +25,8 @@ class Config(object):
     SQLALCHEMY_DATABASE_URI = "mysql://user:password@host/database"
 
     # Uploadsets config
-    UPLOADS_DEFAULT_DEST = "%s/uploads" % PROJECT_PATH  # 上传文件存储路径
-    UPLOADS_DEFAULT_URL = "%s/uploads/" % SITE_DOMAIN  # 上传文件访问URL
+    UPLOADS_DEFAULT_DEST = "%s/uploads" % PROJECT_PATH
+    UPLOADS_DEFAULT_URL = "%s/uploads/" % SITE_DOMAIN
 
     # Flask-DebugToolbar
     DEBUG_TB_INTERCEPT_REDIRECTS = False

@@ -14,16 +14,16 @@ def timesince(value):
     delta = now - value
 
     if value > now:
-        return "刚刚"
+        return "right now"
     elif delta.days > 365:
-        return '%d 年前' % (delta.days / 365)
+        return '%d years ago' % (delta.days / 365)
     elif delta.days > 30:
-        return '%d 个月前' % (delta.days / 30)
+        return '%d months ago' % (delta.days / 30)
     elif delta.days > 0:
-        return '%d 天前' % delta.days
+        return '%d days ago' % delta.days
     elif delta.seconds > 3600:
-        return '%d 小时前' % (delta.seconds / 3600)
+        return '%d hours ago' % (delta.seconds / 3600)
     elif delta.seconds > 60:
-        return '%d 分钟前' % (delta.seconds / 60)
+        return '%d minutes ago' % (delta.seconds / 60)
     else:
-        return '刚刚'
+        return 'right now'

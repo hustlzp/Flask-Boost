@@ -1,12 +1,12 @@
 {% extends "layout.html" %}
 {% from 'macros/_form.html' import horizontal_field, form_submit %}
 
-{% block page_title %}注册{% endblock %}
+{% block page_title %}Sign up{% endblock %}
 {% block page_content %}
    <div class="container">
       <div class="row">
          <div class="col-sm-8">
-            <h1>注册</h1>
+            <h1>Sign up</h1>
 
             <form id="form-login" method="post" class="form-horizontal" autocomplete="off"
                   action="{{ url_for('account.signup') }}">
@@ -20,7 +20,7 @@
 
                {{ horizontal_field(form.repassword) }}
 
-               {{ form_submit('注册') }}
+               {{ form_submit('Sign up') }}
             </form>
          </div>
       </div>
