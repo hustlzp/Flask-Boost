@@ -21,7 +21,7 @@ def open_image(file_storage):
     """Open image from FileStorage."""
     image = Image.open(file_storage.stream)
     # See: https://github.com/smileychris/easy-thumbnails/issues/95
-    if image.mode != "RGB":
+    if image.format == 'JPEG' and image.mode != "RGB":
         image = image.convert("RGB")
     return image
 
