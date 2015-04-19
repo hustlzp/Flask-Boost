@@ -75,9 +75,7 @@ Config server
 
 Install virtualenv, git, supervisor and g++ on your server.
 
-Note: Flask-Boost use Pillow to process images, so you may install some external libraries needed by `Pillow`.
-
-Please follow the Pillow official doc_.
+**Note**: Flask-Boost uses Pillow to process images, so you may install some external libraries needed by `Pillow`. Please follow the Pillow official doc_.
 
 .. _doc: http://pillow.readthedocs.org/en/latest/installation.html
 
