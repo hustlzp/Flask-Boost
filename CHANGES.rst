@@ -1,6 +1,11 @@
 Flask Boost Changelog
 =====================
 
+Version 0.4.7
+-------------
+
+* Fix a bug in requirements.txt.
+
 Version 0.4.6
 -------------
 
