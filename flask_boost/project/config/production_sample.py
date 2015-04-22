@@ -12,7 +12,7 @@ class ProductionConfig(Config):
     SITE_DOMAIN = "http://www.#{project}.com"
 
     # Db config
-    SQLALCHEMY_DATABASE_URI = "mysql://root:password@host/#{project}"
+    SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:password@host/#{project}"
 
     # Upload set config
     UPLOADS_DEFAULT_URL = "%s/uploads/" % SITE_DOMAIN

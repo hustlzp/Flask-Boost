@@ -22,7 +22,7 @@ class Config(object):
     # See:
     # https://pythonhosted.org/Flask-SQLAlchemy/config.html#connection-uri-format
     # http://docs.sqlalchemy.org/en/rel_0_9/core/engines.html#database-urls
-    SQLALCHEMY_DATABASE_URI = "mysql://user:password@host/database"
+    SQLALCHEMY_DATABASE_URI = "mysql+pymysql://user:password@host/database"
 
     # Uploadsets config
     UPLOADS_DEFAULT_DEST = "%s/uploads" % PROJECT_PATH

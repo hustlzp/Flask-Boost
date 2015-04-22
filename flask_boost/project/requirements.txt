@@ -5,7 +5,7 @@ Flask-SQLAlchemy
 flask-debugtoolbar
 Flask-Uploads
 Flask-Migrate
-MySQL-python
+PyMySQL
 itsdangerous
 permission
 Pillow
