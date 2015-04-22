@@ -31,6 +31,9 @@ import shutil
 import errno
 from flask_boost import __version__
 
+# If you add #{project} in a file, add the file ext here
+REWRITE_FILE_EXTS = ('.html', '.conf', '.py', '.json', '.md')
+
 logger = logging.getLogger(__name__)
 logger.setLevel(DEBUG)
 logger.addHandler(StreamHandler())
@@ -73,7 +76,10 @@ def execute(args):
             src_file = os.path.join(src_dir, filename)
             dst_file = os.path.join(dst_dir, filename)
 
-            _rewrite_and_copy(src_file, dst_file, project_name)
+            if filename.endswith(REWRITE_FILE_EXTS):
+                _rewrite_and_copy(src_file, dst_file, project_name)
+            else:
+                shutil.copy(src_file, dst_file)
 
             if filename in ['development_sample.py', 'production_sample.py']:
                 dst_file = os.path.join(dst_dir, "%s.py" % filename.split('_')[0])

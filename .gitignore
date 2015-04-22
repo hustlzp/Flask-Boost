@@ -1,7 +1,9 @@
 *.pyc
 .idea/
 test/
+test3/
 venv/
+venv3/
 /dist/
 docs/
 Flask_Boost.egg-info/
