@@ -1,6 +1,12 @@
 Flask Boost Changelog
 =====================
 
+Version 0.4.6
+-------------
+
+* Fix project generation logic to support Python3.
+* Use PyMySQL instead of MySQL-python to support Python3.
+
 Version 0.4.5
 -------------
 
