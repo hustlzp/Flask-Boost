@@ -22,7 +22,6 @@ coverage
 pylint
 PyYAML
 cssmin
+jsmin
 lesscpy
-PyExecJS
-uglipyjs
 glob2
