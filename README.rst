@@ -120,6 +120,8 @@ Build assets
 Copy config files
 ~~~~~~~~~~~~~~~~~
 
+Update project root path as needed in ``deploy/nginx.conf`` and ``deploy/supervisor.conf``.
+
 ::
 
     cp deploy/flask_env.sh /etc/profile.d/
