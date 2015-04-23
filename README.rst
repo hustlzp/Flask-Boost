@@ -35,7 +35,7 @@ Install requirements
 ::
 
     virtualenv venv
-    . venv/bin/active
+    . venv/bin/activate
     pip install -r requirements.txt
 
 Init database
