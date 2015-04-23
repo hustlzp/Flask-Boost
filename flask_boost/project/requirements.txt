@@ -9,6 +9,7 @@ PyMySQL
 itsdangerous
 permission
 Pillow
+six
 
 # dev
 livereload

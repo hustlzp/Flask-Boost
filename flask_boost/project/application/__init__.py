@@ -14,6 +14,7 @@ from flask.ext.uploads import configure_uploads
 from flask_debugtoolbar import DebugToolbarExtension
 from werkzeug.wsgi import SharedDataMiddleware
 from werkzeug.contrib.fixers import ProxyFix
+from six import iteritems
 from .utils.account import get_current_user
 from .utils.assets import register_assets
 from config import load_config
@@ -81,7 +82,7 @@ def register_jinja(app):
         return url_for(request.endpoint, **combined_args)
 
     rules = {}
-    for endpoint, _rules in app.url_map._rules_by_endpoint.iteritems():
+    for endpoint, _rules in iteritems(app.url_map._rules_by_endpoint):
         if any(item in endpoint for item in ['_debug_toolbar', 'debugtoolbar', 'static']):
             continue
         rules[endpoint] = [{'rule': rule.rule} for rule in _rules]
