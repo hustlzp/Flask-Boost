@@ -95,7 +95,7 @@ Config app
 
 Update configs in ``config/production.py`` as needed and transfer it to server.
 
-**Note**: remember to update ``SECRET_KEY``! You can generate random secret key as follows::
+**Note**: remember to update ``SECRET_KEY`` in ``config/production.py``! You can generate random secret key as follows::
 
 >>> import os
 >>> os.urandom(24)
