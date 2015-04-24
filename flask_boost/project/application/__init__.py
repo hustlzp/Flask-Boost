@@ -7,11 +7,6 @@ project_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 if project_path not in sys.path:
     sys.path.insert(0, project_path)
 
-try:
-    from imp import reload
-except ImportError:
-    pass
-
 import time
 from flask import Flask, request, url_for, g, render_template
 from flask_wtf.csrf import CsrfProtect
@@ -25,11 +20,12 @@ from .utils.assets import register_assets
 from config import load_config
 
 # convert python's encoding to utf8
-reload(sys)
-sys.setdefaultencoding('utf8')
 try:
+    from imp import reload
+
+    reload(sys)
     sys.setdefaultencoding('utf8')
-except AttributeError:
+except (AttributeError, NameError):
     pass
 
 
