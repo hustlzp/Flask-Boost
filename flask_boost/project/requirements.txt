@@ -14,7 +14,6 @@ raven
 
 # dev
 livereload
-formic==0.9beta8
 nose
 coverage
 pylint

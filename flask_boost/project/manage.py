@@ -1,4 +1,5 @@
 # coding: utf-8
+import glob2
 from flask.ext.script import Manager
 from flask.ext.migrate import Migrate, MigrateCommand
 from application import create_app
@@ -30,17 +31,17 @@ def live():
 
     server = Server(app)
 
-    # css
-    for filepath in formic.FileSet(include="application/static/css/**/*.css"):
-        server.watch(filepath)
     # html
-    for filepath in formic.FileSet(include="application/templates/css/**/*.html"):
+    for filepath in glob2.glob("application/templates/**/*.html"):
+        server.watch(filepath)
+    # css
+    for filepath in glob2.glob("application/static/css/**/*.css"):
         server.watch(filepath)
     # js
-    for filepath in formic.FileSet(include="application/static/js/**/*.js"):
+    for filepath in glob2.glob("application/static/js/**/*.js"):
         server.watch(filepath)
     # image
-    for filepath in formic.FileSet(include="application/static/image/**/*.*"):
+    for filepath in glob2.glob("application/static/image/**/*.*"):
         server.watch(filepath)
 
     server.serve(port=PORT)
