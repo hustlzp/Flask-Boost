@@ -1,6 +1,14 @@
 Flask Boost Changelog
 =====================
 
+Version 0.4.8
+-------------
+
+* Update doc.
+* Use glob2 instead of formic in livereload support.
+* Clean requirements.txt.
+* Update some codes to support Python3. (However the package ``Flask-Upload`` does't support Python3)
+
 Version 0.4.7
 -------------
 
