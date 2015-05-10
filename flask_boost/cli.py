@@ -40,7 +40,7 @@ logger.setLevel(DEBUG)
 logger.addHandler(StreamHandler())
 
 
-def new(args):
+def new_project(args):
     """New project."""
     # Project templates path
     src = os.path.join(dirname(abspath(__file__)), 'project')
@@ -91,14 +91,46 @@ def new(args):
 
 
 def generate_controller(args):
-    pass
+    """Generate controller, include the controller file, template & css & js directories."""
+    controller_template = os.path.join(dirname(abspath(__file__)), 'templates/controller.py')
+    controller_name = args.get('<controller>')
+    current_path = os.getcwd()
+
+    logger.info('Start generating controller.')
+
+    if not controller_name:
+        logger.warning('Controller name cannot be empty.')
+        return
+
+    with open(controller_template, 'r') as template_file:
+        controller_file_path = os.path.join(current_path, 'application/controllers',
+                                            controller_name + '.py')
+        with open(controller_file_path, 'w+') as controller_file:
+            for line in template_file:
+                new_line = line.replace('#{controller}', controller_name)
+                controller_file.write(new_line)
+    logger.info('New file: %s' % controller_file_path)
+
+    template_dir_path = os.path.join(current_path, 'application/templates/%s' % controller_name)
+    css_dir_path = os.path.join(current_path, 'application/static/css/%s' % controller_name)
+    js_dir_path = os.path.join(current_path, 'application/static/js/%s' % controller_name)
+
+    _mkdir_p(template_dir_path)
+    logger.info('New directory: %s' % template_dir_path)
+
+    _mkdir_p(css_dir_path)
+    logger.info('New directory: %s' % css_dir_path)
+
+    _mkdir_p(js_dir_path)
+    logger.info('New directory: %s' % js_dir_path)
+
+    logger.info('Finish generating controller.')
 
 
 def main():
     args = docopt(__doc__, version="Flask-Boost {0}".format(__version__))
-    print(args)
     if args.get('new'):
-        new(args)
+        new_project(args)
     elif args.get('generate') and args.get('controller'):
         generate_controller(args)
 
