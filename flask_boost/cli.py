@@ -6,6 +6,7 @@ Flask Boost
 
 Usage:
   boost new <project>
+  boost generate controller <controller>
   boost -v | --version
   boost -h | --help
 
@@ -39,7 +40,8 @@ logger.setLevel(DEBUG)
 logger.addHandler(StreamHandler())
 
 
-def execute(args):
+def new(args):
+    """New project."""
     # Project templates path
     src = os.path.join(dirname(abspath(__file__)), 'project')
 
@@ -88,9 +90,17 @@ def execute(args):
     logger.info('Finish generating project files.')
 
 
+def generate_controller(args):
+    pass
+
+
 def main():
     args = docopt(__doc__, version="Flask-Boost {0}".format(__version__))
-    execute(args)
+    print(args)
+    if args.get('new'):
+        new(args)
+    elif args.get('generate') and args.get('controller'):
+        generate_controller(args)
 
 
 def _mkdir_p(path):

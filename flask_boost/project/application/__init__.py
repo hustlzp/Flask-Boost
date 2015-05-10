@@ -109,10 +109,13 @@ def register_db(app):
 
 def register_routes(app):
     """Register routes."""
-    from .controllers import site, account
+    from . import controllers
+    from flask.blueprints import Blueprint
 
-    app.register_blueprint(site.bp)
-    app.register_blueprint(account.bp)
+    for module in _import_submodules_from_package(controllers):
+        bp = getattr(module, 'bp')
+        if bp and isinstance(bp, Blueprint):
+            app.register_blueprint(bp)
 
 
 def register_error_handle(app):
@@ -158,3 +161,13 @@ def register_hooks(app):
 def _get_template_name(template_reference):
     """Get current template name."""
     return template_reference._TemplateReference__context.name
+
+
+def _import_submodules_from_package(package):
+    import pkgutil
+
+    modules = []
+    for importer, modname, ispkg in pkgutil.iter_modules(package.__path__,
+                                                         prefix=package.__name__ + "."):
+        modules.append(__import__(modname, fromlist="dummy"))
+    return modules
