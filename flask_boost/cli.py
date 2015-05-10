@@ -103,6 +103,7 @@ def generate_controller(args):
         logger.warning('Controller name cannot be empty.')
         return
 
+    # controller file
     with open(controller_template, 'r') as template_file:
         controller_file_path = os.path.join(current_path, 'application/controllers',
                                             controller_name + '.py')
@@ -110,40 +111,34 @@ def generate_controller(args):
             for line in template_file:
                 new_line = line.replace('#{controller}', controller_name)
                 controller_file.write(new_line)
-    logger.info('New file: %s' % controller_file_path)
+    logger.info(controller_file_path)
 
+    # template dir
     template_dir_path = os.path.join(current_path, 'application/templates/%s' % controller_name)
-    css_dir_path = os.path.join(current_path, 'application/static/css/%s' % controller_name)
-    js_dir_path = os.path.join(current_path, 'application/static/js/%s' % controller_name)
-
     _mkdir_p(template_dir_path)
-    logger.info('New directory: %s' % template_dir_path)
+    logger.info(template_dir_path + "/")
 
+    # css dir
+    css_dir_path = os.path.join(current_path, 'application/static/css/%s' % controller_name)
     _mkdir_p(css_dir_path)
-    logger.info('New directory: %s' % css_dir_path)
+    logger.info(css_dir_path + "/")
 
+    # js dir
+    js_dir_path = os.path.join(current_path, 'application/static/js/%s' % controller_name)
     _mkdir_p(js_dir_path)
-    logger.info('New directory: %s' % js_dir_path)
+    logger.info(js_dir_path + "/")
+
+    # form file
+    _generate_form(controller_name)
 
     logger.info('Finish generating controller.')
 
 
 def generate_form(args):
     """Generate form."""
-    form_template = os.path.join(dirname(abspath(__file__)), 'templates/form.py')
     form_name = args.get('<form>')
-    current_path = os.getcwd()
-
     logger.info('Start generating form.')
-
-    if not form_name:
-        logger.warning('Form name cannot be empty.')
-        return
-
-    form_file_path = os.path.join(current_path, 'application/forms', form_name + '.py')
-    shutil.copy(form_template, form_file_path)
-    logger.info('New file: %s' % form_file_path)
-
+    _generate_form(form_name)
     logger.info('Finish generating form.')
 
 
@@ -186,6 +181,19 @@ def _rewrite_and_copy(src_file, dst_file, project_name):
 
     # Move to new file
     shutil.move(abs_path, dst_file)
+
+
+def _generate_form(form_name):
+    form_template = os.path.join(dirname(abspath(__file__)), 'templates/form.py')
+    current_path = os.getcwd()
+
+    if not form_name:
+        logger.warning('Form name cannot be empty.')
+        return
+
+    form_file_path = os.path.join(current_path, 'application/forms', form_name + '.py')
+    shutil.copy(form_template, form_file_path)
+    logger.info(form_file_path)
 
 
 if __name__ == "__main__":
