@@ -7,6 +7,7 @@ Flask Boost
 Usage:
   boost new <project>
   boost generate controller <controller>
+  boost generate form <form>
   boost -v | --version
   boost -h | --help
 
@@ -127,12 +128,33 @@ def generate_controller(args):
     logger.info('Finish generating controller.')
 
 
+def generate_form(args):
+    """Generate form."""
+    form_template = os.path.join(dirname(abspath(__file__)), 'templates/form.py')
+    form_name = args.get('<form>')
+    current_path = os.getcwd()
+
+    logger.info('Start generating form.')
+
+    if not form_name:
+        logger.warning('Form name cannot be empty.')
+        return
+
+    form_file_path = os.path.join(current_path, 'application/forms', form_name + '.py')
+    shutil.copy(form_template, form_file_path)
+    logger.info('New file: %s' % form_file_path)
+
+    logger.info('Finish generating form.')
+
+
 def main():
     args = docopt(__doc__, version="Flask-Boost {0}".format(__version__))
     if args.get('new'):
         new_project(args)
     elif args.get('generate') and args.get('controller'):
         generate_controller(args)
+    elif args.get('generate') and args.get('form'):
+        generate_form(args)
 
 
 def _mkdir_p(path):
