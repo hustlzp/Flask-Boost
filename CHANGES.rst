@@ -1,6 +1,11 @@
 Flask Boost Changelog
 =====================
 
+Version 0.4.10
+--------------
+
+* Generate test file when generating controller.
+
 Version 0.4.9
 -------------
 
