@@ -25,7 +25,7 @@ Init project
 
 ::
 
-    boost new your_project_name
+    boost new *your_project_name*
 
 Install requirements
 ~~~~~~~~~~~~~~~~~~~~
@@ -66,6 +66,15 @@ Run livereload server in another console::
     python manage.py live
 
 .. _here: http://feedback.livereload.com/knowledgebase/articles/86242-how-do-i-install-and-use-the-browser-extensions-
+
+
+Other commands
+~~~~~~~~~~~~~~
+
+::
+
+    boost generate controller *controller_name*
+    boost generate form *form_name*
 
 First Production Deploy
 -----------------------
