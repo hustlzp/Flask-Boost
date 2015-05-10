@@ -25,7 +25,7 @@ Init project
 
 ::
 
-    boost new *your_project_name*
+    boost new <your_project_name>
 
 Install requirements
 ~~~~~~~~~~~~~~~~~~~~
@@ -73,8 +73,8 @@ Other commands
 
 ::
 
-    boost generate controller *controller_name*
-    boost generate form *form_name*
+    boost generate controller <controller_name>
+    boost generate form <form_name>
 
 First Production Deploy
 -----------------------
