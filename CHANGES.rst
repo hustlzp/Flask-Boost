@@ -1,6 +1,14 @@
 Flask Boost Changelog
 =====================
 
+Version 0.4.9
+-------------
+
+* Dynamic load controllers.
+* Add ``boost generate controller`` command.
+* Add ``boost generate form`` command.
+* Update doc.
+
 Version 0.4.8
 -------------
 
