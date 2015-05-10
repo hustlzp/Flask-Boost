@@ -94,6 +94,7 @@ def new_project(args):
 def generate_controller(args):
     """Generate controller, include the controller file, template & css & js directories."""
     controller_template = os.path.join(dirname(abspath(__file__)), 'templates/controller.py')
+    test_template = os.path.join(dirname(abspath(__file__)), 'templates/unittest.py')
     controller_name = args.get('<controller>')
     current_path = os.getcwd()
 
@@ -112,6 +113,17 @@ def generate_controller(args):
                 new_line = line.replace('#{controller}', controller_name)
                 controller_file.write(new_line)
     logger.info(controller_file_path)
+
+    # test file
+    with open(test_template, 'r') as template_file:
+        test_file_path = os.path.join(current_path, 'tests',
+                                      'test_%s.py' % controller_name)
+        with open(test_file_path, 'w+') as test_file:
+            for line in template_file:
+                new_line = line.replace('#{controller}', controller_name) \
+                    .replace('#{controller|title}', controller_name.title())
+                test_file.write(new_line)
+    logger.info(test_file_path)
 
     # template dir
     template_dir_path = os.path.join(current_path, 'application/templates/%s' % controller_name)
