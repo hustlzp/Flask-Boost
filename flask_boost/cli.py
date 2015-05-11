@@ -207,6 +207,9 @@ def _generate_form(form_name):
     shutil.copy(form_template, form_file_path)
     logger.info(form_file_path)
 
+    with open(os.path.join(current_path, 'application/forms/__init__.py'), 'a') as package_file:
+        package_file.write('\nfrom .%s import *' % form_name)
+
 
 if __name__ == "__main__":
     main()
