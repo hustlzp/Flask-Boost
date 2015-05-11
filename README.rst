@@ -75,6 +75,7 @@ Other commands
 
     boost generate controller <controller_name>
     boost generate form <form_name>
+    boost generate model <model_name>
 
 First Production Deploy
 -----------------------

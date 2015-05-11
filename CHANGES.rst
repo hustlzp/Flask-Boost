@@ -1,6 +1,12 @@
 Flask Boost Changelog
 =====================
 
+Version 0.4.11
+--------------
+
+* Add ``boost generate model`` command.
+* Generate import statement when generating form.
+
 Version 0.4.10
 --------------
 
