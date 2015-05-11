@@ -8,6 +8,7 @@ Usage:
   boost new <project>
   boost generate controller <controller>
   boost generate form <form>
+  boost generate model <model>
   boost -v | --version
   boost -h | --help
 
@@ -154,6 +155,33 @@ def generate_form(args):
     logger.info('Finish generating form.')
 
 
+def generate_model(args):
+    """Generate model."""
+    model_name = args.get('<model>')
+    logger.info('Start generating model.')
+
+    model_template = os.path.join(dirname(abspath(__file__)), 'templates/model.py')
+    current_path = os.getcwd()
+
+    if not model_name:
+        logger.warning('Model name cannot be empty.')
+        return
+
+    with open(model_template, 'r') as template_file:
+        model_file_path = os.path.join(current_path, 'application/models',
+                                       model_name + '.py')
+        with open(model_file_path, 'w+') as model_file:
+            for line in template_file:
+                new_line = line.replace('#{model|title}', model_name.title())
+                model_file.write(new_line)
+    logger.info(model_file_path)
+
+    with open(os.path.join(current_path, 'application/models/__init__.py'), 'a') as package_file:
+        package_file.write('\nfrom .%s import *' % model_name)
+
+    logger.info('Finish generating model.')
+
+
 def main():
     args = docopt(__doc__, version="Flask-Boost {0}".format(__version__))
     if args.get('new'):
@@ -162,6 +190,8 @@ def main():
         generate_controller(args)
     elif args.get('generate') and args.get('form'):
         generate_form(args)
+    elif args.get('generate') and args.get('model'):
+        generate_model(args)
 
 
 def _mkdir_p(path):
