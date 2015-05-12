@@ -1,6 +1,11 @@
 Flask Boost Changelog
 =====================
 
+Version 0.4.12
+--------------
+
+* Include templates files in dist.
+
 Version 0.4.11
 --------------
 
