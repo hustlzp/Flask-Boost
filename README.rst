@@ -59,7 +59,7 @@ Run local server::
 LiveReload support
 ~~~~~~~~~~~~~~~~~~
 
-Install livereload brower extension from here_.
+Install livereload browser extension from here_.
 
 Run livereload server in another console::
 
