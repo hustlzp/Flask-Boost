@@ -9,7 +9,6 @@ from functools import partial
 from flask import url_for
 from jinja2 import Markup
 from cssmin import cssmin
-from jsmin import jsmin
 from six import StringIO
 from .helpers import mkdir_p
 
@@ -106,12 +105,13 @@ def build_js(app):
     for lib in libs:
         lib_path = os.path.join(static_path, lib)
         with open(lib_path) as js_file:
-            file_content = js_file.read()
-            libs_js_string += jsmin(file_content)
+            libs_js_string += js_file.read() + "\r\n"
 
-    libs_js_string = libs_js_string.replace('\n', '').replace('\r', '')
-    with open(os.path.join(static_path, LIBS_JS), "w") as text_file:
+    lib_js_output_path = os.path.join(static_path, LIBS_JS)
+    with open(lib_js_output_path, "w") as text_file:
         text_file.write(libs_js_string)
+
+    os.system("uglifyjs %s -o %s -c warnings=false -m" % (lib_js_output_path, lib_js_output_path))
     print('libs.js builded.')
 
     # Build page.js
@@ -141,11 +141,11 @@ def build_js(app):
                         page_js_string += page_js_prefix % page_id
                         page_js_string += js_file.read()
                         page_js_string += page_js_suffix
-                        # print(file)
 
-    page_js_string = jsmin(page_js_string).replace('\n', '').replace('\r', '')
-    with open(os.path.join(static_path, PAGE_JS), "w") as text_file:
+    page_js_output_path = os.path.join(static_path, PAGE_JS)
+    with open(page_js_output_path, "w") as text_file:
         text_file.write(page_js_string)
+    os.system("uglifyjs %s -o %s -c warnings=false -m" % (page_js_output_path, page_js_output_path))
     print('page.js builded.')
 
 
