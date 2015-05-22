@@ -1,6 +1,11 @@
 Flask Boost Changelog
 =====================
 
+Version 0.4.13
+--------------
+
+* Use ``UglifyJS`` to compile js codes.
+
 Version 0.4.12
 --------------
 
