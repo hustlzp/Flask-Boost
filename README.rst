@@ -123,7 +123,11 @@ And run::
 Build assets
 ~~~~~~~~~~~~
 
-::
+Install ``UglifyJS`` first::
+
+    npm install uglify-js -g
+
+Then::
 
     python manage.py build_assets
 
