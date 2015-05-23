@@ -49,6 +49,19 @@ Then init tables::
 
     python manage.py db upgrade
 
+Build assets
+~~~~~~~~~~~~
+
+Install ``UglifyJS`` and ``Bower`` first::
+
+    npm install uglify-js -g
+    npm install bower
+
+Then::
+
+    bower install
+    python manage.py build_assets
+
 Run app
 ~~~~~~~
 
@@ -119,17 +132,6 @@ And run::
 
     export MODE=PRODUCTION
     python manage.py db upgrade
-
-Build assets
-~~~~~~~~~~~~
-
-Install ``UglifyJS`` first::
-
-    npm install uglify-js -g
-
-Then::
-
-    python manage.py build_assets
 
 Copy config files
 ~~~~~~~~~~~~~~~~~
