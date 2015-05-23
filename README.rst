@@ -49,19 +49,6 @@ Then init tables::
 
     python manage.py db upgrade
 
-Build assets
-~~~~~~~~~~~~
-
-Install ``UglifyJS`` and ``Bower`` first::
-
-    npm install uglify-js -g
-    npm install bower
-
-Then::
-
-    bower install
-    python manage.py build_assets
-
 Run app
 ~~~~~~~
 
@@ -143,6 +130,17 @@ Update project root path as needed in ``deploy/nginx.conf`` and ``deploy/supervi
     cp deploy/flask_env.sh /etc/profile.d/
     cp deploy/nginx.conf /etc/nginx/conf.d/{your_project_name}.conf
     cp deploy/supervisor.conf /etc/supervisord.d/{your_project_name}.conf
+
+Build assets
+~~~~~~~~~~~~
+
+Install ``UglifyJS`` first::
+
+    npm install uglify-js -g
+
+Then::
+
+    python manage.py build_assets
 
 Start app
 ~~~~~~~~~
