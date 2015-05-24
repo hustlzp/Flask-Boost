@@ -27,7 +27,6 @@ def run():
 def live():
     """Run livereload server"""
     from livereload import Server
-    import formic
 
     server = Server(app)
 
