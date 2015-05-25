@@ -134,7 +134,7 @@ def generate_controller(args):
 
     # template file
     template_file_path = os.path.join(current_path, 'application/templates/%s/action.html' % controller_name)
-    shutil.move(template_template, template_file_path)
+    shutil.copy(template_template, template_file_path)
     logger.info(template_file_path)
 
     # css dir
