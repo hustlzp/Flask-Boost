@@ -1,6 +1,11 @@
 Flask Boost Changelog
 =====================
 
+Version 0.4.15
+--------------
+
+* Fix a bug when generate template file.
+
 Version 0.4.14
 --------------
 
