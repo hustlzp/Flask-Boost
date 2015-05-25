@@ -4,6 +4,6 @@ from flask import Blueprint
 bp = Blueprint('#{controller}', __name__)
 
 
-@bp.route('#{controller}/action')
+@bp.route('/#{controller}/action')
 def action():
     pass
