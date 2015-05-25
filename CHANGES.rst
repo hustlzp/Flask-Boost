@@ -1,6 +1,13 @@
 Flask Boost Changelog
 =====================
 
+Version 0.4.14
+--------------
+
+* Generate template file when generate controller.
+* Fix a route bug in controller template.
+* Clean codes.
+
 Version 0.4.13
 --------------
 
