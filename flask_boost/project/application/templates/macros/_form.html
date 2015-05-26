@@ -6,7 +6,7 @@
 
 
 {% macro horizontal_field(field, length=6, label=True, static=False) %}
-   <div class="form-group">
+   <div class="form-group clearfix">
       {% if label %}
          {{ field.label(class="col-md-2 control-label") }}
       {% endif %}
