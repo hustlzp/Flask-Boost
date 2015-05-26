@@ -282,7 +282,7 @@ def _generate_form(form_name):
 
     form_file_path = os.path.join(current_path, 'application/forms', form_name + '.py')
     shutil.copy(form_template, form_file_path)
-    logger.info("New %s: " % form_file_path)
+    logger.info("New: %s" % form_file_path)
 
     with open(os.path.join(current_path, 'application/forms/__init__.py'), 'a') as package_file:
         package_file.write('\nfrom .%s import *' % form_name)
