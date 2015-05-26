@@ -6,9 +6,10 @@ Flask Boost
 
 Usage:
   boost new <project>
-  boost generate controller <controller>
-  boost generate form <form>
-  boost generate model <model>
+  boost new controller <controller>
+  boost new action <controller> <action> [-t]
+  boost new form <form>
+  boost new model <model>
   boost -v | --version
   boost -h | --help
 
@@ -96,7 +97,7 @@ def generate_controller(args):
     """Generate controller, include the controller file, template & css & js directories."""
     controller_template = os.path.join(dirname(abspath(__file__)), 'templates/controller.py')
     test_template = os.path.join(dirname(abspath(__file__)), 'templates/unittest.py')
-    template_template = os.path.join(dirname(abspath(__file__)), 'templates/template.html')
+    action_html_template = os.path.join(dirname(abspath(__file__)), 'templates/action.html')
     controller_name = args.get('<controller>')
     current_path = os.getcwd()
 
@@ -114,7 +115,7 @@ def generate_controller(args):
             for line in template_file:
                 new_line = line.replace('#{controller}', controller_name)
                 controller_file.write(new_line)
-    logger.info(controller_file_path)
+    logger.info("New: %s" % controller_file_path)
 
     # test file
     with open(test_template, 'r') as template_file:
@@ -125,33 +126,68 @@ def generate_controller(args):
                 new_line = line.replace('#{controller}', controller_name) \
                     .replace('#{controller|title}', controller_name.title())
                 test_file.write(new_line)
-    logger.info(test_file_path)
+    logger.info("New: %s" % test_file_path)
 
     # template dir
     template_dir_path = os.path.join(current_path, 'application/templates/%s' % controller_name)
     _mkdir_p(template_dir_path)
-    logger.info(template_dir_path + "/")
+    logger.info("New: %s" % template_dir_path + "/")
 
     # template file
-    template_file_path = os.path.join(current_path, 'application/templates/%s/action.html' % controller_name)
-    shutil.copy(template_template, template_file_path)
-    logger.info(template_file_path)
+    action_html_path = os.path.join(current_path, 'application/templates/%s/action.html' % controller_name)
+    shutil.copy(action_html_template, action_html_path)
+    logger.info("New: %s" % action_html_path)
 
     # css dir
     css_dir_path = os.path.join(current_path, 'application/static/css/%s' % controller_name)
     _mkdir_p(css_dir_path)
-    logger.info(css_dir_path + "/")
+    logger.info("New: %s/" % css_dir_path)
 
     # js dir
     js_dir_path = os.path.join(current_path, 'application/static/js/%s' % controller_name)
     _mkdir_p(js_dir_path)
-    logger.info(js_dir_path + "/")
+    logger.info("New: %s/" % js_dir_path)
 
     # form file
     _generate_form(controller_name)
 
     logger.info('Finish generating controller.')
 
+
+def generate_action(args):
+    """Generate action."""
+    controller = args.get('<controller>')
+    action = args.get('<action>')
+    with_template = args.get('-t')
+
+    current_path = os.getcwd()
+    controller_file_path = os.path.join(current_path, 'application/controllers', controller + '.py')
+    if not os.path.exists(controller_file_path):
+        logger.warning("The controller %s does't exist." % controller)
+
+    if with_template:
+        action_source_path = os.path.join(dirname(abspath(__file__)), 'templates/action.py')
+    else:
+        action_source_path = os.path.join(dirname(abspath(__file__)), 'templates/action_without_template.py')
+
+    action_html_template_path = os.path.join(dirname(abspath(__file__)), 'templates/action.html')
+
+    with open(action_source_path, 'r') as action_source_file:
+        with open(controller_file_path, 'a') as controller_file:
+            for action_line in action_source_file:
+                new_line = action_line.replace('#{controller}', controller). \
+                    replace('#{action}', action)
+                controller_file.write(new_line)
+    logger.info("Updated: %s" % controller_file_path)
+
+    if with_template:
+        action_html_file_path = os.path.join(current_path, 'application/templates/%s/%s.html' % (controller, action))
+        with open(action_html_template_path, 'r') as action_html_template_file:
+            with open(action_html_file_path, 'w') as action_html_file:
+                for line in action_html_template_file:
+                    new_line = line.replace('#{action|title}', action.title())
+                    action_html_file.write(new_line)
+        logger.info("New: %s" % action_html_file_path)
 
 def generate_form(args):
     """Generate form."""
@@ -180,7 +216,7 @@ def generate_model(args):
             for line in template_file:
                 new_line = line.replace('#{model|title}', model_name.title())
                 model_file.write(new_line)
-    logger.info(model_file_path)
+    logger.info("New: %s" % model_file_path)
 
     with open(os.path.join(current_path, 'application/models/__init__.py'), 'a') as package_file:
         package_file.write('\nfrom .%s import *' % model_name)
@@ -191,13 +227,18 @@ def generate_model(args):
 def main():
     args = docopt(__doc__, version="Flask-Boost {0}".format(__version__))
     if args.get('new'):
-        new_project(args)
-    elif args.get('generate') and args.get('controller'):
-        generate_controller(args)
-    elif args.get('generate') and args.get('form'):
-        generate_form(args)
-    elif args.get('generate') and args.get('model'):
-        generate_model(args)
+        if args.get('controller'):
+            generate_controller(args)
+        elif args.get('form'):
+            generate_form(args)
+        elif args.get('model'):
+            generate_model(args)
+        elif args.get('action'):
+            generate_action(args)
+        else:
+            new_project(args)
+    else:
+        print(args)
 
 
 def _mkdir_p(path):
@@ -241,7 +282,7 @@ def _generate_form(form_name):
 
     form_file_path = os.path.join(current_path, 'application/forms', form_name + '.py')
     shutil.copy(form_template, form_file_path)
-    logger.info(form_file_path)
+    logger.info("New %s: " % form_file_path)
 
     with open(os.path.join(current_path, 'application/forms/__init__.py'), 'a') as package_file:
         package_file.write('\nfrom .%s import *' % form_name)
