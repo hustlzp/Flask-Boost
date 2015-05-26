@@ -3,21 +3,21 @@
 
 {% block page_title %}Sign in{% endblock %}
 {% block page_content %}
-   <div class="container">
-      <div class="row">
-         <div class="col-sm-8">
-            <h1>Sign in</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <h1>Sign in</h1>
 
-            <form method="post" class="form-horizontal" action="{{ url_for('account.signin') }}">
-               {{ form.csrf_token() }}
+                <form method="post" class="form-horizontal" action="{{ url_for('account.signin') }}">
+                    {{ form.csrf_token() }}
 
-               {{ horizontal_field(form.email) }}
+                    {{ horizontal_field(form.email) }}
 
-               {{ horizontal_field(form.password) }}
+                    {{ horizontal_field(form.password) }}
 
-               {{ form_submit('Sign in') }}
-            </form>
-         </div>
-      </div>
-   </div>
+                    {{ form_submit('Sign in') }}
+                </form>
+            </div>
+        </div>
+    </div>
 {% endblock %}

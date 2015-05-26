@@ -3,27 +3,27 @@
 
 {% block page_title %}Sign up{% endblock %}
 {% block page_content %}
-   <div class="container">
-      <div class="row">
-         <div class="col-sm-8">
-            <h1>Sign up</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <h1>Sign up</h1>
 
-            <form id="form-login" method="post" class="form-horizontal" autocomplete="off"
-                  action="{{ url_for('account.signup') }}">
-               {{ form.csrf_token() }}
+                <form id="form-login" method="post" class="form-horizontal" autocomplete="off"
+                      action="{{ url_for('account.signup') }}">
+                    {{ form.csrf_token() }}
 
-               {{ horizontal_field(form.name) }}
+                    {{ horizontal_field(form.name) }}
 
-               {{ horizontal_field(form.email) }}
+                    {{ horizontal_field(form.email) }}
 
-               {{ horizontal_field(form.password) }}
+                    {{ horizontal_field(form.password) }}
 
-               {{ horizontal_field(form.repassword) }}
+                    {{ horizontal_field(form.repassword) }}
 
-               {{ form_submit('Sign up') }}
-            </form>
-         </div>
-      </div>
-   </div>
+                    {{ form_submit('Sign up') }}
+                </form>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
