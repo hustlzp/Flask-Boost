@@ -22,7 +22,7 @@
 
 
 {% macro checkbox_field(field) %}
-   <div class="form-group">
+   <div class="form-group clearfix">
       <div class="col-md-offset-2 col-sm-10">
          <div class="checkbox">
             {{ field() }}
@@ -34,7 +34,7 @@
 
 
 {% macro form_submit(btn_text) %}
-   <div class="form-group">
+   <div class="form-group clearfix">
       <div class="col-sm-6 col-sm-offset-2">
          <button type="submit" class="btn btn-sm btn-primary">{{ btn_text }}</button>
       </div>
