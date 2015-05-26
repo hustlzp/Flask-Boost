@@ -1,6 +1,16 @@
 Flask Boost Changelog
 =====================
 
+Version 0.4.16
+--------------
+
+* Add generate action command.
+* Change command ``generate`` to ``new``
+* Add generate action command.
+* Add clearfix style to form-group.
+* Indent html files with 4 spaces.
+* Update doc.
+
 Version 0.4.15
 --------------
 
