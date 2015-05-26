@@ -74,9 +74,12 @@ Other commands
 
 ::
 
-    boost generate controller <controller_name>
-    boost generate form <form_name>
-    boost generate model <model_name>
+    boost new controller <controller>
+    boost new action <controller> <action>
+    boost new form <form>
+    boost new model <model>
+    boost -v
+    boost -h
 
 First Production Deploy
 -----------------------
