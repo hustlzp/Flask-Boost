@@ -1,6 +1,13 @@
 Flask Boost Changelog
 =====================
 
+Version 0.4.17
+--------------
+
+* Quit if controller file does't exist when new action.
+* Mkdir if controller template dir not exist when new action.
+* Fix typo.
+
 Version 0.4.16
 --------------
 
