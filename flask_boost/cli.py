@@ -164,14 +164,15 @@ def generate_action(args):
     controller_file_path = os.path.join(current_path, 'application/controllers', controller + '.py')
     if not os.path.exists(controller_file_path):
         logger.warning("The controller %s does't exist." % controller)
+        return
 
     if with_template:
         action_source_path = os.path.join(dirname(abspath(__file__)), 'templates/action.py')
     else:
         action_source_path = os.path.join(dirname(abspath(__file__)), 'templates/action_without_template.py')
-
     action_html_template_path = os.path.join(dirname(abspath(__file__)), 'templates/action.html')
 
+    # Add action source codes
     with open(action_source_path, 'r') as action_source_file:
         with open(controller_file_path, 'a') as controller_file:
             for action_line in action_source_file:
@@ -180,14 +181,19 @@ def generate_action(args):
                 controller_file.write(new_line)
     logger.info("Updated: %s" % controller_file_path)
 
+    # Add action html file
     if with_template:
-        action_html_file_path = os.path.join(current_path, 'application/templates/%s/%s.html' % (controller, action))
+        controller_dir_path = os.path.join(current_path, 'application/templates/%s' % controller)
+        if not os.path.exists(controller_dir_path):
+            os.makedirs(controller_dir_path)
+        action_html_file_path = os.path.join(controller_dir_path, '%s.html' % action)
         with open(action_html_template_path, 'r') as action_html_template_file:
             with open(action_html_file_path, 'w') as action_html_file:
                 for line in action_html_template_file:
                     new_line = line.replace('#{action|title}', action.title())
                     action_html_file.write(new_line)
         logger.info("New: %s" % action_html_file_path)
+
 
 def generate_form(args):
     """Generate form."""
