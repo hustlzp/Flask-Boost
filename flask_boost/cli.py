@@ -97,7 +97,6 @@ def generate_controller(args):
     """Generate controller, include the controller file, template & css & js directories."""
     controller_template = os.path.join(dirname(abspath(__file__)), 'templates/controller.py')
     test_template = os.path.join(dirname(abspath(__file__)), 'templates/unittest.py')
-    action_html_template = os.path.join(dirname(abspath(__file__)), 'templates/action.html')
     controller_name = args.get('<controller>')
     current_path = os.getcwd()
 
@@ -132,11 +131,6 @@ def generate_controller(args):
     template_dir_path = os.path.join(current_path, 'application/templates/%s' % controller_name)
     _mkdir_p(template_dir_path)
     logger.info("New: %s" % template_dir_path + "/")
-
-    # template file
-    action_html_path = os.path.join(current_path, 'application/templates/%s/action.html' % controller_name)
-    shutil.copy(action_html_template, action_html_path)
-    logger.info("New: %s" % action_html_path)
 
     # css dir
     css_dir_path = os.path.join(current_path, 'application/static/css/%s' % controller_name)
