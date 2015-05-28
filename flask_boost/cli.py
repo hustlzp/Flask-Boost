@@ -262,20 +262,17 @@ def _rewrite_and_copy(src_file, dst_file, project_name):
     """Replace vars and copy."""
     # Create temp file
     fh, abs_path = mkstemp()
-    new_file = open(abs_path, 'w')
-    old_file = open(src_file)
-    for line in old_file:
-        new_line = line.replace('#{project}', project_name). \
-            replace('#{project|title}', project_name.title())
-        new_file.write(new_line)
 
-    # Close file
-    new_file.close()
-    os.close(fh)
-    old_file.close()
+    with open(abs_path, 'w') as new_file:
+        with open(src_file, 'r') as old_file:
+            for line in old_file:
+                new_line = line.replace('#{project}', project_name). \
+                    replace('#{project|title}', project_name.title())
+                new_file.write(new_line)
 
     # Move to new file
     shutil.move(abs_path, dst_file)
+    os.close(fh)
 
 
 def _generate_form(form_name):
