@@ -153,8 +153,8 @@ def generate_action(args):
     controller = args.get('<controller>')
     action = args.get('<action>')
     with_template = args.get('-t')
-
     current_path = os.getcwd()
+
     controller_file_path = os.path.join(current_path, 'application/controllers', controller + '.py')
     if not os.path.exists(controller_file_path):
         logger.warning("The controller %s does't exist." % controller)
@@ -175,18 +175,35 @@ def generate_action(args):
                 controller_file.write(new_line)
     logger.info("Updated: %s" % controller_file_path)
 
-    # Add action html file
     if with_template:
-        controller_dir_path = os.path.join(current_path, 'application/templates/%s' % controller)
-        if not os.path.exists(controller_dir_path):
-            os.makedirs(controller_dir_path)
-        action_html_file_path = os.path.join(controller_dir_path, '%s.html' % action)
+        controller_template_dir_path = os.path.join(current_path, 'application/templates/%s' % controller)
+        if not os.path.exists(controller_template_dir_path):
+            os.makedirs(controller_template_dir_path)
+
+        # Create action html file
+        action_html_file_path = os.path.join(controller_template_dir_path, '%s.html' % action)
         with open(action_html_template_path, 'r') as action_html_template_file:
             with open(action_html_file_path, 'w') as action_html_file:
                 for line in action_html_template_file:
                     new_line = line.replace('#{action|title}', action.title())
                     action_html_file.write(new_line)
         logger.info("New: %s" % action_html_file_path)
+
+        # Create action js file
+        controller_js_dir_path = os.path.join(current_path, 'application/static/js/%s' % controller)
+        if not os.path.exists(controller_js_dir_path):
+            os.makedirs(controller_js_dir_path)
+        action_js_file_path = os.path.join(controller_js_dir_path, '%s.js' % action)
+        open(action_js_file_path, 'a').close()
+        logger.info("New: %s" % action_js_file_path)
+
+        # Create action less file
+        controller_css_dir_path = os.path.join(current_path, 'application/static/css/%s' % controller)
+        if not os.path.exists(controller_css_dir_path):
+            os.makedirs(controller_css_dir_path)
+        action_less_file_path = os.path.join(controller_css_dir_path, '%s.less' % action)
+        open(action_less_file_path, 'a').close()
+        logger.info("New: %s" % action_less_file_path)
 
 
 def generate_form(args):
