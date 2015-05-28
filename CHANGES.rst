@@ -1,6 +1,13 @@
 Flask Boost Changelog
 =====================
 
+Version 0.4.18
+--------------
+
+* Create js & less file when create action with template.
+* Do not create action when create controller.
+* Refactor codes.
+
 Version 0.4.17
 --------------
 
