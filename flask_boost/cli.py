@@ -43,7 +43,7 @@ logger.setLevel(DEBUG)
 logger.addHandler(StreamHandler())
 
 
-def new_project(args):
+def generate_project(args):
     """New project."""
     # Project templates path
     src = os.path.join(dirname(abspath(__file__)), 'project')
@@ -242,7 +242,7 @@ def main():
         elif args.get('action'):
             generate_action(args)
         else:
-            new_project(args)
+            generate_project(args)
     else:
         print(args)
 
