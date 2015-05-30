@@ -10,6 +10,6 @@
         "bootstrap": "3.3.4",
         "font-awesome": "4.3.0",
         "respond": "1.4.2",
-        "jquery": "1.11.2"
+        "jquery": "1.11.3"
     }
 }
