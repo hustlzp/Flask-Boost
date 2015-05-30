@@ -362,6 +362,9 @@ def _rewrite_relative_url(content, asset_path, static_path):
         full = match.group(0)
         inner_url = match.group(1)
 
+        if inner_url.startswith("data:"):
+            continue
+
         if inner_url.startswith("../"):
             dir_path = dirname(dirname(asset_path))
             absolute_path = "%s/%s" % (dir_path, inner_url[3:])
