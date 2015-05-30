@@ -18,7 +18,7 @@ CSS_CONFIG = "css.yml"
 
 # Output files
 LIBS_JS = "build/libs.js"
-PAGE_JS = "build/page.js"
+APP_JS = "build/app.js"
 APP_CSS = "build/app.css"
 
 
@@ -77,7 +77,7 @@ def register_assets(app):
     app.jinja_env.globals.update({
         'static': static,
         'libs_js': libs_js,
-        'page_js': page_js,
+        'app_js': app_js,
         'app_css': app_css,
         'page_id': page_id
     })
@@ -93,7 +93,7 @@ def build(app):
 def build_js(app):
     """Build js files.
 
-    Include libs.js and page.js.
+    Include libs.js and app.js.
     """
     static_path = app.static_folder
     libs = G.js_config['libs']
@@ -114,15 +114,15 @@ def build_js(app):
     os.system("uglifyjs %s -o %s -c warnings=false -m" % (lib_js_output_path, lib_js_output_path))
     print('libs.js builded.')
 
-    # Build page.js
-    page_js_string = ""
+    # Build app.js
+    app_js_string = ""
 
     # layout
     layout_js_prefix = "(function(){"
     layout_js_suffix = "})();"
     for layout_path in layout:
         with open(os.path.join(static_path, layout_path)) as js_file:
-            page_js_string += layout_js_prefix + js_file.read() + layout_js_suffix
+            app_js_string += layout_js_prefix + js_file.read() + layout_js_suffix
 
     # page
     blueprints = app.blueprints.keys()
@@ -138,15 +138,15 @@ def build_js(app):
                     action = _file[:-3]
                     page_id = "page-%s-%s" % (subdir, action)
                     with open(os.path.join(subdir_path, _file)) as js_file:
-                        page_js_string += page_js_prefix % page_id
-                        page_js_string += js_file.read()
-                        page_js_string += page_js_suffix
+                        app_js_string += page_js_prefix % page_id
+                        app_js_string += js_file.read()
+                        app_js_string += page_js_suffix
 
-    page_js_output_path = os.path.join(static_path, PAGE_JS)
-    with open(page_js_output_path, "w") as text_file:
-        text_file.write(page_js_string)
-    os.system("uglifyjs %s -o %s -c warnings=false -m" % (page_js_output_path, page_js_output_path))
-    print('page.js builded.')
+    app_js_output_path = os.path.join(static_path, APP_JS)
+    with open(app_js_output_path, "w") as text_file:
+        text_file.write(app_js_string)
+    os.system("uglifyjs %s -o %s -c warnings=false -m" % (app_js_output_path, app_js_output_path))
+    print('app.js builded.')
 
 
 def build_css(app):
@@ -232,8 +232,8 @@ def libs_js():
     return Markup(script_tags)
 
 
-def page_js(template_reference):
-    """Generate page js script tags for Flask app."""
+def app_js(template_reference):
+    """Generate app js script tags for Flask app."""
 
     # if False:
     if G.debug:
@@ -247,7 +247,7 @@ def page_js(template_reference):
         script_paths.append(page_js_path)
         return Markup(''.join(map(script, script_paths)))
     else:
-        return Markup(script(PAGE_JS))
+        return Markup(script(APP_JS))
 
 
 def app_css(template_reference):
