@@ -369,6 +369,7 @@ def _get_template_name(template_reference):
 
 
 def _rewrite_relative_url(content, asset_path, static_path):
+    """Rewrite relative url in `url('')` of css file to absolute url."""
     from os.path import dirname
 
     content = cssmin(content)
