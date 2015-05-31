@@ -96,18 +96,13 @@ Install virtualenv, git, supervisor and g++ on your server.
 Install requirements
 ~~~~~~~~~~~~~~~~~~~~
 
-Install ``Bower`` first::
-
-    npm install bower -g
-
-Then::
+::
 
     git clone **.git
     cd proj
     virtualenv venv
     . venv/bin/activate
     pip install -r requirements.txt
-    bower install
 
 Config app
 ~~~~~~~~~~
