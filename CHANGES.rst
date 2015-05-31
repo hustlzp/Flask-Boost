@@ -6,7 +6,7 @@ Version 0.5.0
 
 * Split ``app.css`` to ``libs.css`` and ``app.css``.
 * Rename ``build/page.js`` to ``build/app.js``.
-* Do not rewrite inner url starts with data:
+* Do not rewrite inner url starts with ``data:``.
 * Upgrade jQuery to 1.11.3.
 * Clean codes.
 
