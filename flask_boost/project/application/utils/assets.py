@@ -19,6 +19,7 @@ CSS_CONFIG = "css.yml"
 # Output files
 LIBS_JS = "build/libs.js"
 APP_JS = "build/app.js"
+LIBS_CSS = "build/libs.css"
 APP_CSS = "build/app.css"
 
 
@@ -78,6 +79,7 @@ def register_assets(app):
         'static': static,
         'libs_js': libs_js,
         'app_js': app_js,
+        'libs_css': libs_css,
         'app_css': app_css,
         'page_id': page_id
     })
@@ -152,18 +154,15 @@ def build_js(app):
 def build_css(app):
     """Build css files.
 
-    Include app.css.
+    Include libs.css and app.css.
     """
     static_path = app.static_folder
     libs = G.css_config['libs']
     layout = G.css_config['layout']
     page_root_path = G.css_config['page']
 
-    app_css_string = ""
-
-    # Build app.css
-
-    # libs
+    # Build libs.css
+    libs_css_string = ""
     for lib in libs:
         lib_path = os.path.join(static_path, lib)
 
@@ -171,7 +170,15 @@ def build_css(app):
             file_content = css_file.read()
             # Rewrite relative path to absolute path
             file_content = _rewrite_relative_url(file_content, lib_path, static_path)
-            app_css_string += file_content
+            libs_css_string += file_content
+
+    libs_css_string = libs_css_string.replace('\n', '').replace('\r', '')
+    with open(os.path.join(static_path, LIBS_CSS), "w") as text_file:
+        text_file.write(libs_css_string)
+    print('libs.css builded.')
+
+    # Build app.css
+    app_css_string = ""
 
     # layout
     for relative_layout_path in layout:
@@ -205,7 +212,6 @@ def build_css(app):
                         page_css_string += page_css_suffix
                         page_css_string = lesscpy.compile(StringIO(page_css_string), minify=True)
                         app_css_string += page_css_string
-                        # print(file)
 
     app_css_string = app_css_string.replace('\n', '').replace('\r', '')
     with open(os.path.join(static_path, APP_CSS), "w") as text_file:
@@ -250,8 +256,8 @@ def app_js(template_reference):
         return Markup(script(APP_JS))
 
 
-def app_css(template_reference):
-    """Generate app css link tags for Flask app."""
+def libs_css():
+    """Generate libs css link tags for Flask app."""
     link_tags = ""
 
     # Excluded css libs
@@ -265,7 +271,17 @@ def app_css(template_reference):
     if G.debug:
         # libs
         link_tags += ''.join(map(link, G.css_config['libs']))
+    else:
+        link_tags += link(LIBS_CSS)
+    return Markup(link_tags)
 
+
+def app_css(template_reference):
+    """Generate app css link tags for Flask app."""
+    link_tags = ""
+
+    # if False:
+    if G.debug:
         # layout
         for layout_path in G.css_config['layout']:
             # 支持通配符
