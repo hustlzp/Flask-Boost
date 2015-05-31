@@ -96,7 +96,11 @@ Install virtualenv, git, supervisor and g++ on your server.
 Install requirements
 ~~~~~~~~~~~~~~~~~~~~
 
-::
+Install ``Bower`` first::
+
+    npm install bower -g
+
+Then::
 
     git clone **.git
     cd proj
