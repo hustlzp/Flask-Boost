@@ -46,7 +46,7 @@ def create_app():
     CsrfProtect(app)
 
     # Enable Sentry in production mode
-    if app.production:
+    if app.production and app.config.get('SENTRY_DSN'):
         from .utils.sentry import sentry
 
         sentry.init_app(app, dsn=app.config.get('SENTRY_DSN'))
