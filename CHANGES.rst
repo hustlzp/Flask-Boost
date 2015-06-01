@@ -1,6 +1,15 @@
 Flask Boost Changelog
 =====================
 
+Version 0.5.1
+-------------
+
+* Log errors to stderr in production mode.
+* Enable Sentry only when in production and SENTRY_DSN config is not empty.
+* Set db password to empty in dev config.
+* Set db host to localhost in production config.
+* Update doc.
+
 Version 0.5.0
 -------------
 
