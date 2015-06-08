@@ -1,5 +1,5 @@
 (function () {
-    // Add csrf token header for Ajax request
+    // Add CSRF token header for Ajax request
     $.ajaxSetup({
         beforeSend: function (xhr, settings) {
             if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type)) {
