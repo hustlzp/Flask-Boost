@@ -1,6 +1,14 @@
 Flask Boost Changelog
 =====================
 
+Version 0.5.2
+-------------
+
+* Fix a bug when compile app.js & app.css.
+* Add some actions' js & less files.
+* Clean codes.
+* Update doc.
+
 Version 0.5.1
 -------------
 
