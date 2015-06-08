@@ -137,7 +137,7 @@ def build_js(app):
             subdir_path = os.path.join(page_root_path, subdir)
             for _file in os.listdir(subdir_path):
                 if _file.endswith('.js'):
-                    action = _file[:-3]
+                    action = _file[:-3].replace('_', '-')
                     page_id = "page-%s-%s" % (subdir, action)
                     with open(os.path.join(subdir_path, _file)) as js_file:
                         app_js_string += page_js_prefix % page_id
@@ -203,7 +203,7 @@ def build_css(app):
             subdir_path = os.path.join(page_root_path, subdir)
             for file in os.listdir(subdir_path):
                 if file.endswith('.css'):
-                    action = file[:-4]
+                    action = file[:-4].replace('_', '-')
                     page_id = "page-%s-%s" % (subdir, action)
                     file_path = os.path.join(subdir_path, file)
                     with open(file_path) as css_file:
