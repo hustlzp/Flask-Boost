@@ -201,8 +201,10 @@ def generate_action(args):
         controller_css_dir_path = os.path.join(current_path, 'application/static/css/%s' % controller)
         if not os.path.exists(controller_css_dir_path):
             os.makedirs(controller_css_dir_path)
+
+        action_less_template_path = os.path.join(dirname(abspath(__file__)), 'templates/action.less')
         action_less_file_path = os.path.join(controller_css_dir_path, '%s.less' % action)
-        open(action_less_file_path, 'a').close()
+        shutil.copy(action_less_template_path, action_less_file_path)
         logger.info("New: %s" % action_less_file_path)
 
 
