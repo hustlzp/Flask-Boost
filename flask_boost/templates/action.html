@@ -1,6 +1,10 @@
 {% extends "layout.html" %}
 
 {% block page_title %}#{action|title}{% endblock %}
+{% block page_js %}
+    <script src="/static/js/#{controller}/#{action}.js"></script>{% endblock %}
+{% block page_css %}
+    <link rel="stylesheet" href="/static/css/#{controller}/#{action}.css"/>{% endblock %}
 {% block page_content %}
     <div class="container">
         <h1>#{action|title}</h1>

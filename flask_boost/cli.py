@@ -185,7 +185,8 @@ def generate_action(args):
         with open(action_html_template_path, 'r') as action_html_template_file:
             with open(action_html_file_path, 'w') as action_html_file:
                 for line in action_html_template_file:
-                    new_line = line.replace('#{action|title}', action.title())
+                    new_line = line.replace('#{action}', action) \
+                        .replace('#{controller}', controller)
                     action_html_file.write(new_line)
         logger.info("New: %s" % action_html_file_path)
 
