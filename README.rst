@@ -138,10 +138,12 @@ Update project root path as needed in ``deploy/nginx.conf`` and ``deploy/supervi
 Build assets
 ~~~~~~~~~~~~
 
-Install ``FIS`` first::
+Install FIS_ first::
 
     npm install -g fis
     npm install -g fis-postpackager-simple
+
+.. _FIS: http://fis.baidu.com
 
 Then::
 
