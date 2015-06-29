@@ -8,3 +8,4 @@ uploads/*
 !uploads/avatars/
 uploads/avatars/*
 !uploads/avatars/default.png
+output/
