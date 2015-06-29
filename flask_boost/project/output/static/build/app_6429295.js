@@ -1,0 +1,1 @@
+!function(){function e(){$(".flash-message").slideDown("fast")}function t(){$(".flash-message").slideUp("fast")}setTimeout(e,200),setTimeout(t,2e3)}(),"page-site-about"===document.documentElement.id,"page-site-index"===document.documentElement.id;

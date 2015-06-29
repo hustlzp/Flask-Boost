@@ -1,10 +1,10 @@
 # coding: utf-8
+import os
 import glob2
 from flask.ext.script import Manager
 from flask.ext.migrate import Migrate, MigrateCommand
 from application import create_app
 from application.models import db
-from application.utils.assets import build
 
 # Used by app debug & livereload
 PORT = 5000
@@ -47,14 +47,16 @@ def live():
 
 
 @manager.command
-def createdb():
-    """Create database."""
-    db.create_all()
+def build():
+    """Use FIS to compile assets."""
+    os.chdir('application')
+    os.system('fis release -d ../output -opmD')
 
 
 @manager.command
-def build_assets():
-    build(app)
+def createdb():
+    """Create database."""
+    db.create_all()
 
 
 if __name__ == "__main__":

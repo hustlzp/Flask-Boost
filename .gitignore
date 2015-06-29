@@ -7,3 +7,4 @@ venv3/
 /dist/
 docs/
 Flask_Boost.egg-info/
+bower_components/

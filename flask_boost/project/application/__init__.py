@@ -31,9 +31,13 @@ except (AttributeError, NameError):
 
 def create_app():
     """Create Flask app."""
-    app = Flask(__name__)
-
     config = load_config()
+
+    if config.DEBUG or config.TESTING:
+        app = Flask(__name__)
+    else:
+        app = Flask(__name__, template_folder=os.path.join(project_path, 'output/templates'))
+
     app.config.from_object(config)
 
     if not hasattr(app, 'production'):
@@ -53,6 +57,11 @@ def create_app():
         # Enable Sentry
         if app.config.get('SENTRY_DSN'):
             from .utils.sentry import sentry
+
+        # Serve static files during production
+        app.wsgi_app = SharedDataMiddleware(app.wsgi_app, {
+            '/': os.path.join(app.config.get('PROJECT_PATH'), 'output')
+        })
     else:
         DebugToolbarExtension(app)
 
