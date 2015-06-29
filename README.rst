@@ -75,7 +75,7 @@ Other commands
 ::
 
     boost new controller <controller>
-    boost new action <controller> <action>
+    boost new action <controller> <action> [-t]
     boost new form <form>
     boost new model <model>
     boost -v
@@ -138,13 +138,14 @@ Update project root path as needed in ``deploy/nginx.conf`` and ``deploy/supervi
 Build assets
 ~~~~~~~~~~~~
 
-Install ``UglifyJS`` first::
+Install ``FIS`` first::
 
-    npm install uglify-js -g
+    npm install -g fis
+    npm install -g fis-postpackager-simple
 
 Then::
 
-    python manage.py build_assets
+    python manage.py build
 
 Start app
 ~~~~~~~~~
