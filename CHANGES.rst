@@ -1,6 +1,13 @@
 Flask Boost Changelog
 =====================
 
+Version 0.5.3
+-------------
+
+* Add action less template file.
+* Upgrade Bootstrap to 0.5.3.
+
+
 Version 0.5.2
 -------------
 
