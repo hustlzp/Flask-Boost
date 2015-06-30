@@ -8,4 +8,5 @@ uploads/*
 !uploads/avatars/
 uploads/avatars/*
 !uploads/avatars/default.png
+bower_components/
 output/
