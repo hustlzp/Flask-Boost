@@ -75,7 +75,7 @@ Other commands
 ::
 
     boost new controller <controller>
-    boost new action <controller> <action>
+    boost new action <controller> <action> [-t]
     boost new form <form>
     boost new model <model>
     boost -v
