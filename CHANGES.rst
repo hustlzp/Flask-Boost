@@ -1,6 +1,13 @@
 Flask Boost Changelog
 =====================
 
+Version 0.5.4
+-------------
+
+* Init sentry in production.
+* Update doc.
+* Clean codes.
+
 Version 0.5.3
 -------------
 
