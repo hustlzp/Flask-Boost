@@ -58,6 +58,8 @@ def create_app():
         if app.config.get('SENTRY_DSN'):
             from .utils.sentry import sentry
 
+            sentry.init_app(app, dsn=app.config.get('SENTRY_DSN'))
+
         # Serve static files during production
         app.wsgi_app = SharedDataMiddleware(app.wsgi_app, {
             '/': os.path.join(app.config.get('PROJECT_PATH'), 'output')
