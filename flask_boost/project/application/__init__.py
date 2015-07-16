@@ -99,18 +99,18 @@ def register_jinja(app):
         combined_args['page'] = page
         return url_for(request.endpoint, **combined_args)
 
-    rules = {}
-    for endpoint, _rules in iteritems(app.url_map._rules_by_endpoint):
-        if any(item in endpoint for item in ['_debug_toolbar', 'debugtoolbar', 'static']):
-            continue
-        rules[endpoint] = [{'rule': rule.rule} for rule in _rules]
+rules = {}
+for endpoint, _rules in iteritems(app.url_map._rules_by_endpoint):
+    if any(item in endpoint for item in ['_debug_toolbar', 'debugtoolbar', 'static']):
+        continue
+    rules[endpoint] = [{'rule': rule.rule} for rule in _rules]
 
-    app.jinja_env.globals.update({
-        'absolute_url_for': helpers.absolute_url_for,
-        'url_for_other_page': url_for_other_page,
-        'rules': rules,
-        'permissions': permissions
-    })
+app.jinja_env.globals.update({
+    'absolute_url_for': helpers.absolute_url_for,
+    'url_for_other_page': url_for_other_page,
+    'rules': rules,
+    'permissions': permissions
+})
 
 
 def register_db(app):
