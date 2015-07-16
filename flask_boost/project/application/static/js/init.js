@@ -101,15 +101,15 @@
         return url;
     }
 
-/**
- * Check whether str ends with suffix.
- * @param str
- * @param suffix
- * @returns {boolean}
- */
-function endsWith(str, suffix) {
-    return str.indexOf(suffix, str.length - suffix.length) !== -1;
-}
+    /**
+     * Check whether str ends with suffix.
+     * @param str
+     * @param suffix
+     * @returns {boolean}
+     */
+    function endsWith(str, suffix) {
+        return str.indexOf(suffix, str.length - suffix.length) !== -1;
+    }
 
     /**
      * Register context into global variable g.
