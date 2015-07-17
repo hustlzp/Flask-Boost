@@ -43,7 +43,7 @@
         external = ($.type(external) !== 'undefined') ? external : false;
 
         if (g.rules[endpoint] === undefined) {
-            throw new Error("Uncorrect endpoint in " + "urlFor(\"" + endpoint + "\", " +
+            throw new Error("Uncorrect endpoint in urlFor(\"" + endpoint + "\", " +
                 JSON.stringify(parameters) + ")");
         }
 
