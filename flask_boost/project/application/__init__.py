@@ -62,7 +62,7 @@ def create_app():
 
         # Serve static files during production
         app.wsgi_app = SharedDataMiddleware(app.wsgi_app, {
-            '/': os.path.join(app.config.get('PROJECT_PATH'), 'output')
+            '/': os.path.join(project_path, 'output')
         })
     else:
         DebugToolbarExtension(app)
