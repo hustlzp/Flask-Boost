@@ -141,6 +141,7 @@ Build assets
 Install FIS_ first::
 
     npm install -g fis
+    npm install -g fis-postpackager-simple
 
 .. _FIS: http://fis.baidu.com
 
