@@ -133,7 +133,7 @@ Update project root path as needed in ``deploy/nginx.conf`` and ``deploy/supervi
 
     cp deploy/flask_env.sh /etc/profile.d/
     cp deploy/nginx.conf /etc/nginx/conf.d/<your_project_name>.conf
-    cp deploy/supervisor.conf /etc/supervisord.d/<your_project_name>.conf
+    cp deploy/supervisor.conf /etc/supervisor/conf.d/<your_project_name>.conf
 
 Build assets
 ~~~~~~~~~~~~
