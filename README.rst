@@ -152,7 +152,7 @@ Start app
 ::
 
     service nginx restart
-    service supervisord restart
+    service supervisor restart
 
 for CentOS 7:
 
