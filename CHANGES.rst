@@ -1,6 +1,12 @@
 Flask Boost Changelog
 =====================
 
+Version 0.5.5
+-------------
+
+* Update form templates.
+* Update doc & clean codes & fix typos.
+
 Version 0.5.4
 -------------
 
