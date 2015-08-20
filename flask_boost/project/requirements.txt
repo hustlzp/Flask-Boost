@@ -17,9 +17,6 @@ livereload
 nose
 coverage
 pylint
-PyYAML
-cssmin
-lesscpy
 glob2
 
 # deploy
