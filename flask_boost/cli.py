@@ -10,6 +10,8 @@ Usage:
   boost new action <controller> <action> [-t]
   boost new form <form>
   boost new model <model>
+  boost new macro <macro>
+  boost new macro <category> <macro>
   boost -v | --version
   boost -h | --help
 
@@ -221,14 +223,14 @@ def generate_form(args):
 def generate_model(args):
     """Generate model."""
     model_name = args.get('<model>')
+    if not model_name:
+        logger.warning('Model name cannot be empty.')
+        return
+
     logger.info('Start generating model.')
 
     model_template = os.path.join(dirname(abspath(__file__)), 'templates/model.py')
     current_path = os.getcwd()
-
-    if not model_name:
-        logger.warning('Model name cannot be empty.')
-        return
 
     with open(model_template, 'r') as template_file:
         model_file_path = os.path.join(current_path, 'application/models',
@@ -245,6 +247,56 @@ def generate_model(args):
     logger.info('Finish generating model.')
 
 
+def generate_macro(args):
+    """Genarate macro."""
+    macro = args.get('<macro>')
+    category = args.get('<category>')
+
+    if not macro:
+        logger.warning('Macro name cannot be empty.')
+        return
+
+    logger.info('Start generating model.')
+
+    current_path = os.getcwd()
+
+    if category:
+        macro_html_category_path = os.path.join(current_path, 'application/templates/macros', category)
+        _mkdir_p(macro_html_category_path)
+        macro_html_path = os.path.join(macro_html_category_path, '_%s.html' % macro)
+
+        macro_css_category_path = os.path.join(current_path, 'application/static/css/macros', category)
+        _mkdir_p(macro_css_category_path)
+        macro_css_path = os.path.join(macro_css_category_path, '_%s.less' % macro)
+
+        macro_js_category_path = os.path.join(current_path, 'application/static/js/macros', category)
+        _mkdir_p(macro_js_category_path)
+        macro_js_path = os.path.join(macro_js_category_path, '_%s.js' % macro)
+    else:
+        macro_html_path = os.path.join(current_path, 'application/templates/macros', '_%s.html' % macro)
+        macro_css_path = os.path.join(current_path, 'application/static/css/macros', '_%s.less' % macro)
+        macro_js_path = os.path.join(current_path, 'application/static/js/macros', '_%s.js' % macro)
+
+    # html
+    macro_html_template_path = os.path.join(dirname(abspath(__file__)), 'templates/macro.html')
+    with open(macro_html_template_path, 'r') as template_file:
+        with open(macro_html_path, 'w+') as html_file:
+            for line in template_file:
+                new_line = line.replace('#{macro}', macro)
+                html_file.write(new_line)
+    logger.info("New: %s" % macro_html_path)
+
+    # css
+    open(macro_css_path, 'a').close()
+    logger.info("New: %s" % macro_css_path)
+
+    # js
+    open(macro_js_path, 'a').close()
+    logger.info("New: %s" % macro_js_path)
+
+    logger.info('Finish generating model.')
+
+
 def main():
     args = docopt(__doc__, version="Flask-Boost {0}".format(__version__))
     if args.get('new'):
@@ -256,6 +308,8 @@ def main():
             generate_model(args)
         elif args.get('action'):
             generate_action(args)
+        elif args.get('macro'):
+            generate_macro(args)
         else:
             generate_project(args)
     else:
