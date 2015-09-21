@@ -1,6 +1,13 @@
 Flask Boost Changelog
 =====================
 
+Version 0.5.6
+-------------
+
+* Freeze version of packages.
+* Upgrade fontaswsome to 4.4.0.
+* Add jsonify decorator.
+
 Version 0.5.5
 -------------
 
