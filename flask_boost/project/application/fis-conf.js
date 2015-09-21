@@ -8,13 +8,17 @@ fis.config.set('pack', {
         'static/js/libs/respond.min.js',
         'static/js/init.js'
     ],
+    'pkg/layout.js': [
+        'static/js/layout.js',
+        'static/macros-output/macros.js'
+    ],
     'pkg/libs.css': [
         'static/css/libs/*.css'
     ],
     'pkg/layout.css': [
         'static/css/bootstrap.theme.css',
         'static/css/common.css',
-        'static/css/macros/*.css',
+        'static/macros-output/macros.css',
         'static/css/layout.css'
     ]
 });
