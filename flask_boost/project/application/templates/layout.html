@@ -15,7 +15,7 @@
     {# CSS layout #}
     <link rel="stylesheet" href="/static/css/bootstrap.theme.css"/>
     <link rel="stylesheet" href="/static/css/common.css"/>
-    <link rel="stylesheet" href="/static/css/macros/_user.css"/>
+    <link rel="stylesheet" href="/static/macros-output/macros.css"/>
     <link rel="stylesheet" href="/static/css/layout.css"/>
     {# CSS page #}
     {% block page_css %}{% endblock %}
@@ -115,6 +115,9 @@
 
 {# JS layout #}
 <script src="/static/js/layout.js"></script>
+
+{# JS macros #}
+<script src="/static/macros-output/macros.js"></script>
 
 {# JS page #}
 {% block page_js %}{% endblock %}

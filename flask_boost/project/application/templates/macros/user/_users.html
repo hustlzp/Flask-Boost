@@ -1,0 +1,7 @@
+{% macro render_users(users) %}
+    {% for user in users %}
+        <div class="g-user">
+            <div class="name">{{ user.name }}</div>
+        </div>
+    {% endfor %}
+{% endmacro %}
