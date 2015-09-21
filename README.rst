@@ -138,7 +138,7 @@ Update project root path as needed in ``deploy/nginx.conf`` and ``deploy/supervi
 Build assets
 ~~~~~~~~~~~~
 
-Install FIS_ and Gulp globally::
+Install FIS_ and Gulp_ globally::
 
     npm install -g fis
     npm install -g fis-postpackager-simple
@@ -150,9 +150,11 @@ Install local packages::
 
 Then::
 
+    gulp watch
     python manage.py build
 
 .. _FIS: http://fis.baidu.com
+.. _Gulp: http://gulpjs.com
 
 Start app
 ~~~~~~~~~
