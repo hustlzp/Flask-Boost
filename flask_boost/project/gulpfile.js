@@ -45,7 +45,3 @@ gulp.task('watch', ['build'], function () {
 });
 
 gulp.task('default', ['build']);
-
-function inProduction() {
-    return process.env.MODE === 'PRODUCTION';
-}
