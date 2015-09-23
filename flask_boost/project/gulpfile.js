@@ -20,17 +20,17 @@ gulp.task('macros-css', function () {
             paths: [cssRoot]
         }))
         .pipe(concat('macros.css'))
-        .pipe(gulp.dest('./application/static/macros-output/'));
+        .pipe(gulp.dest('./application/static/macros_output/'));
 });
 
 gulp.task('macros-js', function () {
     return gulp
         .src(path.join(jsRoot, '**/_*.js'))
         .pipe(plumber())
-        .pipe(header('(function () {'))
+        .pipe(header('(function () {\n'))
         .pipe(footer('})();'))
         .pipe(concat('macros.js'))
-        .pipe(gulp.dest('./application/static/macros-output/'));
+        .pipe(gulp.dest('./application/static/macros_output/'));
 });
 
 gulp.task('build', ['macros-css', 'macros-js']);
