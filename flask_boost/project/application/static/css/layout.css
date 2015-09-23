@@ -32,7 +32,7 @@ body {
 .navbar-form {
   margin: 10px 0;
 }
-#footer {
+footer {
   position: absolute;
   bottom: 0;
   width: 100%;
