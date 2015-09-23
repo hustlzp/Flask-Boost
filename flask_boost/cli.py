@@ -129,18 +129,18 @@ def generate_controller(args):
                 test_file.write(new_line)
     logger.info("New: %s" % test_file_path)
 
-    # template dir
+    # html dir
     template_dir_path = os.path.join(current_path, 'application/templates/%s' % controller_name)
     _mkdir_p(template_dir_path)
     logger.info("New: %s" % template_dir_path + "/")
 
     # css dir
-    css_dir_path = os.path.join(current_path, 'application/static/css/%s' % controller_name)
+    css_dir_path = os.path.join(current_path, 'application/static/css/pages/%s' % controller_name)
     _mkdir_p(css_dir_path)
     logger.info("New: %s/" % css_dir_path)
 
     # js dir
-    js_dir_path = os.path.join(current_path, 'application/static/js/%s' % controller_name)
+    js_dir_path = os.path.join(current_path, 'application/static/js/pages/%s' % controller_name)
     _mkdir_p(js_dir_path)
     logger.info("New: %s/" % js_dir_path)
 
@@ -194,7 +194,7 @@ def generate_action(args):
         logger.info("New: %s" % action_html_file_path)
 
         # Create action js file
-        controller_js_dir_path = os.path.join(current_path, 'application/static/js/%s' % controller)
+        controller_js_dir_path = os.path.join(current_path, 'application/static/js/pages/%s' % controller)
         if not os.path.exists(controller_js_dir_path):
             os.makedirs(controller_js_dir_path)
         action_js_file_path = os.path.join(controller_js_dir_path, '%s.js' % action)
@@ -202,7 +202,7 @@ def generate_action(args):
         logger.info("New: %s" % action_js_file_path)
 
         # Create action less file
-        controller_css_dir_path = os.path.join(current_path, 'application/static/css/%s' % controller)
+        controller_css_dir_path = os.path.join(current_path, 'application/static/css/pages/%s' % controller)
         if not os.path.exists(controller_css_dir_path):
             os.makedirs(controller_css_dir_path)
 
