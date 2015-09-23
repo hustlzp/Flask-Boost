@@ -27,8 +27,8 @@ gulp.task('macros-js', function () {
     return gulp
         .src(path.join(jsRoot, '**/_*.js'))
         .pipe(plumber())
-        .pipe(header('(function () {\n'))
-        .pipe(footer('})();'))
+        .pipe(header('(function () {\n"use strict";\n\n'))
+        .pipe(footer('\n})();'))
         .pipe(concat('macros.js'))
         .pipe(gulp.dest('./application/static/macros_output/'));
 });

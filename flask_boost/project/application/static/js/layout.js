@@ -1,4 +1,6 @@
 (function () {
+    "use strict";
+
     // Flash message
     setTimeout(showFlash, 200);
     setTimeout(hideFlash, 2000);

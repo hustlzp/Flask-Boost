@@ -182,7 +182,7 @@ def generate_action(args):
         if not os.path.exists(controller_template_dir_path):
             os.makedirs(controller_template_dir_path)
 
-        # Create action html file
+        # html
         action_html_file_path = os.path.join(controller_template_dir_path, '%s.html' % action)
         with open(action_html_template_path, 'r') as action_html_template_file:
             with open(action_html_file_path, 'w') as action_html_file:
@@ -193,15 +193,17 @@ def generate_action(args):
                     action_html_file.write(new_line)
         logger.info("New: %s" % _relative_path(action_html_file_path))
 
-        # Create action js file
+        # js
         controller_js_dir_path = os.path.join(current_path, 'application/static/js/pages/%s' % controller)
         if not os.path.exists(controller_js_dir_path):
             os.makedirs(controller_js_dir_path)
+
+        action_js_template_path = os.path.join(dirname(abspath(__file__)), 'templates/action.js')
         action_js_file_path = os.path.join(controller_js_dir_path, '%s.js' % action)
-        open(action_js_file_path, 'a').close()
+        shutil.copy(action_js_template_path, action_js_file_path)
         logger.info("New: %s" % _relative_path(action_js_file_path))
 
-        # Create action less file
+        # less
         controller_css_dir_path = os.path.join(current_path, 'application/static/css/pages/%s' % controller)
         if not os.path.exists(controller_css_dir_path):
             os.makedirs(controller_css_dir_path)

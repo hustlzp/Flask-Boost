@@ -1,4 +1,6 @@
 (function () {
+    "use strict";
+
     // Add CSRF token header for Ajax request
     $.ajaxSetup({
         beforeSend: function (xhr, settings) {
