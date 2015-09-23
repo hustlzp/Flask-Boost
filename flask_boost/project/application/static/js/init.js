@@ -128,6 +128,16 @@
         });
     }
 
+    /**
+     * Find elements in #main
+     * @param selector
+     * @returns {*|jQuery}
+     */
+    function $page(selector) {
+        return $('#main').find(selector);
+    }
+
+    window.$page = $page;
     window.urlFor = urlFor;
     window.registerContext = registerContext;
 })();
