@@ -30,6 +30,11 @@ Init project
 Install requirements
 ~~~~~~~~~~~~~~~~~~~~
 
+Install Node.js first and then install Bower_ and Gulp_ globally::
+
+    npm install -g bower
+    npm install -g gulp
+
 ``cd`` to project root path, run:
  
 ::
@@ -37,6 +42,7 @@ Install requirements
     virtualenv venv
     . venv/bin/activate
     pip install -r requirements.txt
+    npm install
     bower install
 
 Init database
@@ -49,6 +55,13 @@ Update ``SQLALCHEMY_DATABASE_URI`` in ``config/development.py`` as needed.
 Then init tables::
 
     python manage.py db upgrade
+
+Run Gulp watch task
+~~~~~~~~~~~~~~~~~~~
+
+::
+
+    gulp watch
 
 Run app
 ~~~~~~~
@@ -140,8 +153,9 @@ Update project root path as needed in ``deploy/nginx.conf`` and ``deploy/supervi
 Build assets
 ~~~~~~~~~~~~
 
-Install FIS_ and Gulp_ globally::
+Install Node.js first and then install Bower_, FIS_ and Gulp_ globally::
 
+    npm install -g bower
     npm install -g fis
     npm install -g fis-postpackager-simple
     npm install -g gulp
@@ -149,12 +163,14 @@ Install FIS_ and Gulp_ globally::
 Install local packages::
 
     npm install
+    bower install
 
 Then::
 
-    gulp watch
+    gulp
     python manage.py build
 
+.. _Bower: http://bower.io
 .. _FIS: http://fis.baidu.com
 .. _Gulp: http://gulpjs.com
 
