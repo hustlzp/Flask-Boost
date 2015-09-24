@@ -30,10 +30,12 @@ Init project
 Install requirements
 ~~~~~~~~~~~~~~~~~~~~
 
-Install Node.js first and then install Bower_ and Gulp_ globally::
+Install Node.js first and then install Bower_, FIS_ and Gulp_ globally::
 
     npm install -g bower
-    npm install -g gulp
+    npm install -g fis
+    npm install -g fis-postpackager-simple
+    npm install gulp
 
 ``cd`` to project root path, run:
  
