@@ -85,7 +85,14 @@ def create_app():
 
 def register_jinja(app):
     """Register jinja filters, vars, functions."""
+    import jinja2
     from .utils import filters, permissions, helpers
+
+    my_loader = jinja2.ChoiceLoader([
+        app.jinja_loader,
+        jinja2.FileSystemLoader([os.path.join(app.config.get('PROJECT_PATH'), 'application/macros')]),
+    ])
+    app.jinja_loader = my_loader
 
     app.jinja_env.filters.update({
         'timesince': filters.timesince
