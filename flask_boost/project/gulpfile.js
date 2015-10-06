@@ -31,8 +31,7 @@ gulp.task('macros-js', function () {
         .pipe(gulp.dest(path.join(root, 'static/output/')));
 });
 
-gulp.task('build', ['macros-css', 'macros-js'], function () {
-});
+gulp.task('build', ['macros-css', 'macros-js']);
 
 gulp.task('watch', ['build'], function () {
     watch(path.join(root, 'macros/**/_*.js'), batch(function (events, done) {
