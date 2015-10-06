@@ -251,7 +251,7 @@ def generate_model(args):
 
 def generate_macro(args):
     """Genarate macro."""
-    macro = args.get('<macro>')
+    macro = args.get('<macro>').replace('-', '_')
     category = args.get('<category>')
 
     if not macro:
@@ -263,21 +263,15 @@ def generate_macro(args):
     current_path = os.getcwd()
 
     if category:
-        macro_html_category_path = os.path.join(current_path, 'application/templates/macros', category)
-        _mkdir_p(macro_html_category_path)
-        macro_html_path = os.path.join(macro_html_category_path, '_%s.html' % macro)
-
-        macro_css_category_path = os.path.join(current_path, 'application/static/css/macros', category)
-        _mkdir_p(macro_css_category_path)
-        macro_css_path = os.path.join(macro_css_category_path, '_%s.less' % macro)
-
-        macro_js_category_path = os.path.join(current_path, 'application/static/js/macros', category)
-        _mkdir_p(macro_js_category_path)
-        macro_js_path = os.path.join(macro_js_category_path, '_%s.js' % macro)
+        macro_root_path = os.path.join(current_path, 'application/macros', category, macro)
     else:
-        macro_html_path = os.path.join(current_path, 'application/templates/macros', '_%s.html' % macro)
-        macro_css_path = os.path.join(current_path, 'application/static/css/macros', '_%s.less' % macro)
-        macro_js_path = os.path.join(current_path, 'application/static/js/macros', '_%s.js' % macro)
+        macro_root_path = os.path.join(current_path, 'application/macros', macro)
+
+    _mkdir_p(macro_root_path)
+
+    macro_html_path = os.path.join(macro_root_path, '_%s.html' % macro)
+    macro_css_path = os.path.join(macro_root_path, '_%s.less' % macro)
+    macro_js_path = os.path.join(macro_root_path, '_%s.js' % macro)
 
     # html
     macro_html_template_path = os.path.join(dirname(abspath(__file__)), 'templates/macro.html')
