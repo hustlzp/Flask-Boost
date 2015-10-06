@@ -1,45 +1,44 @@
 var gulp = require('gulp');
-var tap = require('gulp-tap');
 var path = require('path');
 var less = require('gulp-less');
 var concat = require('gulp-concat');
 var watch = require('gulp-watch');
+var batch = require('gulp-batch');
 var plumber = require('gulp-plumber');
 var header = require('gulp-header');
 var footer = require('gulp-footer');
-var batch = require('gulp-batch');
 
-var cssRoot = 'application/static/css';
-var jsRoot = 'application/static/js';
+var root = './application';
 
 gulp.task('macros-css', function () {
     return gulp
-        .src(path.join(cssRoot, '**/_*.less'))
+        .src(path.join(root, 'macros/**/_*.less'))
         .pipe(plumber())
         .pipe(less({
-            paths: [cssRoot]
+            paths: [path.join(root, 'static/css')]
         }))
         .pipe(concat('macros.css'))
-        .pipe(gulp.dest('./application/static/macros_output/'));
+        .pipe(gulp.dest(path.join(root, 'static/output/')));
 });
 
 gulp.task('macros-js', function () {
     return gulp
-        .src(path.join(jsRoot, '**/_*.js'))
+        .src(path.join(root, 'macros/**/_*.js'))
         .pipe(plumber())
-        .pipe(header('(function () {\n"use strict";\n\n'))
-        .pipe(footer('\n})();'))
+        .pipe(header('(function () {'))
+        .pipe(footer('})();'))
         .pipe(concat('macros.js'))
-        .pipe(gulp.dest('./application/static/macros_output/'));
+        .pipe(gulp.dest(path.join(root, 'static/output/')));
 });
 
-gulp.task('build', ['macros-css', 'macros-js']);
+gulp.task('build', ['macros-css', 'macros-js'], function () {
+});
 
 gulp.task('watch', ['build'], function () {
-    watch(path.join(jsRoot, '**/_*.js'), batch(function (events, done) {
+    watch(path.join(root, 'macros/**/_*.js'), batch(function (events, done) {
         gulp.start('macros-js', done);
     }));
-    watch(path.join(cssRoot, '**/_*.less'), batch(function (events, done) {
+    watch(path.join(root, 'macros/**/_*.less'), batch(function (events, done) {
         gulp.start('macros-css', done);
     }));
 });
