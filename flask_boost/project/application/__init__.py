@@ -91,6 +91,7 @@ def register_jinja(app):
     my_loader = jinja2.ChoiceLoader([
         app.jinja_loader,
         jinja2.FileSystemLoader([os.path.join(app.config.get('PROJECT_PATH'), 'application/macros')]),
+        jinja2.FileSystemLoader([os.path.join(app.config.get('PROJECT_PATH'), 'application/pages')])
     ])
     app.jinja_loader = my_loader
 
@@ -143,15 +144,15 @@ def register_error_handle(app):
 
     @app.errorhandler(403)
     def page_403(error):
-        return render_template('site/403.html'), 403
+        return render_template('site/403/403.html'), 403
 
     @app.errorhandler(404)
     def page_404(error):
-        return render_template('site/404.html'), 404
+        return render_template('site/404/404.html'), 404
 
     @app.errorhandler(500)
     def page_500(error):
-        return render_template('site/500.html'), 500
+        return render_template('site/500/500.html'), 500
 
 
 def register_uploadsets(app):
