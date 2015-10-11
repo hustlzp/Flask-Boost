@@ -84,11 +84,12 @@ Run livereload server in another console::
 .. _here: http://feedback.livereload.com/knowledgebase/articles/86242-how-do-i-install-and-use-the-browser-extensions-
 
 
-Other commands
-~~~~~~~~~~~~~~
+Commands
+~~~~~~~~
 
 ::
 
+    boost new <project>
     boost new controller <controller>
     boost new action <controller> <action> [-t]
     boost new form <form>
@@ -97,6 +98,20 @@ Other commands
     boost new macro <macro>
     boost -v
     boost -h
+
+Recommended IDE
+~~~~~~~~~~~~~~~
+
+PyCharm_ is the recommended IDE for Flask-Boost.
+
+In ``Preferences -> Project -> Project Interpreter``, set ``venv`` as project interpreter.
+
+In ``Preferences -> Project -> Project Structure``, set ``application/pages`` and ``application/macros`` as template folders,
+set ``application`` and ``application/static/css`` as resource folders.
+
+Recommended PyCharm plugins: .ignore
+
+.. _PyCharm: https://www.jetbrains.com/pycharm/
 
 First Production Deploy
 -----------------------
