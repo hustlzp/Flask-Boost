@@ -58,11 +58,11 @@ def create_app():
 
         # Serve static files
         app.wsgi_app = SharedDataMiddleware(app.wsgi_app, {
+            '/static': os.path.join(app.config.get('PROJECT_PATH'), 'output/static'),
             '/pkg': os.path.join(app.config.get('PROJECT_PATH'), 'output/pkg'),
-            '/pages': os.path.join(app.config.get('PROJECT_PATH'), 'output/pages'),
-            '/static': os.path.join(app.config.get('PROJECT_PATH'), 'output/static')
+            '/uploads': os.path.join(app.config.get('PROJECT_PATH'), 'uploads'),
+            '/pages': os.path.join(app.config.get('PROJECT_PATH'), 'output/pages')
         })
-
     else:
         DebugToolbarExtension(app)
 
