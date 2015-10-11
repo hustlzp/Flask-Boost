@@ -1,6 +1,6 @@
 *.pyc
-.idea
-venv
+.idea/
+venv/
 config/production.py
 config/development.py
 bower_components/
@@ -10,5 +10,7 @@ uploads/*
 uploads/avatars/*
 !uploads/avatars/default.png
 node_modules/
-macros_output/
 application/pages/**/*.css
+application/static/css/**/*.css
+!application/static/css/libs/*.css
+application/static/output/
