@@ -11,3 +11,4 @@ uploads/avatars/*
 !uploads/avatars/default.png
 node_modules/
 macros_output/
+application/pages/**/*.css

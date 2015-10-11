@@ -59,17 +59,13 @@ def create_app():
             from .utils.sentry import sentry
 
             sentry.init_app(app, dsn=app.config.get('SENTRY_DSN'))
-
-        # Serve static files during production
-        app.wsgi_app = SharedDataMiddleware(app.wsgi_app, {
-            '/': os.path.join(project_path, 'output')
-        })
     else:
         DebugToolbarExtension(app)
 
         # Serve static files during development
         app.wsgi_app = SharedDataMiddleware(app.wsgi_app, {
-            '/uploads': os.path.join(app.config.get('PROJECT_PATH'), 'uploads')
+            '/uploads': os.path.join(app.config.get('PROJECT_PATH'), 'uploads'),
+            '/pages': os.path.join(app.config.get('PROJECT_PATH'), 'application/pages')
         })
 
     # Register components

@@ -7,6 +7,7 @@ var batch = require('gulp-batch');
 var plumber = require('gulp-plumber');
 var header = require('gulp-header');
 var footer = require('gulp-footer');
+var rename = require("gulp-rename");
 
 var root = './application';
 
@@ -31,7 +32,21 @@ gulp.task('macros-js', function () {
         .pipe(gulp.dest(path.join(root, 'static/output/')));
 });
 
-gulp.task('build', ['macros-css', 'macros-js']);
+gulp.task('pages-css', function () {
+    return gulp
+        .src(path.join(root, 'pages/**/*.less'))
+        .pipe(plumber())
+        .pipe(less({
+            paths: [path.join(root, 'static/css')]
+        }))
+        .pipe(rename(function (path) {
+            path.extname = ".css";
+            return path;
+        }))
+        .pipe(gulp.dest(path.join(root, 'pages')));
+});
+
+gulp.task('build', ['macros-css', 'macros-js', 'pages-css']);
 
 gulp.task('watch', ['build'], function () {
     watch(path.join(root, 'macros/**/_*.js'), batch(function (events, done) {
@@ -39,6 +54,9 @@ gulp.task('watch', ['build'], function () {
     }));
     watch(path.join(root, 'macros/**/_*.less'), batch(function (events, done) {
         gulp.start('macros-css', done);
+    }));
+    watch(path.join(root, 'pages/**/_*.less'), batch(function (events, done) {
+        gulp.start('pages-css', done);
     }));
 });
 
