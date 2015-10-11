@@ -111,7 +111,7 @@ set ``application`` and ``application/static/css`` as resource folders.
 
 Recommended PyCharm plugins:
 
- * .ignore
+* .ignore
 
 .. _PyCharm: https://www.jetbrains.com/pycharm/
 
