@@ -129,20 +129,10 @@ def generate_controller(args):
                 test_file.write(new_line)
     logger.info("New: %s" % _relative_path(test_file_path))
 
-    # html dir
-    template_dir_path = os.path.join(current_path, 'application/templates/%s' % controller_name)
-    _mkdir_p(template_dir_path)
-    logger.info("New: %s/" % _relative_path(template_dir_path))
-
-    # css dir
-    css_dir_path = os.path.join(current_path, 'application/static/css/pages/%s' % controller_name)
-    _mkdir_p(css_dir_path)
-    logger.info("New: %s/" % _relative_path(css_dir_path))
-
-    # js dir
-    js_dir_path = os.path.join(current_path, 'application/static/js/pages/%s' % controller_name)
-    _mkdir_p(js_dir_path)
-    logger.info("New: %s/" % _relative_path(js_dir_path))
+    # assets dir
+    assets_dir_path = os.path.join(current_path, 'application/pages/%s' % controller_name)
+    _mkdir_p(assets_dir_path)
+    logger.info("New: %s/" % _relative_path(assets_dir_path))
 
     # form file
     _generate_form(controller_name)
@@ -166,7 +156,6 @@ def generate_action(args):
         action_source_path = os.path.join(dirname(abspath(__file__)), 'templates/action.py')
     else:
         action_source_path = os.path.join(dirname(abspath(__file__)), 'templates/action_without_template.py')
-    action_html_template_path = os.path.join(dirname(abspath(__file__)), 'templates/action.html')
 
     # Add action source codes
     with open(action_source_path, 'r') as action_source_file:
@@ -178,40 +167,33 @@ def generate_action(args):
     logger.info("Updated: %s" % _relative_path(controller_file_path))
 
     if with_template:
-        controller_template_dir_path = os.path.join(current_path, 'application/templates/%s' % controller)
-        if not os.path.exists(controller_template_dir_path):
-            os.makedirs(controller_template_dir_path)
+        # assets dir
+        assets_dir_path = os.path.join(current_path, 'application/pages/%s/%s' % (controller, action))
+        _mkdir_p(assets_dir_path)
 
         # html
-        action_html_file_path = os.path.join(controller_template_dir_path, '%s.html' % action)
+        action_html_template_path = os.path.join(dirname(abspath(__file__)), 'templates/action.html')
+        action_html_path = os.path.join(assets_dir_path, '%s.html' % action)
         with open(action_html_template_path, 'r') as action_html_template_file:
-            with open(action_html_file_path, 'w') as action_html_file:
+            with open(action_html_path, 'w') as action_html_file:
                 for line in action_html_template_file:
                     new_line = line.replace('#{action}', action) \
                         .replace('#{action|title}', action.title()) \
                         .replace('#{controller}', controller)
                     action_html_file.write(new_line)
-        logger.info("New: %s" % _relative_path(action_html_file_path))
+        logger.info("New: %s" % _relative_path(action_html_path))
 
         # js
-        controller_js_dir_path = os.path.join(current_path, 'application/static/js/pages/%s' % controller)
-        if not os.path.exists(controller_js_dir_path):
-            os.makedirs(controller_js_dir_path)
-
         action_js_template_path = os.path.join(dirname(abspath(__file__)), 'templates/action.js')
-        action_js_file_path = os.path.join(controller_js_dir_path, '%s.js' % action)
-        shutil.copy(action_js_template_path, action_js_file_path)
-        logger.info("New: %s" % _relative_path(action_js_file_path))
+        action_js_path = os.path.join(assets_dir_path, '%s.js' % action)
+        shutil.copy(action_js_template_path, action_js_path)
+        logger.info("New: %s" % _relative_path(action_js_path))
 
         # less
-        controller_css_dir_path = os.path.join(current_path, 'application/static/css/pages/%s' % controller)
-        if not os.path.exists(controller_css_dir_path):
-            os.makedirs(controller_css_dir_path)
-
         action_less_template_path = os.path.join(dirname(abspath(__file__)), 'templates/action.less')
-        action_less_file_path = os.path.join(controller_css_dir_path, '%s.less' % action)
-        shutil.copy(action_less_template_path, action_less_file_path)
-        logger.info("New: %s" % _relative_path(action_less_file_path))
+        action_less_path = os.path.join(assets_dir_path, '%s.less' % action)
+        shutil.copy(action_less_template_path, action_less_path)
+        logger.info("New: %s" % _relative_path(action_less_path))
 
 
 def generate_form(args):
