@@ -15,7 +15,7 @@ Installation
 
 ::
 
-    pip install git+https://github.com/hustlzp/Flask-Boost.git@fi956d41801c257919ca657ea5dfc13934c967e739s#egg=flask_boost
+    pip install git+https://github.com/hustlzp/Flask-Boost.git@fis#egg=flask_boost
 
 Development Guide
 -----------------
