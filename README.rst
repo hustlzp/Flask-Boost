@@ -109,7 +109,9 @@ In ``Preferences -> Project -> Project Interpreter``, set ``venv`` as project in
 In ``Preferences -> Project -> Project Structure``, set ``application/pages`` and ``application/macros`` as template folders,
 set ``application`` and ``application/static/css`` as resource folders.
 
-Recommended PyCharm plugins: .ignore
+Recommended PyCharm plugins:
+
+ * .ignore
 
 .. _PyCharm: https://www.jetbrains.com/pycharm/
 
