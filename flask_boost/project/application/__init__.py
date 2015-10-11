@@ -33,11 +33,7 @@ def create_app():
     """Create Flask app."""
     config = load_config()
 
-    if config.DEBUG or config.TESTING:
-        app = Flask(__name__)
-    else:
-        app = Flask(__name__, template_folder=os.path.join(project_path, 'output/templates'))
-
+    app = Flask(__name__)
     app.config.from_object(config)
 
     if not hasattr(app, 'production'):
@@ -59,10 +55,18 @@ def create_app():
             from .utils.sentry import sentry
 
             sentry.init_app(app, dsn=app.config.get('SENTRY_DSN'))
+
+        # Serve static files
+        app.wsgi_app = SharedDataMiddleware(app.wsgi_app, {
+            '/pkg': os.path.join(app.config.get('PROJECT_PATH'), 'output/pkg'),
+            '/pages': os.path.join(app.config.get('PROJECT_PATH'), 'output/pages'),
+            '/static': os.path.join(app.config.get('PROJECT_PATH'), 'output/static')
+        })
+
     else:
         DebugToolbarExtension(app)
 
-        # Serve static files during development
+        # Serve static files
         app.wsgi_app = SharedDataMiddleware(app.wsgi_app, {
             '/uploads': os.path.join(app.config.get('PROJECT_PATH'), 'uploads'),
             '/pages': os.path.join(app.config.get('PROJECT_PATH'), 'application/pages')
@@ -84,11 +88,18 @@ def register_jinja(app):
     import jinja2
     from .utils import filters, permissions, helpers
 
-    my_loader = jinja2.ChoiceLoader([
-        app.jinja_loader,
-        jinja2.FileSystemLoader([os.path.join(app.config.get('PROJECT_PATH'), 'application/macros')]),
-        jinja2.FileSystemLoader([os.path.join(app.config.get('PROJECT_PATH'), 'application/pages')])
-    ])
+    if app.production:
+        my_loader = jinja2.ChoiceLoader([
+            app.jinja_loader,
+            jinja2.FileSystemLoader([os.path.join(app.config.get('PROJECT_PATH'), 'application/macros')]),
+            jinja2.FileSystemLoader([os.path.join(app.config.get('PROJECT_PATH'), 'output/pages')])
+        ])
+    else:
+        my_loader = jinja2.ChoiceLoader([
+            app.jinja_loader,
+            jinja2.FileSystemLoader([os.path.join(app.config.get('PROJECT_PATH'), 'application/macros')]),
+            jinja2.FileSystemLoader([os.path.join(app.config.get('PROJECT_PATH'), 'application/pages')])
+        ])
     app.jinja_loader = my_loader
 
     app.jinja_env.filters.update({
