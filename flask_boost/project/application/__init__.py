@@ -45,8 +45,16 @@ def create_app():
     # CSRF protect
     CsrfProtect(app)
 
-    # Log errors to stderr in production mode
-    if app.production:
+    if app.debug or app.testing:
+        DebugToolbarExtension(app)
+
+        # Serve static files
+        app.wsgi_app = SharedDataMiddleware(app.wsgi_app, {
+            '/uploads': os.path.join(app.config.get('PROJECT_PATH'), 'uploads'),
+            '/pages': os.path.join(app.config.get('PROJECT_PATH'), 'application/pages')
+        })
+    else:
+        # Log errors to stderr in production mode
         app.logger.addHandler(logging.StreamHandler())
         app.logger.setLevel(logging.ERROR)
 
@@ -62,14 +70,6 @@ def create_app():
             '/pkg': os.path.join(app.config.get('PROJECT_PATH'), 'output/pkg'),
             '/uploads': os.path.join(app.config.get('PROJECT_PATH'), 'uploads'),
             '/pages': os.path.join(app.config.get('PROJECT_PATH'), 'output/pages')
-        })
-    else:
-        DebugToolbarExtension(app)
-
-        # Serve static files
-        app.wsgi_app = SharedDataMiddleware(app.wsgi_app, {
-            '/uploads': os.path.join(app.config.get('PROJECT_PATH'), 'uploads'),
-            '/pages': os.path.join(app.config.get('PROJECT_PATH'), 'application/pages')
         })
 
     # Register components
@@ -88,17 +88,21 @@ def register_jinja(app):
     import jinja2
     from .utils import filters, permissions, helpers
 
-    if app.production:
+    if app.debug or app.testing:
         my_loader = jinja2.ChoiceLoader([
             app.jinja_loader,
-            jinja2.FileSystemLoader([os.path.join(app.config.get('PROJECT_PATH'), 'application/macros')]),
-            jinja2.FileSystemLoader([os.path.join(app.config.get('PROJECT_PATH'), 'output/pages')])
+            jinja2.FileSystemLoader([
+                os.path.join(app.config.get('PROJECT_PATH'), 'application/macros'),
+                os.path.join(app.config.get('PROJECT_PATH'), 'application/pages')
+            ])
         ])
     else:
         my_loader = jinja2.ChoiceLoader([
             app.jinja_loader,
-            jinja2.FileSystemLoader([os.path.join(app.config.get('PROJECT_PATH'), 'application/macros')]),
-            jinja2.FileSystemLoader([os.path.join(app.config.get('PROJECT_PATH'), 'application/pages')])
+            jinja2.FileSystemLoader([
+                os.path.join(app.config.get('PROJECT_PATH'), 'application/macros'),
+                os.path.join(app.config.get('PROJECT_PATH'), 'output/pages')
+            ])
         ])
     app.jinja_loader = my_loader
 
