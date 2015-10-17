@@ -194,7 +194,7 @@ Then::
     python manage.py build
 
 .. _Bower: http://bower.io
-.. _FIS: http://fis.baidu.com
+.. _FIS: http://fex-team.github.io/fis-site/
 .. _Gulp: http://gulpjs.com
 
 Start app
