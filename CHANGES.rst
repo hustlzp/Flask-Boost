@@ -1,6 +1,18 @@
 Flask Boost Changelog
 =====================
 
+Version 0.6.0
+-------------
+
+* Move page stuff to ``application/pages`` dir.
+* Move macro stuff to ``application/macros`` dir.
+* Use Gulp_ to build macro assets in development.
+* Use FIS_ to build assets in production.
+* Lock package version in ``requirements.txt``.
+
+* .. _Gulp: http://gulpjs.com
+* .. _FIS: http://fex-team.github.io/fis-site/
+
 Version 0.5.6
 -------------
 
