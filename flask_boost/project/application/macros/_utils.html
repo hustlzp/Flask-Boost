@@ -1,0 +1,25 @@
+{% macro pagination(paginator) %}
+    {% if paginator.pages > 1 %}
+        <ul class='pagination pagination-sm'>
+            {% if paginator.has_prev %}
+                <li><a href="{{ url_for_other_page(paginator.prev_num) }}">上一页</a></li>
+            {% endif %}
+
+            {% for page in paginator.iter_pages() %}
+                {% if page %}
+                    {% if page != paginator.page %}
+                        <li><a href="{{ url_for_other_page(page) }}">{{ page }}</a></li>
+                    {% else %}
+                        <li class="active"><span>{{ page }}</span></li>
+                    {% endif %}
+                {% else %}
+                    <li class="ellipsis"><span>...</span></li>
+                {% endif %}
+            {% endfor %}
+
+            {% if paginator.has_next %}
+                <li><a href="{{ url_for_other_page(paginator.next_num) }}">下一页</a></li>
+            {% endif %}
+        </ul>
+    {% endif %}
+{% endmacro %}

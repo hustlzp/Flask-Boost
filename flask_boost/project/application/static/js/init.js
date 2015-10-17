@@ -1,12 +1,5 @@
 (function () {
-    // Add CSRF token header for Ajax request
-    $.ajaxSetup({
-        beforeSend: function (xhr, settings) {
-            if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type)) {
-                xhr.setRequestHeader("X-CSRFToken", g.csrfToken);
-            }
-        }
-    });
+    "use strict";
 
     // Find out params in routing rules
     var pattern = new RegExp("<[^:]*:?([^>]+)>", "g");
@@ -90,7 +83,7 @@
                 }
             });
         } else {
-            throw new Error("Uncorrect parameters in " + "urlFor(\"" + endpoint + "\", " +
+            throw new Error("Uncorrect parameters in urlFor(\"" + endpoint + "\", " +
                 JSON.stringify(parameters) + ")");
         }
 
@@ -128,6 +121,16 @@
         });
     }
 
+    /**
+     * Find elements in #main
+     * @param selector
+     * @returns {*|jQuery}
+     */
+    function $page(selector) {
+        return $('#main').find(selector);
+    }
+
+    window.$page = $page;
     window.urlFor = urlFor;
     window.registerContext = registerContext;
 })();

@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% from '_form.html' import vertical_field %}
+
+{% block page_title %}Sign in{% endblock %}
+{% block page_js %}
+    <script src="/pages/account/signin/signin.js"></script>{% endblock %}
+{% block page_css %}
+    <link rel="stylesheet" href="/pages/account/signin/signin.css"/>{% endblock %}
+{% block page_content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <h1>Sign in</h1>
+
+                <form method="post" action="{{ url_for('account.signin') }}">
+                    {{ form.csrf_token() }}
+
+                    {{ vertical_field(form.email) }}
+
+                    {{ vertical_field(form.password) }}
+
+                    <button type="submit" class="btn btn-primary">Sign in</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

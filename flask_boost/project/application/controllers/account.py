@@ -16,7 +16,7 @@ def signin():
     if form.validate_on_submit():
         signin_user(form.user)
         return redirect(url_for('site.index'))
-    return render_template('account/signin.html', form=form)
+    return render_template('account/signin/signin.html', form=form)
 
 
 @bp.route('/signup', methods=['GET', 'POST'])
@@ -32,7 +32,7 @@ def signup():
         db.session.commit()
         signin_user(user)
         return redirect(url_for('site.index'))
-    return render_template('account/signup.html', form=form)
+    return render_template('account/signup/signup.html', form=form)
 
 
 @bp.route('/signout')

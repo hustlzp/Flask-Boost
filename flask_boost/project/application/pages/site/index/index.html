@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% block page_title %}#{project|title}{% endblock %}
+{% block page_js %}
+    <script src="/pages/site/index/index.js"></script>{% endblock %}
+{% block page_css %}
+    <link rel="stylesheet" href="/pages/site/index/index.css"/>{% endblock %}
+{% block page_content %}
+    <div class="container">
+        <h1>Home</h1>
+    </div>
+{% endblock %}

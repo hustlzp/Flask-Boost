@@ -10,6 +10,8 @@ Usage:
   boost new action <controller> <action> [-t]
   boost new form <form>
   boost new model <model>
+  boost new macro <macro>
+  boost new macro <category> <macro>
   boost -v | --version
   boost -h | --help
 
@@ -114,7 +116,7 @@ def generate_controller(args):
             for line in template_file:
                 new_line = line.replace('#{controller}', controller_name)
                 controller_file.write(new_line)
-    logger.info("New: %s" % controller_file_path)
+    logger.info("New: %s" % _relative_path(controller_file_path))
 
     # test file
     with open(test_template, 'r') as template_file:
@@ -125,22 +127,12 @@ def generate_controller(args):
                 new_line = line.replace('#{controller}', controller_name) \
                     .replace('#{controller|title}', controller_name.title())
                 test_file.write(new_line)
-    logger.info("New: %s" % test_file_path)
+    logger.info("New: %s" % _relative_path(test_file_path))
 
-    # template dir
-    template_dir_path = os.path.join(current_path, 'application/templates/%s' % controller_name)
-    _mkdir_p(template_dir_path)
-    logger.info("New: %s" % template_dir_path + "/")
-
-    # css dir
-    css_dir_path = os.path.join(current_path, 'application/static/css/%s' % controller_name)
-    _mkdir_p(css_dir_path)
-    logger.info("New: %s/" % css_dir_path)
-
-    # js dir
-    js_dir_path = os.path.join(current_path, 'application/static/js/%s' % controller_name)
-    _mkdir_p(js_dir_path)
-    logger.info("New: %s/" % js_dir_path)
+    # assets dir
+    assets_dir_path = os.path.join(current_path, 'application/pages/%s' % controller_name)
+    _mkdir_p(assets_dir_path)
+    logger.info("New: %s/" % _relative_path(assets_dir_path))
 
     # form file
     _generate_form(controller_name)
@@ -164,7 +156,6 @@ def generate_action(args):
         action_source_path = os.path.join(dirname(abspath(__file__)), 'templates/action.py')
     else:
         action_source_path = os.path.join(dirname(abspath(__file__)), 'templates/action_without_template.py')
-    action_html_template_path = os.path.join(dirname(abspath(__file__)), 'templates/action.html')
 
     # Add action source codes
     with open(action_source_path, 'r') as action_source_file:
@@ -173,39 +164,36 @@ def generate_action(args):
                 new_line = action_line.replace('#{controller}', controller). \
                     replace('#{action}', action)
                 controller_file.write(new_line)
-    logger.info("Updated: %s" % controller_file_path)
+    logger.info("Updated: %s" % _relative_path(controller_file_path))
 
     if with_template:
-        controller_template_dir_path = os.path.join(current_path, 'application/templates/%s' % controller)
-        if not os.path.exists(controller_template_dir_path):
-            os.makedirs(controller_template_dir_path)
+        # assets dir
+        assets_dir_path = os.path.join(current_path, 'application/pages/%s/%s' % (controller, action))
+        _mkdir_p(assets_dir_path)
 
-        # Create action html file
-        action_html_file_path = os.path.join(controller_template_dir_path, '%s.html' % action)
+        # html
+        action_html_template_path = os.path.join(dirname(abspath(__file__)), 'templates/action.html')
+        action_html_path = os.path.join(assets_dir_path, '%s.html' % action)
         with open(action_html_template_path, 'r') as action_html_template_file:
-            with open(action_html_file_path, 'w') as action_html_file:
+            with open(action_html_path, 'w') as action_html_file:
                 for line in action_html_template_file:
-                    new_line = line.replace('#{action|title}', action.title())
+                    new_line = line.replace('#{action}', action) \
+                        .replace('#{action|title}', action.title()) \
+                        .replace('#{controller}', controller)
                     action_html_file.write(new_line)
-        logger.info("New: %s" % action_html_file_path)
+        logger.info("New: %s" % _relative_path(action_html_path))
 
-        # Create action js file
-        controller_js_dir_path = os.path.join(current_path, 'application/static/js/%s' % controller)
-        if not os.path.exists(controller_js_dir_path):
-            os.makedirs(controller_js_dir_path)
-        action_js_file_path = os.path.join(controller_js_dir_path, '%s.js' % action)
-        open(action_js_file_path, 'a').close()
-        logger.info("New: %s" % action_js_file_path)
+        # js
+        action_js_template_path = os.path.join(dirname(abspath(__file__)), 'templates/action.js')
+        action_js_path = os.path.join(assets_dir_path, '%s.js' % action)
+        shutil.copy(action_js_template_path, action_js_path)
+        logger.info("New: %s" % _relative_path(action_js_path))
 
-        # Create action less file
-        controller_css_dir_path = os.path.join(current_path, 'application/static/css/%s' % controller)
-        if not os.path.exists(controller_css_dir_path):
-            os.makedirs(controller_css_dir_path)
-
+        # less
         action_less_template_path = os.path.join(dirname(abspath(__file__)), 'templates/action.less')
-        action_less_file_path = os.path.join(controller_css_dir_path, '%s.less' % action)
-        shutil.copy(action_less_template_path, action_less_file_path)
-        logger.info("New: %s" % action_less_file_path)
+        action_less_path = os.path.join(assets_dir_path, '%s.less' % action)
+        shutil.copy(action_less_template_path, action_less_path)
+        logger.info("New: %s" % _relative_path(action_less_path))
 
 
 def generate_form(args):
@@ -219,14 +207,14 @@ def generate_form(args):
 def generate_model(args):
     """Generate model."""
     model_name = args.get('<model>')
+    if not model_name:
+        logger.warning('Model name cannot be empty.')
+        return
+
     logger.info('Start generating model.')
 
     model_template = os.path.join(dirname(abspath(__file__)), 'templates/model.py')
     current_path = os.getcwd()
-
-    if not model_name:
-        logger.warning('Model name cannot be empty.')
-        return
 
     with open(model_template, 'r') as template_file:
         model_file_path = os.path.join(current_path, 'application/models',
@@ -235,10 +223,54 @@ def generate_model(args):
             for line in template_file:
                 new_line = line.replace('#{model|title}', model_name.title())
                 model_file.write(new_line)
-    logger.info("New: %s" % model_file_path)
+    logger.info("New: %s" % _relative_path(model_file_path))
 
     with open(os.path.join(current_path, 'application/models/__init__.py'), 'a') as package_file:
         package_file.write('\nfrom .%s import *' % model_name)
+
+    logger.info('Finish generating model.')
+
+
+def generate_macro(args):
+    """Genarate macro."""
+    macro = args.get('<macro>').replace('-', '_')
+    category = args.get('<category>')
+
+    if not macro:
+        logger.warning('Macro name cannot be empty.')
+        return
+
+    logger.info('Start generating model.')
+
+    current_path = os.getcwd()
+
+    if category:
+        macro_root_path = os.path.join(current_path, 'application/macros', category, macro)
+    else:
+        macro_root_path = os.path.join(current_path, 'application/macros', macro)
+
+    _mkdir_p(macro_root_path)
+
+    macro_html_path = os.path.join(macro_root_path, '_%s.html' % macro)
+    macro_css_path = os.path.join(macro_root_path, '_%s.less' % macro)
+    macro_js_path = os.path.join(macro_root_path, '_%s.js' % macro)
+
+    # html
+    macro_html_template_path = os.path.join(dirname(abspath(__file__)), 'templates/macro.html')
+    with open(macro_html_template_path, 'r') as template_file:
+        with open(macro_html_path, 'w+') as html_file:
+            for line in template_file:
+                new_line = line.replace('#{macro}', macro)
+                html_file.write(new_line)
+    logger.info("New: %s" % _relative_path(macro_html_path))
+
+    # css
+    open(macro_css_path, 'a').close()
+    logger.info("New: %s" % _relative_path(macro_css_path))
+
+    # js
+    open(macro_js_path, 'a').close()
+    logger.info("New: %s" % _relative_path(macro_js_path))
 
     logger.info('Finish generating model.')
 
@@ -254,6 +286,8 @@ def main():
             generate_model(args)
         elif args.get('action'):
             generate_action(args)
+        elif args.get('macro'):
+            generate_macro(args)
         else:
             generate_project(args)
     else:
@@ -298,10 +332,15 @@ def _generate_form(form_name):
 
     form_file_path = os.path.join(current_path, 'application/forms', form_name + '.py')
     shutil.copy(form_template, form_file_path)
-    logger.info("New: %s" % form_file_path)
+    logger.info("New: %s" % _relative_path(form_file_path))
 
     with open(os.path.join(current_path, 'application/forms/__init__.py'), 'a') as package_file:
         package_file.write('\nfrom .%s import *' % form_name)
+
+
+def _relative_path(absolute_path):
+    current_path = os.getcwd()
+    return absolute_path.split(current_path)[1][1:]
 
 
 if __name__ == "__main__":

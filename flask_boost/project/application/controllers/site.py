@@ -7,10 +7,10 @@ bp = Blueprint('site', __name__)
 @bp.route('/')
 def index():
     """Index page."""
-    return render_template('site/index.html')
+    return render_template('site/index/index.html')
 
 
 @bp.route('/about')
 def about():
     """About page."""
-    return render_template('site/about.html')
+    return render_template('site/about/about.html')

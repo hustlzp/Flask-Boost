@@ -15,7 +15,7 @@ Installation
 
 ::
 
-    pip install flask-boost
+    pip install git+https://github.com/hustlzp/Flask-Boost.git@fis#egg=flask_boost
 
 Development Guide
 -----------------
@@ -30,6 +30,13 @@ Init project
 Install requirements
 ~~~~~~~~~~~~~~~~~~~~
 
+Install Node.js first and then install Bower_, FIS_ and Gulp_ globally::
+
+    npm install -g bower
+    npm install -g fis
+    npm install -g fis-postpackager-simple
+    npm install gulp
+
 ``cd`` to project root path, run:
  
 ::
@@ -37,6 +44,7 @@ Install requirements
     virtualenv venv
     . venv/bin/activate
     pip install -r requirements.txt
+    npm install
     bower install
 
 Init database
@@ -49,6 +57,13 @@ Update ``SQLALCHEMY_DATABASE_URI`` in ``config/development.py`` as needed.
 Then init tables::
 
     python manage.py db upgrade
+
+Run Gulp watch task
+~~~~~~~~~~~~~~~~~~~
+
+::
+
+    gulp watch
 
 Run app
 ~~~~~~~
@@ -69,17 +84,40 @@ Run livereload server in another console::
 .. _here: http://feedback.livereload.com/knowledgebase/articles/86242-how-do-i-install-and-use-the-browser-extensions-
 
 
-Other commands
-~~~~~~~~~~~~~~
+Commands
+~~~~~~~~
 
 ::
 
+    boost new <project>
     boost new controller <controller>
     boost new action <controller> <action> [-t]
     boost new form <form>
     boost new model <model>
+    boost new macro <category> <macro>
+    boost new macro <macro>
     boost -v
     boost -h
+
+Recommended IDE
+~~~~~~~~~~~~~~~
+
+PyCharm_ is the recommended IDE for Flask-Boost.
+
+In ``Preferences -> Project -> Project Interpreter``, set ``venv`` as project interpreter.
+
+In ``Preferences -> Project -> Project Structure``, set ``application/pages`` and ``application/macros`` as template folders,
+set ``application`` and ``application/static/css`` as resource folders.
+
+Int ``Language & Frameworks -> JavaScript -> Bower``, set ``bower.json`` as bower.json.
+
+Recommended PyCharm plugins:
+
+* .ignore
+* Markdown
+* Bootstrap3
+
+.. _PyCharm: https://www.jetbrains.com/pycharm/
 
 First Production Deploy
 -----------------------
@@ -138,13 +176,26 @@ Update project root path as needed in ``deploy/nginx.conf`` and ``deploy/supervi
 Build assets
 ~~~~~~~~~~~~
 
-Install ``UglifyJS`` first::
+Install Node.js first and then install Bower_, FIS_ and Gulp_ globally::
 
-    npm install uglify-js -g
+    npm install -g bower
+    npm install -g fis
+    npm install -g fis-postpackager-simple
+    npm install -g gulp
+
+Install local packages::
+
+    npm install
+    bower install
 
 Then::
 
-    python manage.py build_assets
+    gulp
+    python manage.py build
+
+.. _Bower: http://bower.io
+.. _FIS: http://fex-team.github.io/fis-site/
+.. _Gulp: http://gulpjs.com
 
 Start app
 ~~~~~~~~~

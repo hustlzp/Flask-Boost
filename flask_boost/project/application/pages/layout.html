@@ -1,0 +1,127 @@
+<!doctype html>
+<html>
+<head>
+    <title>{% block page_title %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}"/>
+    {% block meta %}{% endblock %}
+    <link rel="Shortcut Icon" href="/static/image/favicon.png">
+    {# CSS libs #}
+    <link rel="stylesheet" href="/static/css/libs/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/static/css/libs/font-awesome.min.css"/>
+    {# CSS layout #}
+    <link rel="stylesheet" href="/static/css/bootstrap.theme.css"/>
+    <link rel="stylesheet" href="/static/css/common.css"/>
+    <link rel="stylesheet" href="/static/output/macros.css"/>
+    <link rel="stylesheet" href="/static/css/layout.css"/>
+    {# CSS page #}
+    {% block page_css %}{% endblock %}
+    {# JS global vars #}
+    <script type="text/javascript">
+        var g = {
+            domain: "{{ config.SITE_DOMAIN }}",
+            csrfToken: "{{ csrf_token() }}",
+            rules: {{ rules|safe }},
+            method: "{{ request.method }}",
+            signin: {% if g.user %}true{% else %}false{% endif %},
+            userId: {% if g.user %}{{ g.user.id }}{% else %}false{% endif %}
+        };
+    </script>
+    {# JS libs #}
+    <script src="/static/js/libs/respond.min.js"></script>
+    <script src="/static/js/libs/jquery.min.js"></script>
+    <script src="/static/js/libs/bootstrap.min.js"></script>
+    <script src="/static/js/init.js"></script>
+</head>
+
+<body>
+
+{# Flash message #}
+{% with message = get_flashed_messages()[0] %}
+    {% if message %}
+        <div class="alert alert-info flash-message">{{ message }}</div>
+    {% endif %}
+{% endwith %}
+
+<nav class="navbar navbar-default navbar-static-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="{{ url_for('site.index') }}">
+                #{project|title}
+            </a>
+        </div>
+
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li id="nav-index">
+                    <a href="{{ url_for('site.index') }}">Home</a>
+                </li>
+                <li id="nav-about">
+                    <a href="{{ url_for('site.about') }}">About</a>
+                </li>
+            </ul>
+
+            <form class="navbar-form navbar-left" role="search" method="get" action="#">
+                <div class="input-group">
+                    <input type="text" name="keyword" class="form-control input-sm"
+                           placeholder="">
+               <span class="input-group-btn">
+                  <button class="btn btn-default btn-sm" type="submit">
+                      <span class="fa fa-search"></span>
+                  </button>
+               </span>
+                </div>
+            </form>
+
+            <ul class="nav navbar-nav navbar-right">
+                {% if g.user %}
+                    <li id="nav-settings">
+                        <a href="#">{{ g.user.name }}</a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('account.signout') }}">Sign out</a>
+                    </li>
+                {% else %}
+                    <li id="nav-signin">
+                        <a href="{{ url_for('account.signin') }}">Sign in</a>
+                    </li>
+                    <li id="nav-signup">
+                        <a href="{{ url_for('account.signup') }}">Sign up</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+{# Please DO NOT change the id below #}
+<div id="main">
+    {% block page_content %}{% endblock %}
+</div>
+
+<footer>
+    <div class='container'>
+        <div id='copyright' class="pull-left">
+            © 2015 #{project|title}
+        </div>
+
+        <ul id='links' class="pull-right list-unstyled list-inline">
+            <li><a href="{{ url_for('site.about') }}">About</a></li>
+        </ul>
+    </div>
+</footer>
+
+{# JS layout #}
+<script src="/static/js/layout.js"></script>
+
+{# JS macros #}
+<script src="/static/output/macros.js"></script>
+
+{# JS page #}
+{% block page_js %}{% endblock %}
+
+</body>
+</html>

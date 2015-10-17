@@ -17,7 +17,6 @@ from werkzeug.wsgi import SharedDataMiddleware
 from werkzeug.contrib.fixers import ProxyFix
 from six import iteritems
 from .utils.account import get_current_user
-from .utils.assets import register_assets
 from config import load_config
 
 # convert python's encoding to utf8
@@ -32,9 +31,9 @@ except (AttributeError, NameError):
 
 def create_app():
     """Create Flask app."""
-    app = Flask(__name__)
-
     config = load_config()
+
+    app = Flask(__name__)
     app.config.from_object(config)
 
     if not hasattr(app, 'production'):
@@ -46,8 +45,16 @@ def create_app():
     # CSRF protect
     CsrfProtect(app)
 
-    # Log errors to stderr in production mode
-    if app.production:
+    if app.debug or app.testing:
+        DebugToolbarExtension(app)
+
+        # Serve static files
+        app.wsgi_app = SharedDataMiddleware(app.wsgi_app, {
+            '/uploads': os.path.join(app.config.get('PROJECT_PATH'), 'uploads'),
+            '/pages': os.path.join(app.config.get('PROJECT_PATH'), 'application/pages')
+        })
+    else:
+        # Log errors to stderr in production mode
         app.logger.addHandler(logging.StreamHandler())
         app.logger.setLevel(logging.ERROR)
 
@@ -56,19 +63,19 @@ def create_app():
             from .utils.sentry import sentry
 
             sentry.init_app(app, dsn=app.config.get('SENTRY_DSN'))
-    else:
-        DebugToolbarExtension(app)
 
-        # Serve static files during development
+        # Serve static files
         app.wsgi_app = SharedDataMiddleware(app.wsgi_app, {
-            '/uploads': os.path.join(app.config.get('PROJECT_PATH'), 'uploads')
+            '/static': os.path.join(app.config.get('PROJECT_PATH'), 'output/static'),
+            '/pkg': os.path.join(app.config.get('PROJECT_PATH'), 'output/pkg'),
+            '/uploads': os.path.join(app.config.get('PROJECT_PATH'), 'uploads'),
+            '/pages': os.path.join(app.config.get('PROJECT_PATH'), 'output/pages')
         })
 
     # Register components
     register_db(app)
     register_routes(app)
     register_jinja(app)
-    register_assets(app)
     register_error_handle(app)
     register_uploadsets(app)
     register_hooks(app)
@@ -78,7 +85,26 @@ def create_app():
 
 def register_jinja(app):
     """Register jinja filters, vars, functions."""
-    from .utils import filters, permissions, helpers, assets
+    import jinja2
+    from .utils import filters, permissions, helpers
+
+    if app.debug or app.testing:
+        my_loader = jinja2.ChoiceLoader([
+            app.jinja_loader,
+            jinja2.FileSystemLoader([
+                os.path.join(app.config.get('PROJECT_PATH'), 'application/macros'),
+                os.path.join(app.config.get('PROJECT_PATH'), 'application/pages')
+            ])
+        ])
+    else:
+        my_loader = jinja2.ChoiceLoader([
+            app.jinja_loader,
+            jinja2.FileSystemLoader([
+                os.path.join(app.config.get('PROJECT_PATH'), 'application/macros'),
+                os.path.join(app.config.get('PROJECT_PATH'), 'output/pages')
+            ])
+        ])
+    app.jinja_loader = my_loader
 
     app.jinja_env.filters.update({
         'timesince': filters.timesince
@@ -129,15 +155,15 @@ def register_error_handle(app):
 
     @app.errorhandler(403)
     def page_403(error):
-        return render_template('site/403.html'), 403
+        return render_template('site/403/403.html'), 403
 
     @app.errorhandler(404)
     def page_404(error):
-        return render_template('site/404.html'), 404
+        return render_template('site/404/404.html'), 404
 
     @app.errorhandler(500)
     def page_500(error):
-        return render_template('site/500.html'), 500
+        return render_template('site/500/500.html'), 500
 
 
 def register_uploadsets(app):
