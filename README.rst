@@ -108,6 +108,8 @@ Recommended IDE
 
 PyCharm_ is the recommended IDE for Flask-Boost.
 
+Recommended preferences:
+
 In ``Preferences -> Project -> Project Interpreter``, set ``venv`` as project interpreter.
 
 In ``Preferences -> Project -> Project Structure``, set ``application/pages`` and ``application/macros`` as template folders,
