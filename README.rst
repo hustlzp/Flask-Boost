@@ -117,7 +117,7 @@ set ``application`` and ``application/static/css`` as resource folders.
 
 Int ``Language & Frameworks -> JavaScript -> Bower``, set ``bower.json`` as bower.json.
 
-Recommended PyCharm plugins:
+Recommended plugins:
 
 * .ignore
 * Markdown
