@@ -17,7 +17,7 @@ Installation
 
     pip install flask-boost
 
-**ATTENTION**: Breaking changes have been made in 0.6.0, use the commands below if you wanna to install the 0.5.6 version::
+**ATTENTION**: Breaking changes have been made in 0.6.0, use the command below if you want to install the 0.5.6 version::
 
     pip install flask-boost==0.5.6
 
