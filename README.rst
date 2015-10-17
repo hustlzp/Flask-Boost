@@ -115,7 +115,7 @@ In ``Preferences -> Project -> Project Interpreter``, set ``venv`` as project in
 In ``Preferences -> Project -> Project Structure``, set ``application/pages`` and ``application/macros`` as template folders,
 set ``application`` and ``application/static/css`` as resource folders.
 
-Int ``Language & Frameworks -> JavaScript -> Bower``, set ``bower.json`` as bower.json.
+In ``Language & Frameworks -> JavaScript -> Bower``, set ``bower.json`` as bower.json.
 
 Recommended plugins:
 
