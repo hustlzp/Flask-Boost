@@ -10,8 +10,8 @@ Version 0.6.0
 * Use FIS_ to build assets in production.
 * Lock package version in ``requirements.txt``.
 
-* .. _Gulp: http://gulpjs.com
-* .. _FIS: http://fex-team.github.io/fis-site/
+.. _Gulp: http://gulpjs.com
+.. _FIS: http://fex-team.github.io/fis-site/
 
 Version 0.5.6
 -------------
