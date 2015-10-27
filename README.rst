@@ -93,7 +93,7 @@ Run Gulp watch task
 LiveReload support
 ~~~~~~~~~~~~~~~~~~
 
-Install livereload browser extension from here_.
+Install LiveReload browser extension from here_.
 
 And use ``python manage.py live`` instead of ``python manage.py run`` to start app.
 
