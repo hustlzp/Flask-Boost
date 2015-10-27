@@ -1,6 +1,12 @@
 Flask Boost Changelog
 =====================
 
+Version 0.6.1
+-------------
+
+* Replace ``shutil.move`` with ``shutil.copy`` to avoid crash in Windows.
+* Update doc.
+
 Version 0.6.0
 -------------
 
