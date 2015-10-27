@@ -62,7 +62,7 @@ Install Node.js first and then install Bower_, FIS_ and Gulp_ globally::
 Init database
 ~~~~~~~~~~~~~
 
-Create database with name ``your_project_name``.
+Create MySQL database with name ``your_project_name`` and encoding ``utf8_general_ci``.
 
 Update ``SQLALCHEMY_DATABASE_URI`` in ``config/development.py`` as needed.
 
