@@ -69,12 +69,11 @@ def generate_project(args):
 
     for src_dir, sub_dirs, filenames in os.walk(src):
         # Build and create destination directory path
-        relative_path = src_dir.split(src)[1].lstrip('/')
+        relative_path = src_dir.split(src)[1].lstrip(os.path.sep)
         dst_dir = os.path.join(dst, relative_path)
 
         if src != src_dir:
             _mkdir_p(dst_dir)
-            logger.info("New: %s/" % dst_dir)
 
         # Copy, rewrite and move project files
         for filename in filenames:
@@ -135,7 +134,6 @@ def generate_controller(args):
     # assets dir
     assets_dir_path = os.path.join(current_path, 'application/pages/%s' % controller_name)
     _mkdir_p(assets_dir_path)
-    logger.info("New: %s/" % _relative_path(assets_dir_path))
 
     # form file
     _generate_form(controller_name)
@@ -306,6 +304,8 @@ def _mkdir_p(path):
             pass
         else:
             raise
+    else:
+        logger.info("New: %s%s", path, os.path.sep)
 
 
 def _rewrite_and_copy(src_file, dst_file, project_name):
