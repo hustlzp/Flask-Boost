@@ -37,15 +37,8 @@ Init project
 
     boost new <your_project_name>
 
-Install requirements
-~~~~~~~~~~~~~~~~~~~~
-
-Install Node.js first and then install Bower_, FIS_ and Gulp_ globally::
-
-    npm install -g bower
-    npm install -g fis
-    npm install -g fis-postpackager-simple
-    npm install gulp
+Setup backend requirements
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ``cd`` to project root path, run:
  
@@ -70,12 +63,7 @@ Then init tables::
 
     python manage.py db upgrade
 
-Run Gulp watch task
-~~~~~~~~~~~~~~~~~~~
 
-::
-
-    gulp watch
 
 Run app
 ~~~~~~~
@@ -83,6 +71,23 @@ Run app
 Run local server::
 
     python manage.py run
+
+Setup frontend requirements
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Install Node.js first and then install Bower_, FIS_ and Gulp_ globally::
+
+    npm install -g bower
+    npm install -g fis
+    npm install -g fis-postpackager-simple
+    npm install gulp
+
+Run Gulp watch task
+~~~~~~~~~~~~~~~~~~~
+
+::
+
+    gulp watch
 
 LiveReload support
 ~~~~~~~~~~~~~~~~~~
@@ -96,8 +101,8 @@ Run livereload server in another console::
 .. _here: http://feedback.livereload.com/knowledgebase/articles/86242-how-do-i-install-and-use-the-browser-extensions-
 
 
-Commands
-~~~~~~~~
+Scaffold Commands
+~~~~~~~~~~~~~~~~~
 
 ::
 
