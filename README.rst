@@ -99,7 +99,7 @@ And use ``python manage.py live`` instead of ``python manage.py run`` to start a
 
 .. _here: http://livereload.com/extensions/
 
-Scaffold Commands
+Scaffold commands
 ~~~~~~~~~~~~~~~~~
 
 ::
