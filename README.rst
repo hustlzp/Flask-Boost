@@ -47,8 +47,6 @@ Setup backend requirements
     virtualenv venv
     . venv/bin/activate (venv\Scripts\activate in Windows)
     pip install -r requirements.txt
-    npm install
-    bower install
 
 **Note**: if you failed in ``pip install -r requirements.txt`` in Windows, try to install package binaries directly.
 
@@ -62,8 +60,6 @@ Update ``SQLALCHEMY_DATABASE_URI`` in ``config/development.py`` as needed.
 Then init tables::
 
     python manage.py db upgrade
-
-
 
 Run app
 ~~~~~~~
@@ -81,6 +77,11 @@ Install Node.js first and then install Bower_, FIS_ and Gulp_ globally::
     npm install -g fis
     npm install -g fis-postpackager-simple
     npm install gulp
+
+Install local packages::
+
+    npm install
+    bower install
 
 Run Gulp watch task
 ~~~~~~~~~~~~~~~~~~~
