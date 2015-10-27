@@ -1,6 +1,16 @@
 Flask Boost Changelog
 =====================
 
+Version 0.6.3
+-------------
+
+* Upgrade ``Flask-SQLAlchemy`` to 2.1.
+* Upgrade ``PyMySQL`` to 0.6.7.
+* Upgrade ``Pillow`` to 3.0.0.
+* Upgrade ``six`` to 1.10.0.
+* Upgrade ``raven`` to 5.8.1.
+* Upgrade ``coverage`` to 4.0.1.
+
 Version 0.6.2
 -------------
 
