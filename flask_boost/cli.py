@@ -74,6 +74,7 @@ def generate_project(args):
 
         if src != src_dir:
             _mkdir_p(dst_dir)
+            logger.info("New: %s/" % dst_dir)
 
         # Copy, rewrite and move project files
         for filename in filenames:
@@ -87,10 +88,12 @@ def generate_project(args):
                 _rewrite_and_copy(src_file, dst_file, project_name)
             else:
                 shutil.copy(src_file, dst_file)
+            logger.info("New: %s" % dst_file)
 
             if filename in ['development_sample.py', 'production_sample.py']:
                 dst_file = os.path.join(dst_dir, "%s.py" % filename.split('_')[0])
                 _rewrite_and_copy(src_file, dst_file, project_name)
+                logger.info("New: %s" % dst_file)
 
     logger.info('Finish generating project files.')
 
