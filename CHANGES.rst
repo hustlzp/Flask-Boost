@@ -1,6 +1,12 @@
 Flask Boost Changelog
 =====================
 
+Version 0.6.4
+-------------
+
+* Fix bugs when generating project in Windows.
+* Exclude useless files from package.
+
 Version 0.6.3
 -------------
 
