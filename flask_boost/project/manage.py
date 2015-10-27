@@ -30,18 +30,9 @@ def live():
 
     server = Server(app)
 
-    # html
-    for filepath in glob2.glob("application/templates/**/*.html"):
-        server.watch(filepath)
-    # css
-    for filepath in glob2.glob("application/static/css/**/*.css"):
-        server.watch(filepath)
-    # js
-    for filepath in glob2.glob("application/static/js/**/*.js"):
-        server.watch(filepath)
-    # image
-    for filepath in glob2.glob("application/static/image/**/*.*"):
-        server.watch(filepath)
+    map(server.watch, glob2.glob("application/pages/**/*.*"))  # pages
+    map(server.watch, glob2.glob("application/macros/**/*.html"))  # macros
+    map(server.watch, glob2.glob("application/static/**/*.*"))  # public assets
 
     server.serve(port=PORT)
 
