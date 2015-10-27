@@ -44,11 +44,5 @@ def build():
     os.system('fis release -d ../output -opmD')
 
 
-@manager.command
-def createdb():
-    """Create database."""
-    db.create_all()
-
-
 if __name__ == "__main__":
     manager.run()
