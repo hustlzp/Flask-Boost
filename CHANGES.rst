@@ -1,6 +1,13 @@
 Flask Boost Changelog
 =====================
 
+Version 0.7.0
+-------------
+
+* Fix livereload.
+* Set SQLALCHEMY_TRACK_MODIFICATIONS to False.
+* Update doc.
+
 Version 0.6.4
 -------------
 
