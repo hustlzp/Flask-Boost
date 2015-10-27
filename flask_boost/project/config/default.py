@@ -24,10 +24,6 @@ class Config(object):
     # http://docs.sqlalchemy.org/en/rel_0_9/core/engines.html#database-urls
     SQLALCHEMY_DATABASE_URI = "mysql+pymysql://user:password@host/database"
 
-    # Uploadsets config
-    UPLOADS_DEFAULT_DEST = "%s/uploads" % PROJECT_PATH
-    UPLOADS_DEFAULT_URL = "%s/uploads/" % SITE_DOMAIN
-
     # Flask-DebugToolbar
     DEBUG_TB_INTERCEPT_REDIRECTS = False
 

@@ -2,7 +2,6 @@
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from ._base import db
-from ..utils.uploadsets import avatars
 
 
 class User(db.Model):
@@ -22,10 +21,6 @@ class User(db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password, password)
-
-    @property
-    def avatar_url(self):
-        return avatars.url(self.avatar)
 
     def __repr__(self):
         return '<User %s>' % self.name

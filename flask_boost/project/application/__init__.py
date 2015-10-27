@@ -11,7 +11,6 @@ import time
 import logging
 from flask import Flask, request, url_for, g, render_template
 from flask_wtf.csrf import CsrfProtect
-from flask.ext.uploads import configure_uploads
 from flask_debugtoolbar import DebugToolbarExtension
 from werkzeug.wsgi import SharedDataMiddleware
 from werkzeug.contrib.fixers import ProxyFix
@@ -77,7 +76,6 @@ def create_app():
     register_routes(app)
     register_jinja(app)
     register_error_handle(app)
-    register_uploadsets(app)
     register_hooks(app)
 
     return app
@@ -164,13 +162,6 @@ def register_error_handle(app):
     @app.errorhandler(500)
     def page_500(error):
         return render_template('site/500/500.html'), 500
-
-
-def register_uploadsets(app):
-    """Register UploadSets."""
-    from .utils.uploadsets import avatars
-
-    configure_uploads(app, (avatars))
 
 
 def register_hooks(app):

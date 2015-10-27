@@ -14,8 +14,5 @@ class ProductionConfig(Config):
     # Db config
     SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:password@localhost/#{project}"
 
-    # Upload set config
-    UPLOADS_DEFAULT_URL = "%s/uploads/" % SITE_DOMAIN
-
     # Sentry
     SENTRY_DSN = ''
