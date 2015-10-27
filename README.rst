@@ -44,8 +44,8 @@ Setup backend requirements
  
 ::
 
-    virtualenv venv (venv\Scripts\activate in Windows)
-    . venv/bin/activate
+    virtualenv venv
+    . venv/bin/activate (venv\Scripts\activate in Windows)
     pip install -r requirements.txt
     npm install
     bower install
