@@ -94,12 +94,9 @@ LiveReload support
 
 Install livereload browser extension from here_.
 
-Run livereload server in another console::
+And use ``python manage.py live`` instead of ``python manage.py run`` to start app.
 
-    python manage.py live
-
-.. _here: http://feedback.livereload.com/knowledgebase/articles/86242-how-do-i-install-and-use-the-browser-extensions-
-
+.. _here: http://livereload.com/extensions/
 
 Scaffold Commands
 ~~~~~~~~~~~~~~~~~
