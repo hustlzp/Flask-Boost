@@ -45,11 +45,13 @@ Install Node.js first and then install Bower_, FIS_ and Gulp_ globally::
  
 ::
 
-    virtualenv venv
+    virtualenv venv (venv\Scripts\activate in Windows)
     . venv/bin/activate
     pip install -r requirements.txt
     npm install
     bower install
+
+**Note**: if you failed in ``pip install -r requirements.txt`` in Windows, try to install package binaries directly.
 
 Init database
 ~~~~~~~~~~~~~
