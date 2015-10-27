@@ -1,6 +1,11 @@
 Flask Boost Changelog
 =====================
 
+Version 0.6.2
+-------------
+
+* Remove ``Flask-Uploads`` to support Python 3.x.
+
 Version 0.6.1
 -------------
 
