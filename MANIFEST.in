@@ -4,8 +4,9 @@ recursive-include docs *
 prune docs/_build
 recursive-include flask_boost/project *
 recursive-include flask_boost/templates *
-recursive-exclude flask_boost/project *.pyc
 prune flask_boost/project/node_modules
 prune flask_boost/project/bower_components
 prune flask_boost/project/output
 prune flask_boost/project/application/static/output
+global-exclude *.pyc
+global-exclude .DS_Store
