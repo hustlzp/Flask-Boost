@@ -148,6 +148,8 @@ def generate_action(args):
     with_template = args.get('-t')
     current_path = os.getcwd()
 
+    logger.info('Start generating action.')
+
     controller_file_path = os.path.join(current_path, 'application/controllers', controller + '.py')
     if not os.path.exists(controller_file_path):
         logger.warning("The controller %s does't exist." % controller)
@@ -196,6 +198,8 @@ def generate_action(args):
         shutil.copy(action_less_template_path, action_less_path)
         logger.info("New: %s" % _relative_path(action_less_path))
 
+    logger.info('Finish generating action.')
+
 
 def generate_form(args):
     """Generate form."""
@@ -241,7 +245,7 @@ def generate_macro(args):
         logger.warning('Macro name cannot be empty.')
         return
 
-    logger.info('Start generating model.')
+    logger.info('Start generating macro.')
 
     current_path = os.getcwd()
 
@@ -273,7 +277,7 @@ def generate_macro(args):
     open(macro_js_path, 'a').close()
     logger.info("New: %s" % _relative_path(macro_js_path))
 
-    logger.info('Finish generating model.')
+    logger.info('Finish generating macro.')
 
 
 def main():
