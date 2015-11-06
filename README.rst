@@ -53,7 +53,7 @@ Setup backend requirements
 Init database
 ~~~~~~~~~~~~~
 
-Create MySQL database with name ``your_project_name`` and encoding ``utf8_general_ci``.
+Create database with name ``your_project_name`` and encoding ``utf8``.
 
 Update ``SQLALCHEMY_DATABASE_URI`` in ``config/development.py`` as needed.
 
@@ -93,7 +93,7 @@ Run Gulp watch task
 LiveReload support
 ~~~~~~~~~~~~~~~~~~
 
-Install livereload browser extension from here_.
+Install LiveReload browser extension from here_.
 
 And use ``python manage.py live`` instead of ``python manage.py run`` to start app.
 
@@ -142,7 +142,7 @@ First Production Deploy
 Config server
 ~~~~~~~~~~~~~
 
-Install virtualenv, git, supervisor and g++ on your server.
+Install virtualenv, git, supervisor, nginx and g++ on your server.
 
 **Note**: Flask-Boost uses Pillow to process images, so you may install some external libraries needed by `Pillow`. Please follow the Pillow official doc_.
 
@@ -172,7 +172,7 @@ Update configs in ``config/production.py`` as needed and transfer it to server.
 Init database
 ~~~~~~~~~~~~~
 
-Create database with name ``your_project_name``.
+Create database with name ``your_project_name`` and encoding ``utf8``.
 
 And run::
 
