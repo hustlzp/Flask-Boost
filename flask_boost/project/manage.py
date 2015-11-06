@@ -40,6 +40,7 @@ def live():
 @manager.command
 def build():
     """Use FIS to compile assets."""
+    os.system('gulp')
     os.chdir('application')
     os.system('fis release -d ../output -opmD')
 
