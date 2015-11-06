@@ -1,6 +1,13 @@
 Flask Boost Changelog
 =====================
 
+Version 0.7.1
+-------------
+
+* Fix a bug in action template.
+* Upgrade coverage to 4.0.2.
+* Update doc.
+
 Version 0.7.0
 -------------
 
