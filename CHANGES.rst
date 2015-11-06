@@ -1,6 +1,12 @@
 Flask Boost Changelog
 =====================
 
+Version 0.7.2
+-------------
+
+* Compile macro files via FIS.
+* Run gulp in build command.
+
 Version 0.7.1
 -------------
 
