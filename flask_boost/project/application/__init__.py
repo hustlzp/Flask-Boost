@@ -96,7 +96,7 @@ def register_jinja(app):
         my_loader = jinja2.ChoiceLoader([
             app.jinja_loader,
             jinja2.FileSystemLoader([
-                os.path.join(app.config.get('PROJECT_PATH'), 'application/macros'),
+                os.path.join(app.config.get('PROJECT_PATH'), 'output/macros'),
                 os.path.join(app.config.get('PROJECT_PATH'), 'output/pages')
             ])
         ])
