@@ -53,7 +53,8 @@ Setup backend requirements
     pip install -r requirements.txt
 
 **Note**: if you failed in ``pip install -r requirements.txt`` in Windows, try to install package binaries directly.
-**Note**: if you meet error installing pycrpyto in windows,try follow this article compiling-pycrypto-on-win7-64_ ,
+
+**Note**: [python3]if you meet error installing pycrpyto in windows,try follow this article compiling-pycrypto-on-win7-64_ ,
 or get the complied pycrypyto library directly: archive_pycrpyto_library_
 
 .. _compiling-pycrypto-on-win7-64: https://yorickdowne.wordpress.com/2010/12/22/compiling-pycrypto-on-win7-64/
