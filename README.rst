@@ -23,6 +23,10 @@ Installation
 
     pip install flask-boost
 
+or install the latest version from GitHub::
+
+    pip install git+https://github.com/hustlzp/Flask-Boost.git#egg=flask_boost
+
 **ATTENTION**: Breaking changes have been made in 0.6.x, use the command below if you want to install the 0.5.x version::
 
     pip install flask-boost==0.5.6
