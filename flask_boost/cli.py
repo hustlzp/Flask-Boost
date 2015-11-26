@@ -317,8 +317,8 @@ def _rewrite_and_copy(src_file, dst_file, project_name):
     # Create temp file
     fh, abs_path = mkstemp()
 
-    with open(abs_path, 'w') as new_file:
-        with open(src_file, 'r') as old_file:
+    with open(abs_path, 'w', encoding='utf-8') as new_file:
+        with open(src_file, 'r', encoding='utf-8') as old_file:
             for line in old_file:
                 new_line = line.replace('#{project}', project_name). \
                     replace('#{project|title}', project_name.title())
