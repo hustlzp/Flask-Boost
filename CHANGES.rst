@@ -1,6 +1,11 @@
 Flask Boost Changelog
 =====================
 
+Version 0.7.3
+-------------
+
+* Fix encoding bug in cli.
+
 Version 0.7.2
 -------------
 
