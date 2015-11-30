@@ -8,7 +8,7 @@
     "private": true,
     "dependencies": {
         "bootstrap": "3.3.5",
-        "font-awesome": "4.4.0",
+        "font-awesome": "4.5.0",
         "respond": "1.4.2",
         "jquery": "1.11.3"
     }
