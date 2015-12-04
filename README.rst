@@ -19,8 +19,15 @@ Flask application generator for boosting your development.
 Features
 --------
 
-* Well Defined Project Structure
-* Batteries Included
+* **Well Defined Project Structure**
+
+  * Use factory pattern to generate Flask app.
+  * Use Blueprints to organize controllers.
+  * Split controllers, models, forms, utilities, assets, Jinja2 pages, Jinja2 macros into different directories.
+  * Organize Jinja2 page assets (HTML, JavaScript, CSS) to the same directory.
+  * Organize Jinja2 macro assets (HTML, JavaScript, CSS) to the same directory.
+
+* **Batteries Included**
 
   * Use Flask-SQLAlchemy and Flask-Migrate as database tools.
   * Use Flask-WTF to validate forms.
@@ -32,7 +39,7 @@ Features
   * Use Sentry to track exceptions.
   * Use Nginx to serve static files.
 
-* All kinds of Scaffold Commands
+* **All kinds of Scaffold Commands**
 
   * Generate project files: ``boost new <project>``
   * Generate controller files: ``boost new controller <controller>``
