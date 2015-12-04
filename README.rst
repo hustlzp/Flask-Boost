@@ -45,11 +45,10 @@ Features
 
   * Generate project files: ``boost new <project>``
   * Generate controller files: ``boost new controller <controller>``
-  * Generate controller files: ``boost new action <controller> <action> [-t]``
-  * Generate controller files: ``boost new form <form>``
-  * Generate controller files: ``boost new model <model>``
-  * Generate controller files: ``boost new macro <category> <macro>``
-  * Generate controller files: ``boost new macro <macro>``
+  * Generate action files: ``boost new action <controller> <action> [-t]``
+  * Generate form files: ``boost new form <form>``
+  * Generate model files: ``boost new model <model>``
+  * Generate macro files: ``boost new macro <category> <macro>`` or ``boost new macro <macro>``
 
 .. _permission: https://github.com/hustlzp/permission
 
