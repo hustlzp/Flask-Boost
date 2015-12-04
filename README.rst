@@ -43,7 +43,6 @@ Features
   * Generate controller files: ``boost new macro <macro>``
 
 .. _permission: https://github.com/hustlzp/permission
-.. _FIS: http://fex.baidu.com/fis-site/index.html
 
 Installation
 ------------
