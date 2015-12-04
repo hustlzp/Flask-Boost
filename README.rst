@@ -22,25 +22,25 @@ Features
 * Well Defined Project Structure
 * Batteries Included
 
-   * Use Flask-SQLAlchemy and Flask-Migrate as database tools.
-   * Use Flask-WTF to validate forms.
-   * Use Flask-Script to help writing scripts.
-   * Use permission_ to define permissions.
-   * Use Gulp and FIS_ to compile static assets.
-   * Use Gunicorn to run Flask app and Supervisor to setup Gunicorn processes.
-   * Use Fabric to deploy app.
-   * Use Sentry to track exceptions.
-   * Use Nginx to serve static files.
+  * Use Flask-SQLAlchemy and Flask-Migrate as database tools.
+  * Use Flask-WTF to validate forms.
+  * Use Flask-Script to help writing scripts.
+  * Use permission_ to define permissions.
+  * Use Gulp and FIS_ to compile static assets.
+  * Use Gunicorn to run Flask app and Supervisor to setup Gunicorn processes.
+  * Use Fabric to deploy app.
+  * Use Sentry to track exceptions.
+  * Use Nginx to serve static files.
 
 * All kinds of Scaffold Commands
 
-   * Generate project files: ``boost new <project>``
-   * Generate controller files: ``boost new controller <controller>``
-   * Generate controller files: ``boost new action <controller> <action> [-t]``
-   * Generate controller files: ``boost new form <form>``
-   * Generate controller files: ``boost new model <model>``
-   * Generate controller files: ``boost new macro <category> <macro>``
-   * Generate controller files: ``boost new macro <macro>``
+  * Generate project files: ``boost new <project>``
+  * Generate controller files: ``boost new controller <controller>``
+  * Generate controller files: ``boost new action <controller> <action> [-t]``
+  * Generate controller files: ``boost new form <form>``
+  * Generate controller files: ``boost new model <model>``
+  * Generate controller files: ``boost new macro <category> <macro>``
+  * Generate controller files: ``boost new macro <macro>``
 
 .. _permission: https://github.com/hustlzp/permission
 .. _FIS: http://fex.baidu.com/fis-site/index.html
