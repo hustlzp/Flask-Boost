@@ -22,7 +22,6 @@ Features
 * Well Defined Project Structure
 
 * Batteries Included
-
    * Use Flask-SQLAlchemy and Flask-Migrate as database tools.
    * Use Flask-WTF to validate forms.
    * Use Flask-Script to help writing scripts.
@@ -34,7 +33,6 @@ Features
    * Use Nginx to serve static files.
 
 * All kinds of Scaffold Commands
-   
    * Generate project files: ``boost new <project>``
    * Generate controller files: ``boost new controller <controller>``
    * Generate controller files: ``boost new action <controller> <action> [-t]``
