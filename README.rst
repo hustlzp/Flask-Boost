@@ -41,7 +41,7 @@ Features
   * Use Sentry to track exceptions.
   * Use Nginx to serve static files.
 
-* **All kinds of Scaffold Commands**
+* **Scaffold Commands**
 
   * Generate project files: ``boost new <project>``
   * Generate controller files: ``boost new controller <controller>``
