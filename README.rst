@@ -33,6 +33,8 @@ Features
   * Use Flask-WTF to validate forms.
   * Use Flask-Script to help writing scripts.
   * Use permission_ to define permissions.
+  * Use Bootstrap as frontend framework.
+  * Use bower manage frontend packages.
   * Use Gulp and FIS_ to compile static assets.
   * Use Gunicorn to run Flask app and Supervisor to setup Gunicorn processes.
   * Use Fabric to deploy app.
