@@ -1,6 +1,11 @@
 Flask Boost Changelog
 =====================
 
+Version 0.7.5
+-------------
+
+* Fix a bug in cli.
+
 Version 0.7.4
 -------------
 
