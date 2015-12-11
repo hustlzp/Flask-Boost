@@ -29,6 +29,7 @@ if project_path not in sys.path:
     sys.path.insert(0, project_path)
 
 import logging
+import io
 from logging import StreamHandler, DEBUG
 from os.path import dirname, abspath
 from tempfile import mkstemp
@@ -317,8 +318,8 @@ def _rewrite_and_copy(src_file, dst_file, project_name):
     # Create temp file
     fh, abs_path = mkstemp()
 
-    with open(abs_path, 'w', encoding='utf-8') as new_file:
-        with open(src_file, 'r', encoding='utf-8') as old_file:
+    with io.open(abs_path, 'w', encoding='utf-8') as new_file:
+        with io.open(src_file, 'r', encoding='utf-8') as old_file:
             for line in old_file:
                 new_line = line.replace('#{project}', project_name). \
                     replace('#{project|title}', project_name.title())
