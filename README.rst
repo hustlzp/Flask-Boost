@@ -271,8 +271,8 @@ for CentOS 7:
 
 ::
 
-    systemctl start nginx.service
-    systemctl start supervisord.service
+    systemctl restart nginx.service
+    systemctl restart supervisord.service
 
 
 Daily Production Deploy
