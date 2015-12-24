@@ -187,7 +187,7 @@ First Production Deploy
 Config server
 ~~~~~~~~~~~~~
 
-Install virtualenv, git, supervisor, nginx and g++ on your server.
+Install python-virtualenv, git, supervisor, nginx, g++, python-dev, libmysqlclient-dev on your server.
 
 **Note**: Flask-Boost uses Pillow to process images, so you may install some external libraries needed by `Pillow`. Please follow the Pillow official doc_.
 
