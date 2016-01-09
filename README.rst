@@ -79,11 +79,10 @@ Init project
 
 Setup backend requirements
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-``cd`` to project root path, run:
  
 ::
 
+    cd <your_project_dir>
     virtualenv venv
     . venv/bin/activate (venv\Scripts\activate in Windows)
     pip install -r requirements.txt
