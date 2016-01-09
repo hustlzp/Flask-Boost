@@ -173,7 +173,7 @@ set ``application`` and ``application/static/css`` as resource folders.
 
 In ``Language & Frameworks -> JavaScript -> Bower``, set ``bower.json`` as bower.json.
 
-Recommended plugins:
+Recommended PyCharm plugins:
 
 * .ignore
 * Markdown
@@ -186,12 +186,8 @@ First Production Deploy
 
 Config server
 ~~~~~~~~~~~~~
-
+pr
 Install mysql, python-virtualenv, git, supervisor, nginx, g++, python-dev, libmysqlclient-dev, libxml2-dev, libxslt-dev on your server.
-
-**Note**: Flask-Boost uses Pillow to process images, so you may install some external libraries needed by `Pillow`. Please follow the Pillow official doc_.
-
-.. _doc: http://pillow.readthedocs.org/en/latest/installation.html
 
 Install requirements
 ~~~~~~~~~~~~~~~~~~~~
@@ -199,7 +195,7 @@ Install requirements
 ::
 
     git clone **.git
-    cd proj
+    cd <your_project_dir>
     virtualenv venv
     . venv/bin/activate
     pip install -r requirements.txt
@@ -207,7 +203,7 @@ Install requirements
 Config app
 ~~~~~~~~~~
 
-Update configs in ``config/production.py`` as needed and transfer it to server.
+Save ``config/production_sample.py`` as ``config/production.py``, update configs in ``config/production.py`` as needed and transfer it to server.
 
 **Note**: remember to update ``SECRET_KEY`` in ``config/production.py``! You can generate random secret key as follows::
 
@@ -266,14 +262,6 @@ Start app
 
     service nginx restart
     service supervisor restart
-
-for CentOS 7:
-
-::
-
-    systemctl restart nginx.service
-    systemctl restart supervisord.service
-
 
 Daily Production Deploy
 -----------------------
