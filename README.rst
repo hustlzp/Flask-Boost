@@ -166,8 +166,7 @@ PyCharm_ is the recommended IDE for Flask-Boost.
 Recommended preferences:
 
 * In ``Preferences -> Project -> Project Interpreter``, set ``venv`` as project interpreter.
-* In ``Preferences -> Project -> Project Structure``, set ``application/pages`` and ``application/macros`` as template folders,
-set ``application`` and ``application/static/css`` as resource folders.
+* In ``Preferences -> Project -> Project Structure``, set ``application/pages`` and ``application/macros`` as template folders, set ``application`` and ``application/static/css`` as resource folders.
 * In ``Language & Frameworks -> JavaScript -> Bower``, set ``bower.json`` as bower.json.
 
 Recommended PyCharm plugins:
