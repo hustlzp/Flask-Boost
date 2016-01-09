@@ -7,7 +7,6 @@ Flask-Migrate==1.6.0
 PyMySQL==0.6.7
 itsdangerous==0.24
 permission==0.3.0
-Pillow==3.0.0
 six==1.10.0
 raven==5.8.1
 
