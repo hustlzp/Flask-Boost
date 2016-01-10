@@ -35,9 +35,6 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object(config)
 
-    if not hasattr(app, 'production'):
-        app.production = not app.debug and not app.testing
-
     # Proxy fix
     app.wsgi_app = ProxyFix(app.wsgi_app)
 
