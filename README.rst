@@ -271,4 +271,4 @@ Commit your codes and run::
 License
 -------
 
-The MIT License (MIT)
+MIT
