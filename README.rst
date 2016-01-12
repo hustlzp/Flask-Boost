@@ -34,11 +34,11 @@ Features
   * Use Flask-Script to help writing scripts.
   * Use permission_ to define permissions.
   * Use Bootstrap as frontend framework.
-  * Use bower manage frontend packages.
+  * Use Bower to manage frontend packages.
   * Use Gulp and FIS_ to compile static assets.
-  * Use Gunicorn to run Flask app and Supervisor to setup Gunicorn processes.
-  * Use Fabric to deploy app.
-  * Use Sentry to track exceptions.
+  * Use Gunicorn to run Flask app and Supervisor to manage Gunicorn processes.
+  * Use Fabric as deployment tool.
+  * Use Sentry to log exceptions.
   * Use Nginx to serve static files.
 
 * **Scaffold Commands**
@@ -120,7 +120,7 @@ Install Node.js first and then install Bower_, FIS_ and Gulp_ globally::
     npm install -g bower
     npm install -g fis
     npm install -g fis-postpackager-simple
-    npm install gulp
+    npm install -g gulp
 
 Install local packages::
 
