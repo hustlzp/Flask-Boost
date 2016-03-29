@@ -284,6 +284,10 @@ Commit your codes and run::
 
     git push && fab deploy
 
+P.S. If you wanna to deploy flask with Apache2, see this_ post.
+
+.. _this: https://www.digitalocean.com/community/tutorials/how-to-use-apache-http-server-as-reverse-proxy-using-mod_proxy-extension
+
 License
 -------
 
