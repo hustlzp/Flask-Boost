@@ -34,11 +34,11 @@ Features
   * Use Flask-Script to help writing scripts.
   * Use permission_ to define permissions.
   * Use Bootstrap as frontend framework.
-  * Use bower manage frontend packages.
+  * Use Bower to manage frontend packages.
   * Use Gulp and FIS_ to compile static assets.
-  * Use Gunicorn to run Flask app and Supervisor to setup Gunicorn processes.
-  * Use Fabric to deploy app.
-  * Use Sentry to track exceptions.
+  * Use Gunicorn to run Flask app and Supervisor to manage Gunicorn processes.
+  * Use Fabric as deployment tool.
+  * Use Sentry to log exceptions.
   * Use Nginx to serve static files.
 
 * **Scaffold Commands**
@@ -59,14 +59,6 @@ Installation
 
     pip install flask-boost
 
-or install the latest version from GitHub::
-
-    pip install git+https://github.com/hustlzp/Flask-Boost.git#egg=flask_boost
-
-**ATTENTION**: Breaking changes have been made in 0.6.x, use the command below if you want to install the 0.5.x version::
-
-    pip install flask-boost==0.5.6
-
 Development Guide
 -----------------
 
@@ -79,11 +71,10 @@ Init project
 
 Setup backend requirements
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-``cd`` to project root path, run:
  
 ::
 
+    cd <your_project_dir>
     virtualenv venv
     . venv/bin/activate (venv\Scripts\activate in Windows)
     pip install -r requirements.txt
@@ -121,7 +112,7 @@ Install Node.js first and then install Bower_, FIS_ and Gulp_ globally::
     npm install -g bower
     npm install -g fis
     npm install -g fis-postpackager-simple
-    npm install gulp
+    npm install -g gulp
 
 Install local packages::
 
@@ -166,14 +157,11 @@ PyCharm_ is the recommended IDE for Flask-Boost.
 
 Recommended preferences:
 
-In ``Preferences -> Project -> Project Interpreter``, set ``venv`` as project interpreter.
+* In ``Preferences -> Project -> Project Interpreter``, set ``venv`` as project interpreter.
+* In ``Preferences -> Project -> Project Structure``, set ``application/pages`` and ``application/macros`` as template folders, set ``application`` and ``application/static/css`` as resource folders.
+* In ``Language & Frameworks -> JavaScript -> Bower``, set ``bower.json`` as bower.json.
 
-In ``Preferences -> Project -> Project Structure``, set ``application/pages`` and ``application/macros`` as template folders,
-set ``application`` and ``application/static/css`` as resource folders.
-
-In ``Language & Frameworks -> JavaScript -> Bower``, set ``bower.json`` as bower.json.
-
-Recommended plugins:
+Recommended PyCharm plugins:
 
 * .ignore
 * Markdown
@@ -186,12 +174,8 @@ First Production Deploy
 
 Config server
 ~~~~~~~~~~~~~
-
-Install virtualenv, git, supervisor, nginx and g++ on your server.
-
-**Note**: Flask-Boost uses Pillow to process images, so you may install some external libraries needed by `Pillow`. Please follow the Pillow official doc_.
-
-.. _doc: http://pillow.readthedocs.org/en/latest/installation.html
+pr
+Install mysql, python-virtualenv, git, supervisor, nginx, g++, python-dev, libmysqlclient-dev, libxml2-dev, libxslt-dev on your server.
 
 Install requirements
 ~~~~~~~~~~~~~~~~~~~~
@@ -199,7 +183,7 @@ Install requirements
 ::
 
     git clone **.git
-    cd proj
+    cd <your_project_dir>
     virtualenv venv
     . venv/bin/activate
     pip install -r requirements.txt
@@ -207,7 +191,7 @@ Install requirements
 Config app
 ~~~~~~~~~~
 
-Update configs in ``config/production.py`` as needed and transfer it to server.
+Save ``config/production_sample.py`` as ``config/production.py``, update configs in ``config/production.py`` as needed and transfer it to server.
 
 **Note**: remember to update ``SECRET_KEY`` in ``config/production.py``! You can generate random secret key as follows::
 
@@ -267,14 +251,6 @@ Start app
     service nginx restart
     service supervisor restart
 
-for CentOS 7:
-
-::
-
-    systemctl start nginx.service
-    systemctl start supervisord.service
-
-
 Daily Production Deploy
 -----------------------
 
@@ -291,4 +267,4 @@ P.S. If you wanna to deploy flask with Apache2, see this_ post.
 License
 -------
 
-The MIT License (MIT)
+MIT
