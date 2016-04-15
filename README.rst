@@ -174,8 +174,8 @@ First Production Deploy
 
 Config server
 ~~~~~~~~~~~~~
-pr
-Install mysql, python-virtualenv, git, supervisor, nginx, g++, python-dev, libmysqlclient-dev, libxml2-dev, libxslt-dev on your server.
+
+Install mysql-server, python-virtualenv, git, supervisor, nginx, g++, python-dev, libmysqlclient-dev, libxml2-dev, libxslt-dev on your server.
 
 Install requirements
 ~~~~~~~~~~~~~~~~~~~~
